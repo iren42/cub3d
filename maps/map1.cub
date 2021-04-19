@@ -1,0 +1,14 @@
+R +1600  	--1600
+
+NO ./textures/red\ brick.xpm      	
+SO ./textures/doom.xpm
+WE ./textures/wall.xpm
+EA ./textures/eagle.xpm
+
+S ./textures/skeleton.xpm
+F 255,255,0
+C 255,255,0
+
+ 1
+1N1
+ 1
