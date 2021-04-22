@@ -12,9 +12,15 @@
 
 NAME	= cub3d
 
-DIR_H	= include
+I		= -I include \
+		-I /usr/include \
+		-I mlx_linux
 
-HEADER	= cub3d.h
+HEADER	= include/cub3d.h
+
+MLX		= libmlx_Linux.a
+
+MLX_FLAGS	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 DIR_S	= srcs/
 
@@ -45,14 +51,14 @@ RM		= rm -f
 all		: $(NAME)
 
 .c.o	:
-		$(CC) -I$(DIR_H) $(CFLAGS) -g -c $< -o $(<:.c=.o)
+		$(CC) -Iinclude -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
-$(NAME) : $(OBJS) $(DIR_H)/$(HEADER)
-		gcc -o $(NAME) $(OBJS)
+$(NAME) : $(OBJS) $(HEADER)
+		$(CC) -o $@ $(OBJS) mlx_linux/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 norm	:
 		norminette $(SRCS)
-		norminette -R CheckDefine $(DIR_H)/$(HEADER)
+		norminette -R CheckDefine $(HEADER)
 
 clean	:
 		$(RM) $(OBJS)

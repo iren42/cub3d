@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "mlx.h"
 # include "get_next_line.h"
 
 # define SUCCESS 1
@@ -36,6 +37,21 @@ typedef struct	s_map
 	char	*ceiling;
 
 }				t_map;
+
+typedef struct  s_data {
+    void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}               t_data;
+
+typedef struct s_player
+{
+	int	x;
+	int	y;
+
+}				t_player;
 
 void	ft_init_map(t_map *map);
 int	ft_parse_map(char *name, t_map *map);
