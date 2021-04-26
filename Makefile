@@ -18,7 +18,7 @@ I		= -I include \
 
 HEADER	= include/cub3d.h
 
-MLX		= libmlx_Linux.a
+MLX		= mlx_linux
 
 MLX_FLAGS	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
@@ -36,7 +36,12 @@ SOURCES		= main.c \
 			  ft_skip_spaces.c \
 			  ft_parse_R.c \
 			  ft_parse_texture.c \
-			  ft_res_length.c
+			  ft_res_length.c \
+			  \
+			  ft_mlx.c \
+			  ft_img_pix_put.c \
+			  ft_update.c \
+			  ft_close.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 
@@ -51,10 +56,12 @@ RM		= rm -f
 all		: $(NAME)
 
 .c.o	:
-		$(CC) -Iinclude -I/usr/include -Imlx_linux -O3 -c $< -o $@
+		$(CC) -Iinclude -Imlx_linux -O3 -c $< -o $@
 
-$(NAME) : $(OBJS) $(HEADER)
-		$(CC) -o $@ $(OBJS) mlx_linux/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+$(NAME) : $(OBJS) $(HEADER) $(MLX)
+		make -C $(MLX)
+		$(CC) -o $@ $(OBJS) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz
+	#	$(CC) -o $@ $(OBJS) mlx_linux/libmlx_Linux.a -Imlx_linux -lXext -lX11 -lm -lz
 
 norm	:
 		norminette $(SRCS)
@@ -62,6 +69,7 @@ norm	:
 
 clean	:
 		$(RM) $(OBJS)
+		make clean -C $(MLX)
 
 fclean	: clean
 		$(RM) $(NAME)
