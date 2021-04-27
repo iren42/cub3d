@@ -40,7 +40,6 @@ SOURCES		= main.c \
 			  \
 			  ft_mlx.c \
 			  ft_img_pix_put.c \
-			  ft_update.c \
 			  ft_close.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))

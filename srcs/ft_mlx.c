@@ -2,34 +2,26 @@
 #include <X11/keysym.h>
 #include "cub3d.h"
 
-#define WINDOW_WIDTH 600
-#define WINDOW_HEIGHT 600
-
-#define MLX_ERROR 1
 
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0xFF00
 #define WHITE_PIXEL 0xFFFFFF
 
-
-
-/* The x and y coordinates of the rect corresponds to its upper left corner. */
-
-int render_rect(t_img *img, t_rect rect)
-{
-	int	i;
-	int j;
-
-	i = rect.y;
-	while (i < rect.y + rect.height && i <= WINDOW_HEIGHT)
-	{
-		j = rect.x;
-		while (j < rect.x + rect.width && j <= WINDOW_WIDTH)
-			ft_img_pix_put(img, j++, i, rect.color);
-		++i;
-	}
-	return (0);
-}
+const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
 
 void	render_background(t_img *img, int color)
 {
@@ -47,25 +39,54 @@ void	render_background(t_img *img, int color)
 		++i;
 	}
 }
-
-void	ft_move(t_rect *r)
+int render_tile(t_img *img, int j, int i, int color)
 {
-	int move = 1;
-	if (r->x + move < WINDOW_WIDTH - r->width)
-		r->x += move;
-	if (r->y + move < WINDOW_HEIGHT - r->height)
-		r->y += move;
+	int n;
+	int m;
+
+	n = i * TILE_SIZE;
+	while (n < (i + 1) * TILE_SIZE)
+	{
+		m = j * TILE_SIZE;
+		while (m < (j + 1) * TILE_SIZE)
+			ft_img_pix_put(img, m++, n, color);
+		n++;
+	}
+	return (0);
 }
 
+// TODO: t_map as 2nd param
+void ft_render_map(t_img *img) {
+	int tileColor;
+	int i;
+	int j;
 
+	i = 0;
+	j = 0;
+	while (i < MAP_NUM_ROWS)
+	{
+		j= 0;
+		while (j < MAP_NUM_COLS)
+		{
+			tileColor = map[i][j] != 0 ? RED_PIXEL : WHITE_PIXEL;
+			render_tile(img, j, i, tileColor);
+			j++;
+		}
+		i++;
+	}
+}
 int	render(t_data *data)
 {
+	// UPDATE HERE
+	//	ft_update(data->img.player);
 
-	ft_move(data->img.rect);
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(&data->img, WHITE_PIXEL);
-	render_rect(&data->img, *(data->img.rect));
+	// render things here
+	render_background(&data->img, GREEN_PIXEL);
+	ft_render_map(&data->img);
+	// render_rays();
+	// render_player();
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 
@@ -81,11 +102,25 @@ int	handle_keypress(int keysym, t_data *data)
 	}
 	return (0);
 }
+
+// Start position of the player
+void	ft_setup(t_player *p)
+{
+	p->x = WINDOW_WIDTH / 2;
+	p->y = WINDOW_HEIGHT / 2;
+	p->width = 5;
+	p->height= 5;
+	p->turn_dir = 0;
+	p->walk_dir = 0;
+	p->rotation_angle = PI / 2;
+	p->walk_speed = 100;
+	p->turn_speed = 45 * (PI / 100);
+}
+
 int ft_mlx(t_map map)
 {
 	t_data	data;
 
-	t_rect r = {0, 0, 10, 10, RED_PIXEL};
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (FAILURE);
@@ -102,7 +137,6 @@ int ft_mlx(t_map map)
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
 
-	data.img.rect = &r;
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, 33, 1L<<2, &ft_close, &data);

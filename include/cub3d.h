@@ -15,11 +15,26 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 # include "mlx.h"
 # include "get_next_line.h"
 
 # define SUCCESS 1
 # define FAILURE 0
+
+#define PI 3.14159265
+#define TWO_PI 6.28318530
+
+# define TILE_SIZE 20
+# define MAP_NUM_ROWS 13 // should be parsed from fd map
+# define MAP_NUM_COLS 20 // same
+
+#define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+#define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
+
+# define FOV_ANGLE (60 * PI / 180)
+
+# define NUM_RAYS WINDOW_WIDTH
 
 ///////// LIBFT FUNCTIONS
 char	*ft_strnstr(const char *big, const char *little, size_t len);
@@ -42,14 +57,21 @@ typedef struct	s_map
 
 }				t_map;
 
-typedef struct s_rect
+
+typedef struct s_player
 {
 	int	x;
 	int	y;
-	int width;
+	int	width;
 	int height;
-	int color;
-}	t_rect;
+	int	cam_dir; // -1 for left, +1 for right ; touches fleches droite gauche
+	int	turn_dir; // -1 for left, +1 for right ; touches a, d
+	int walk_dir; // -1 for back, +1 for front ; touches w, s
+	float	rotation_angle; // same as cam_dir ?
+	float	walk_speed;
+	float	turn_speed;
+}				t_player;
+
 
 
 typedef struct  s_img {
@@ -58,15 +80,8 @@ typedef struct  s_img {
     int         bpp;
     int         line_len;
     int         endian;
-	t_rect		*rect;
+	t_player	*player;
 }               t_img;
-
-typedef struct s_player
-{
-	int	x;
-	int	y;
-
-}				t_player;
 
 typedef struct s_data
 {
@@ -75,7 +90,7 @@ typedef struct s_data
 	t_img	img;
 }				t_data;
 
-
+//////// MAP PARSING FUNCTIONS
 void	ft_init_map(t_map *map);
 int	ft_parse_map(char *name, t_map *map);
 void	ft_parse_R(char *line, t_map *map);
@@ -84,6 +99,7 @@ int	ft_skip_spaces(char *s, int i);
 int	ft_is_space(char c);
 int ft_res_length(char *res);
 
+//////// MLX 3D MAP FUNCTIONS
 int	ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
 void	ft_update(t_player *p);
