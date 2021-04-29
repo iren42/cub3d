@@ -98,6 +98,7 @@ typedef struct  s_img {
     int         line_len;
     int         endian;
 	t_player	*player;
+	t_map		*map; // to save the unchanging minimap here
 }               t_img;
 
 typedef struct s_data
@@ -127,5 +128,6 @@ int	ft_render_line(t_img *img, int x1, int y1, int x2, int y2);
 int	ft_abs(float n);
 void	ft_swap(float *a, float *b);
 void	ft_refresh_img(t_data *data);
+void	ft_mlx_hook(t_data *data);
 
 #endif
