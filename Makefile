@@ -40,7 +40,13 @@ SOURCES		= main.c \
 			  \
 			  ft_mlx.c \
 			  ft_img_pix_put.c \
-			  ft_close.c
+			  ft_close.c \
+			  ft_render_rect.c \
+			ft_render_background.c \
+			ft_render_line.c \
+			ft_abs.c \
+			ft_swap.c \
+			ft_refresh_img.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 

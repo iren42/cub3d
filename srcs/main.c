@@ -34,6 +34,8 @@ int main(int ac, char **av)
 	int		fd;
 	t_map	map;
 	int 	err;
+	int a=-1;
+	int b=2;
 
 	fd = 0;
 	ft_init_map(&map);

@@ -22,12 +22,20 @@
 # define SUCCESS 1
 # define FAILURE 0
 
+#define RED_PIXEL 0xFF0000
+#define GREEN_PIXEL 0xFF00
+#define WHITE_PIXEL 0xFFFFFF
+#define BLACK_PIXEL 0x000000
+
+
 #define PI 3.14159265
 #define TWO_PI 6.28318530
 
-# define TILE_SIZE 20
+# define TILE_SIZE 64
 # define MAP_NUM_ROWS 13 // should be parsed from fd map
 # define MAP_NUM_COLS 20 // same
+
+# define MINIMAP_SCALE_FACTOR 1.0
 
 #define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 #define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
@@ -42,6 +50,15 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *s);
 
 //////// STRUCT
+typedef struct	s_rect
+{
+	int	x;
+	int y;
+	int width;
+	int height;
+	int	color;
+}		t_rect;
+
 typedef struct	s_map
 {
 	int		error;
@@ -60,16 +77,16 @@ typedef struct	s_map
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	width;
-	int height;
-	int	cam_dir; // -1 for left, +1 for right ; touches fleches droite gauche
-	int	turn_dir; // -1 for left, +1 for right ; touches a, d
-	int walk_dir; // -1 for back, +1 for front ; touches w, s
-	float	rotation_angle; // same as cam_dir ?
-	float	walk_speed;
-	float	turn_speed;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	int		cam_dir; // -1 for left, +1 for right ; touches fleches droite gauche
+	int		turn_dir; // -1 for left, +1 for right ; touches a, d
+	int		walk_dir; // -1 for back, +1 for front ; touches w, s
+	float	rotation_angle; // settings: determines how fast the player rotates
+	float	walk_speed;	// settings
+	float	turn_speed;	// settings
 }				t_player;
 
 
@@ -103,5 +120,12 @@ int ft_res_length(char *res);
 int	ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
 void	ft_update(t_player *p);
-int	ft_close(t_data *vars);
+int	ft_close(t_data *data);
+void	ft_render_background(t_img *img, int color);
+int	ft_render_rect(t_img *img, t_rect rect);
+int	ft_render_line(t_img *img, int x1, int y1, int x2, int y2);
+int	ft_abs(float n);
+void	ft_swap(float *a, float *b);
+void	ft_refresh_img(t_data *data);
+
 #endif
