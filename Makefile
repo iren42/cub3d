@@ -55,14 +55,14 @@ OBJS	= $(SRCS:.c=.o)
 
 CC		= gcc
 
-CFLAGS	= 
+CFLAGS	= -MD
 
 RM		= rm -f
 
 all		: $(NAME)
 
-.c.o	:
-		$(CC) -Iinclude -Imlx_linux -O3 -c $< -o $@
+%.o		: %.c
+		$(CC) $(CFLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
 
 $(NAME) : $(OBJS) $(HEADER) $(MLX)
 		make -C $(MLX)
@@ -81,5 +81,7 @@ fclean	: clean
 		$(RM) $(NAME)
 
 re		: fclean all
+
+-include $(OBJS:.o=.d)
 
 .PHONY:	all clean fclean re
