@@ -152,6 +152,6 @@ void	ft_mlx_hook(t_data *data);
 int		ft_map_has_wall_at(float x, float y);
 
 ////// MLX 3D MAP
-void	ft_cast_all_rays(t_data *data);
+void	ft_cast_all_rays(t_data *data, t_ray *rays);
 
 #endif

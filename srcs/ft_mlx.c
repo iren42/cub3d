@@ -20,25 +20,8 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 
 
 // Start position of the player
-void	ft_setup_player(t_img *img)
+void	ft_setup_img(t_img *img)
 {
-	/*	t_player	*new_player; // TODO: free it
-
-		new_player = malloc(sizeof(t_player));
-		if (new_player != NULL)
-		{
-		new_player->x = WINDOW_WIDTH / 2;
-		new_player->y = WINDOW_HEIGHT / 2;
-		new_player->width = 5;
-		new_player->height= 5;
-		new_player->turn_dir = 0;
-		new_player->walk_dir = 0;
-		new_player->rotation_angle = PI / 2;
-		new_player->walk_speed = 10;	// was 50
-		new_player->turn_speed = 20 * (PI / 180); // was 45
-		img->player = new_player;
-		}
-	 */
 	img->player.x = WINDOW_WIDTH / 2;
 	img->player.y = WINDOW_HEIGHT / 2;
 	img->player.width = 5;
@@ -48,7 +31,8 @@ void	ft_setup_player(t_img *img)
 	img->player.rotation_angle = PI / 2;
 	img->player.walk_speed = 10;	// was 50
 	img->player.turn_speed = 20 * (PI / 180); // was 45
-	printf("img %d %d\n", img->player.x, img->player.turn_dir);
+//	printf("img %d %d\n", img->player.x, img->player.turn_dir);
+	img->rays = malloc(sizeof(t_ray) * NUM_RAYS);
 }
 
 int	ft_create_mlx_window(t_data *data)
@@ -73,7 +57,7 @@ int ft_mlx(t_map map)
 
 	(void)err;
 	(void)map;
-	ft_setup_player(&data.img);
+	ft_setup_img(&data.img);
 	err = ft_create_mlx_window(&data);
 	ft_refresh_img(&data);
 	ft_mlx_hook(&data);
@@ -83,7 +67,7 @@ int ft_mlx(t_map map)
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
 	mlx_destroy_display(data.mlx_ptr);
 	free(data.mlx_ptr);
-	//	free(data.img.player);
+	free(data.img.rays);
 	printf("mlx end**\n");
 	return (SUCCESS);
 }

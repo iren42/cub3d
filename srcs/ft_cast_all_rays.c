@@ -147,20 +147,18 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 	rays[strip_id].is_ray_facing_right = is_ray_facing_right;
 }
 
-void	ft_cast_all_rays(t_data *data)
+void	ft_cast_all_rays(t_data *data, t_ray *rays)
 {
 	float	ray_angle;
 	int		i;
-	t_ray	*rays;
 
 	i = 0;
-	rays = malloc(sizeof(rays) * (NUM_RAYS + 1)); // free it after use
 	if (rays != NULL)
 	{
 		ray_angle = data->img.player.rotation_angle - (FOV_ANGLE / 2);
 		while (i < NUM_RAYS)
 		{
-	//		ft_cast_ray(rays, ray_angle, i, *(data->img).player);
+			ft_cast_ray(rays, ray_angle, i, data->img.player);
 			rays[i].ray_angle = ray_angle;
 			printf("ray angle = %f\n", rays[i].ray_angle);
 			ray_angle += FOV_ANGLE / NUM_RAYS;
@@ -170,6 +168,3 @@ void	ft_cast_all_rays(t_data *data)
 		printf("rays were casted***\n");
 	}
 }
-
-
-

@@ -89,7 +89,7 @@ void	ft_refresh_img(t_data *data)
 		data->img.mlx_img = NULL;
 	}
 
-//	ft_cast_all_rays(data);
+	ft_cast_all_rays(data, data->img.rays);
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
