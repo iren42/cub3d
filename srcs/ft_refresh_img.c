@@ -58,25 +58,18 @@ void ft_render_map(t_img *img) {
 void	ft_render_rays(t_img *img)
 {
 	int			i;
-	t_ray		*array;
-	t_player	*player;
 
 	printf("rays rendering**\n");
 	i = 0;
-	player = &img->player;
-	array = img->rays;
-	printf("NUM RAYS %d\n", NUM_RAYS);
 	while (i < NUM_RAYS)
 	{
-	
-/*		ft_render_line(img,
-			player->x,
-			player->y,
-		array[i].wall_hit_x,
-		array[i].wall_hit_y
+		ft_render_line(img,
+			MINIMAP_SCALE_FACTOR * img->player.x,
+			MINIMAP_SCALE_FACTOR * img->player.y,
+			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_x,
+			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_y
 		);
-*/		
-		printf("ray %d %d %f %f\n", player->x, player->y, array[i].wall_hit_x, array[i].wall_hit_y);
+			//printf("ray %d %d %f %f\n", img->player.x, img->player.y, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
 		i++;
 	}
 }
@@ -89,14 +82,14 @@ void	ft_refresh_img(t_data *data)
 		data->img.mlx_img = NULL;
 	}
 
-	ft_cast_all_rays(data, data->img.rays);
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 
+	ft_cast_all_rays(data->img.player, data->img.rays);
 	ft_render_map(&data->img);
 	ft_render_player(&data->img, data->img.player);
-//	ft_render_rays(&data->img);
+	ft_render_rays(&data->img);
 	if (data->img.mlx_img != NULL)
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 }

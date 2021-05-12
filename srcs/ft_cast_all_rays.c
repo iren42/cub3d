@@ -14,18 +14,17 @@ float	distance_between_points(float x1, float y1, float x2, float y2)
 	return (sqrt(x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
-void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
+void	ft_cast_ray(t_ray *rays, float ray_angle, int strip_id, t_player player)
 {
-	float ray_angle;
 	int		is_ray_facing_up;
 	int		is_ray_facing_down;
 	int		is_ray_facing_left;
 	int		is_ray_facing_right;
 
-	ray_angle = ft_normalize_angle(angle);
-	is_ray_facing_down = angle > 0 && angle < PI;
+	ray_angle = ft_normalize_angle(ray_angle);
+	is_ray_facing_down = ray_angle > 0 && ray_angle < PI;
 	is_ray_facing_up = !is_ray_facing_down;
-	is_ray_facing_right = angle < 0.5 * PI || angle > 1.5 * PI;
+	is_ray_facing_right = ray_angle < 0.5 * PI || ray_angle > 1.5 * PI;
 	is_ray_facing_left = !is_ray_facing_right;
 
 	float xintercept;
@@ -33,6 +32,7 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 	float xstep;
 	float ystep;
 
+	// HORIZONTAL
 	int found_hor_wall_hit = 0;
 	float hor_wall_hit_x = 0;
 	float hor_wall_hit_y = 0;
@@ -63,8 +63,8 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 		{
 			hor_wall_hit_x = next_hor_touch_x;
 			hor_wall_hit_y = next_hor_touch_y;
-			hor_wall_content = map[(int)floor(y_tocheck / TILE_SIZE)]
-				[(int)floor(x_tocheck / TILE_SIZE)];
+			hor_wall_content = 
+			map[(int)floor(y_tocheck / TILE_SIZE)][(int)floor(x_tocheck / TILE_SIZE)];
 			found_hor_wall_hit = 1;
 			break;
 		}
@@ -84,14 +84,14 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 	xintercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
 	xintercept += is_ray_facing_right ? TILE_SIZE : 0;
 
-	yintercept = player.y + (xintercept - player.x) / tan(ray_angle);
+	yintercept = player.y + (xintercept - player.x) * tan(ray_angle);
 
 	xstep = TILE_SIZE;
 	xstep *= is_ray_facing_left ? -1 : 1;
 
-	ystep = TILE_SIZE / tan(ray_angle);
-	ystep *= (is_ray_facing_up && xstep > 0) ? -1 : 1;
-	ystep *= (is_ray_facing_down && xstep < 0) ? -1 : 1;
+	ystep = TILE_SIZE * tan(ray_angle);
+	ystep *= (is_ray_facing_up && ystep > 0) ? -1 : 1;
+	ystep *= (is_ray_facing_down && ystep < 0) ? -1 : 1;
 
 	float	next_vert_touch_x = xintercept;
 	float	next_vert_touch_y = yintercept;
@@ -106,8 +106,8 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 		{
 			vert_wall_hit_x = next_vert_touch_x;
 			vert_wall_hit_y = next_vert_touch_y;
-			vert_wall_content = map[(int)floor(y_tocheck / TILE_SIZE)]
-				[(int)floor(x_tocheck / TILE_SIZE)];
+			vert_wall_content = 
+				map[(int)floor(y_tocheck / TILE_SIZE)][(int)floor(x_tocheck / TILE_SIZE)];
 			found_vert_wall_hit = 1;
 			break;
 		}
@@ -118,10 +118,12 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 		}
 	}
 
-	float hor_hit_distance = found_hor_wall_hit ? 
-		distance_between_points(player.x, player.y, hor_wall_hit_x, hor_wall_hit_y) : INT_MAX; 
-	float vert_hit_distance = found_vert_wall_hit ? 
-		distance_between_points(player.x, player.y, vert_wall_hit_x, vert_wall_hit_y) : INT_MAX;
+	float hor_hit_distance = found_hor_wall_hit
+		? distance_between_points(player.x, player.y, hor_wall_hit_x, hor_wall_hit_y) 
+		: INT_MAX; 
+	float vert_hit_distance = found_vert_wall_hit 
+		? distance_between_points(player.x, player.y, vert_wall_hit_x, vert_wall_hit_y) 
+		: INT_MAX;
 	if  (vert_hit_distance < hor_hit_distance)
 	{
 		rays[strip_id].distance = vert_hit_distance;
@@ -147,7 +149,7 @@ void	ft_cast_ray(t_ray *rays, float angle, int strip_id, t_player player)
 	rays[strip_id].is_ray_facing_right = is_ray_facing_right;
 }
 
-void	ft_cast_all_rays(t_data *data, t_ray *rays)
+void	ft_cast_all_rays(t_player player, t_ray *rays)
 {
 	float	ray_angle;
 	int		i;
@@ -155,16 +157,14 @@ void	ft_cast_all_rays(t_data *data, t_ray *rays)
 	i = 0;
 	if (rays != NULL)
 	{
-		ray_angle = data->img.player.rotation_angle - (FOV_ANGLE / 2);
+		ray_angle = player.rotation_angle - (FOV_ANGLE / 2);
 		while (i < NUM_RAYS)
 		{
-			ft_cast_ray(rays, ray_angle, i, data->img.player);
-			rays[i].ray_angle = ray_angle;
-			printf("ray angle = %f\n", rays[i].ray_angle);
+			ft_cast_ray(rays, ray_angle, i, player);
+	//		rays[i].ray_angle = ray_angle;
 			ray_angle += FOV_ANGLE / NUM_RAYS;
 			i++;
 		}
-		data->img.rays = rays;
 		printf("rays were casted***\n");
 	}
 }
