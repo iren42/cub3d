@@ -46,6 +46,7 @@ int	ft_read_map(int fd, t_map *map)
 			ft_parse_texture(line, map);
 	//		ft_parse_color(line, map);
 		}
+		free(line);
 	}
 	free(line);
 	return (SUCCESS);

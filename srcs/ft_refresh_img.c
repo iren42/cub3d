@@ -63,7 +63,7 @@ void	ft_render_rays(t_img *img)
 
 	printf("rays rendering**\n");
 	i = 0;
-	player = img->player;
+	player = &img->player;
 	array = img->rays;
 	printf("NUM RAYS %d\n", NUM_RAYS);
 	while (i < NUM_RAYS)
@@ -95,7 +95,7 @@ void	ft_refresh_img(t_data *data)
 			&data->img.line_len, &data->img.endian);
 
 	ft_render_map(&data->img);
-	ft_render_player(&data->img, *data->img.player);
+	ft_render_player(&data->img, data->img.player);
 //	ft_render_rays(&data->img);
 	if (data->img.mlx_img != NULL)
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);

@@ -37,6 +37,7 @@ SOURCES		= main.c \
 			  ft_parse_R.c \
 			  ft_parse_texture.c \
 			  ft_res_length.c \
+			  ft_free_map.c \
 			  \
 			  ft_mlx.c \
 			  ft_img_pix_put.c \
@@ -78,6 +79,7 @@ norm	:
 
 clean	:
 		$(RM) $(OBJS)
+		$(RM) $(OBJS:.o=.d)
 		make clean -C $(MLX)
 
 fclean	: clean

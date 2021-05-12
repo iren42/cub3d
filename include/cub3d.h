@@ -91,6 +91,7 @@ typedef struct s_player
 	float	walk_speed;	// settings
 	float	turn_speed;	// settings
 }				t_player;
+
 typedef struct s_ray
 {
 	float	ray_angle;
@@ -134,6 +135,7 @@ void	ft_parse_texture(char *line, t_map *map);
 int	ft_skip_spaces(char *s, int i);
 int	ft_is_space(char c);
 int ft_res_length(char *res);
+void	ft_free_map(t_map *map);
 
 int	ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);

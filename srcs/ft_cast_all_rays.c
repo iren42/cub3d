@@ -157,7 +157,7 @@ void	ft_cast_all_rays(t_data *data)
 	rays = malloc(sizeof(rays) * (NUM_RAYS + 1)); // free it after use
 	if (rays != NULL)
 	{
-		ray_angle = data->img.player->rotation_angle - (FOV_ANGLE / 2);
+		ray_angle = data->img.player.rotation_angle - (FOV_ANGLE / 2);
 		while (i < NUM_RAYS)
 		{
 	//		ft_cast_ray(rays, ray_angle, i, *(data->img).player);

@@ -8,14 +8,12 @@ int	ft_handle_no_event(void *data)
 	return (0);
 }
 
-void	ft_update_player_s_values(t_data *data)
+void	ft_update_player_s_values(t_data *data, t_player *p)
 {
 	float	move_step;
 	float	new_player_x;
 	float	new_player_y;
-	t_player	*p;
 
-	p = data->img.player;
 	p->rotation_angle += p->turn_dir * p->turn_speed;
 	move_step = p->walk_dir * p->walk_speed;
 	new_player_x = p->x + cos(p->rotation_angle) * move_step;
@@ -31,19 +29,19 @@ int	handle_keyrelease(int keysym, t_data *data)
 {
 	if (keysym == XK_W || keysym == XK_w)
 	{
-		data->img.player->walk_dir = 0;
+		data->img.player.walk_dir = 0;
 	}
 	if (keysym == XK_S || keysym == XK_s)
 	{
-		data->img.player->walk_dir = 0;
+		data->img.player.walk_dir = 0;
 	}
 	if (keysym == XK_d || keysym == XK_D) // right
 	{
-		data->img.player->turn_dir = 0;
+		data->img.player.turn_dir = 0;
 	}
 	if (keysym == XK_A || keysym == XK_a) // left
 	{
-		data->img.player->turn_dir = 0;
+		data->img.player.turn_dir = 0;
 	}
 	return (0);
 }
@@ -58,31 +56,31 @@ int	handle_keypress(int keysym, t_data *data)
 	}
 	if (keysym == XK_W || keysym == XK_w)
 	{
-		data->img.player->walk_dir = +1;
+		data->img.player.walk_dir = +1;
 		// refresh image
-		ft_update_player_s_values(data);
+		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 	}
 	if (keysym == XK_S || keysym == XK_s)
 	{
-		data->img.player->walk_dir = -1;
+		data->img.player.walk_dir = -1;
 		// refresh image
-		ft_update_player_s_values(data);
+		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 	}
 	if (keysym == XK_d || keysym == XK_D) // right
 	{
-		data->img.player->turn_dir = +1;
+		data->img.player.turn_dir = +1;
 		// refresh image
-		ft_update_player_s_values(data);
+		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 
 	}
 	if (keysym == XK_A || keysym == XK_a)
 	{
-		data->img.player->turn_dir = -1;
+		data->img.player.turn_dir = -1;
 		// refresh image
-		ft_update_player_s_values(data);
+		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 	}
 	return (0);

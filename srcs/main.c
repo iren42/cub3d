@@ -40,6 +40,7 @@ int main(int ac, char **av)
 		err = ft_mlx(map);
 		if (err == SUCCESS)
 			printf("MLX went well\n");
+		ft_free_map(&map);
 	}
 	return (EXIT_SUCCESS);
 }
