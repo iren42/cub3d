@@ -4,7 +4,27 @@
 int	ft_handle_no_event(void *data)
 {
 	/* This function needs to exist, but it is useless for the moment */
+	(void)data;
 	return (0);
+}
+
+void	ft_update_player_s_values(t_data *data)
+{
+	float	move_step;
+	float	new_player_x;
+	float	new_player_y;
+	t_player	*p;
+
+	p = data->img.player;
+	p->rotation_angle += p->turn_dir * p->turn_speed;
+	move_step = p->walk_dir * p->walk_speed;
+	new_player_x = p->x + cos(p->rotation_angle) * move_step;
+	new_player_y = p->y + sin(p->rotation_angle) * move_step;
+	if (!ft_map_has_wall_at(new_player_x, new_player_y))
+	{
+		p->x = new_player_x;
+		p->y = new_player_y;
+	}
 }
 
 int	handle_keyrelease(int keysym, t_data *data)

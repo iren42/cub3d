@@ -13,6 +13,7 @@ int	ft_render_line(t_img *img, int x0, int y0, int x1, int y1)
 	length = sqrt( x*x + y*y ); 
 	x = x0; 
 	y = y0; 
+	i = 0;
 	while (i < length)
 	{
 		ft_img_pix_put(img, x, y, RED_PIXEL); 

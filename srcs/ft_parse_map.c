@@ -37,7 +37,7 @@ int	ft_read_map(int fd, t_map *map)
 	int		ret;
 	char	*line;
 
-	while (ret = get_next_line(fd, &line) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		if (ft_strchr("RNOSWEAFC", line[0]) != NULL) // if the 1st char of line is one of R, N or \0, etc then do
 		{
@@ -48,6 +48,7 @@ int	ft_read_map(int fd, t_map *map)
 		}
 	}
 	free(line);
+	return (SUCCESS);
 }
 
 int ft_parse_map(char *name, t_map *map)

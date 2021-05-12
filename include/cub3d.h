@@ -44,6 +44,9 @@
 
 # define NUM_RAYS WINDOW_WIDTH
 
+
+extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
+
 ///////// LIBFT FUNCTIONS
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -88,6 +91,20 @@ typedef struct s_player
 	float	walk_speed;	// settings
 	float	turn_speed;	// settings
 }				t_player;
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	float	distance;
+	int		was_hit_vertical;
+	int		is_ray_facing_up;
+	int		is_ray_facing_down;
+	int		is_ray_facing_left;
+	int		is_ray_facing_right;
+	int		wall_hit_content;
+}			t_ray;
+
 
 
 
@@ -97,7 +114,8 @@ typedef struct  s_img {
     int         bpp;
     int         line_len;
     int         endian;
-	t_player	*player;
+	t_player	player;
+	t_ray		*rays;
 	t_map		*map; // to save the unchanging minimap here
 }               t_img;
 
@@ -117,17 +135,21 @@ int	ft_skip_spaces(char *s, int i);
 int	ft_is_space(char c);
 int ft_res_length(char *res);
 
-//////// MLX 3D MAP FUNCTIONS
 int	ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
-void	ft_update(t_player *p);
 int	ft_close(t_data *data);
+//////// MLX 2D MAP FUNCTIONS
+void	ft_update(t_player *p);
 void	ft_render_background(t_img *img, int color);
 int	ft_render_rect(t_img *img, t_rect rect);
 int	ft_render_line(t_img *img, int x1, int y1, int x2, int y2);
-int	ft_abs(float n);
-void	ft_swap(float *a, float *b);
+//int	ft_abs(float n);
+//void	ft_swap(float *a, float *b);
 void	ft_refresh_img(t_data *data);
 void	ft_mlx_hook(t_data *data);
+int		ft_map_has_wall_at(float x, float y);
+
+////// MLX 3D MAP
+void	ft_cast_all_rays(t_data *data);
 
 #endif

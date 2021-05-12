@@ -25,7 +25,7 @@ char	*ft_get_pathname(char *line)
 	name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (name != NULL)
 	{
-		while (line[i] && (line[i] != ' ' || line[i - 1] == '\\' && line[i] == ' '))
+		while (line[i] && (line[i] != ' ' || (line[i - 1] == '\\' && line[i] == ' ')))
 			name[a++] = line[i++];
 		name[a] = '\0';
 	}

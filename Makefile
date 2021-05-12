@@ -47,7 +47,9 @@ SOURCES		= main.c \
 			ft_abs.c \
 			ft_swap.c \
 			ft_refresh_img.c \
-			ft_mlx_hook.c
+			ft_mlx_hook.c \
+			ft_map_has_wall_at.c \
+			ft_cast_all_rays.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 
@@ -55,7 +57,8 @@ OBJS	= $(SRCS:.c=.o)
 
 CC		= gcc
 
-CFLAGS	= -MD
+CFLAGS	= -MD -g
+#-Wall -Wextra -Werror 
 
 RM		= rm -f
 

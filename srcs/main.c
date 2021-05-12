@@ -23,21 +23,14 @@ void	ft_display_tmap(t_map map)
 	printf("error = %d\n", map.error);
 }
 
-int	handle_no_event(void *data)
-{
-	/* This function needs to exist, but it is useless for the moment */
-	return (0);
-}
-
 int main(int ac, char **av)
 {
 	int		fd;
 	t_map	map;
 	int 	err;
-	int a=-1;
-	int b=2;
 
 	fd = 0;
+	(void)fd;
 	ft_init_map(&map);
 	if (ac == 1)
 		printf("Missing map");

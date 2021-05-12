@@ -19,45 +19,12 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 
 
 
-int	ft_map_has_wall_at(float x, float y)
-{
-	int map_grid_index_x;
-	int map_grid_index_y;
-
-	if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT) // out of boundary
-		return (1);
-	map_grid_index_x = floor(x / TILE_SIZE);
-	map_grid_index_y = floor(y / TILE_SIZE);
-//	printf("index x = %d\t y = %d\t %d\n", map_grid_index_x, map_grid_index_y, 
-//		map[map_grid_index_y][map_grid_index_x]);
-	return (map[map_grid_index_y][map_grid_index_x] != 0);
-}
-void	ft_update_player_s_values(t_data *data)
-{
-	float	move_step;
-	float	new_player_x;
-	float	new_player_y;
-	t_player	*p;
-
-	p = data->img.player;
-	p->rotation_angle += p->turn_dir * p->turn_speed;
-	move_step = p->walk_dir * p->walk_speed;
-	new_player_x = p->x + cos(p->rotation_angle) * move_step;
-	new_player_y = p->y + sin(p->rotation_angle) * move_step;
-	if (!ft_map_has_wall_at(new_player_x, new_player_y))
-	{
-		p->x = new_player_x;
-		p->y = new_player_y;
-	}
-}
-
-
 // Start position of the player
 void	ft_setup_player(t_img *img)
 {
-	t_player	*new_player; // TODO: free it
+/*	t_player	*new_player; // TODO: free it
 
-	new_player = malloc(sizeof(new_player));
+	new_player = malloc(sizeof(t_player));
 	if (new_player != NULL)
 	{
 		new_player->x = WINDOW_WIDTH / 2;
@@ -71,6 +38,17 @@ void	ft_setup_player(t_img *img)
 		new_player->turn_speed = 20 * (PI / 180); // was 45
 		img->player = new_player;
 	}
+	*/
+		img->player.x = WINDOW_WIDTH / 2;
+		img->player.y = WINDOW_HEIGHT / 2;
+		img->player.width = 5;
+		img->player.height= 5;
+		img->player.turn_dir = 0;
+		img->player.walk_dir = 0;
+		img->player.rotation_angle = PI / 2;
+		img->player.walk_speed = 10;	// was 50
+		img->player.turn_speed = 20 * (PI / 180); // was 45
+	printf("img %d %d\n", img->player->x, img->player->turn_dir);
 }
 int	ft_create_mlx_window(t_data *data)
 {
@@ -87,12 +65,13 @@ int	ft_create_mlx_window(t_data *data)
 	return (SUCCESS);
 }
 
-
 int ft_mlx(t_map map)
 {
 	t_data	data;
 	int err;
 
+(void)err;
+(void)map;
 	ft_setup_player(&data.img);
 	err = ft_create_mlx_window(&data);
 	ft_refresh_img(&data);
@@ -103,6 +82,7 @@ int ft_mlx(t_map map)
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
 	mlx_destroy_display(data.mlx_ptr);
 	free(data.mlx_ptr);
+	free(data.img.player);
 	printf("mlx end**\n");
 	return (SUCCESS);
 }
