@@ -59,7 +59,6 @@ void	ft_render_rays(t_img *img)
 {
 	int			i;
 
-	printf("rays rendering**\n");
 	i = 0;
 	while (i < NUM_RAYS)
 	{
@@ -69,7 +68,8 @@ void	ft_render_rays(t_img *img)
 			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_x,
 			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_y
 		);
-			//printf("ray %d %d %f %f\n", img->player.x, img->player.y, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
+	//	printf("rays[%d] %d %d %f %f\n",i,  img->player.x, img->player.y, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
+		printf("rays[%d] %f %f\n",i, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
 		i++;
 	}
 }
