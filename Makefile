@@ -50,7 +50,12 @@ SOURCES		= main.c \
 			ft_refresh_img.c \
 			ft_mlx_hook.c \
 			ft_map_has_wall_at.c \
-			ft_cast_all_rays.c
+			\
+			ft_cast_all_rays.c \
+			ft_calculate_step.c \
+			ft_calculate_intercept.c \
+			ft_find_wall_hit_xy.c \
+			ft_fill_ray_data.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 

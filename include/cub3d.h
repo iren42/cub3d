@@ -53,6 +53,24 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *s);
 
 //////// STRUCT
+typedef struct	s_var_cast_ray
+{
+	float	xintercept;
+	float	yintercept;
+	float	xstep;
+	float	ystep;
+
+	int		found_hor_wall_hit;
+	float	hor_wall_hit_x;
+	float	hor_wall_hit_y;
+	int		hor_wall_content;
+
+	int		found_ver_wall_hit;
+	float	ver_wall_hit_x;
+	float	ver_wall_hit_y;
+	int		ver_wall_content;
+}				t_var_cast_ray;
+
 typedef struct	s_rect
 {
 	int	x;
@@ -99,9 +117,7 @@ typedef struct s_ray
 	float	wall_hit_y;
 	float	distance;
 	int		was_hit_vertical;
-	int		is_ray_facing_up;
 	int		is_ray_facing_down;
-	int		is_ray_facing_left;
 	int		is_ray_facing_right;
 	int		wall_hit_content;
 }			t_ray;
@@ -153,5 +169,12 @@ int		ft_map_has_wall_at(float x, float y);
 
 ////// MLX 3D MAP
 void	ft_cast_all_rays(t_player player, t_ray *rays);
+void	ft_calculate_hor_step(float *xstep, float *ystep, t_ray ray, float ray_angle);
+void	ft_calculate_ver_step(float *xstep, float *ystep, t_ray ray, float ray_angle);
+void	ft_calculate_hor_intercept(t_var_cast_ray *var, t_ray ray, t_player player);
+void	ft_calculate_ver_intercept(t_var_cast_ray *var, t_ray ray, t_player player);
+void	ft_find_hor_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
+void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
+void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 
 #endif
