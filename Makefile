@@ -55,7 +55,8 @@ SOURCES		= main.c \
 			ft_calculate_step.c \
 			ft_calculate_intercept.c \
 			ft_find_wall_hit_xy.c \
-			ft_fill_ray_data.c
+			ft_fill_ray_data.c \
+			ft_generate_walls_projection.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 

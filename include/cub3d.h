@@ -35,7 +35,7 @@
 # define MAP_NUM_ROWS 13 // should be parsed from fd map
 # define MAP_NUM_COLS 20 // same
 
-# define MINIMAP_SCALE_FACTOR 1.0
+# define MINIMAP_SCALE_FACTOR 0.3
 
 #define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 #define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
@@ -70,7 +70,6 @@ typedef struct	s_var_cast_ray
 	float	ver_wall_hit_y;
 	int		ver_wall_content;
 }				t_var_cast_ray;
-
 typedef struct	s_rect
 {
 	int	x;
@@ -124,6 +123,16 @@ typedef struct s_ray
 
 
 
+typedef struct	s_var_generate_walls_proj
+{
+	float		player_rotation_angle;
+	float		ray_angle;
+	float		ray_distance;
+	float		distance_proj_plane;
+
+}				t_var_generate_walls_proj;
+
+
 
 typedef struct  s_img {
     void        *mlx_img;
@@ -145,17 +154,17 @@ typedef struct s_data
 
 //////// MAP PARSING FUNCTIONS
 void	ft_init_map(t_map *map);
-int	ft_parse_map(char *name, t_map *map);
+int		ft_parse_map(char *name, t_map *map);
 void	ft_parse_R(char *line, t_map *map);
 void	ft_parse_texture(char *line, t_map *map);
-int	ft_skip_spaces(char *s, int i);
-int	ft_is_space(char c);
-int ft_res_length(char *res);
+int		ft_skip_spaces(char *s, int i);
+int		ft_is_space(char c);
+int		ft_res_length(char *res);
 void	ft_free_map(t_map *map);
 
-int	ft_mlx(t_map map);
+int		ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
-int	ft_close(t_data *data);
+int		ft_close(t_data *data);
 //////// MLX 2D MAP FUNCTIONS
 void	ft_update(t_player *p);
 void	ft_render_background(t_img *img, int color);
@@ -176,5 +185,6 @@ void	ft_calculate_ver_intercept(t_var_cast_ray *var, t_ray ray, t_player player)
 void	ft_find_hor_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
+void		ft_generate_walls_projection(t_img *img);
 
 #endif

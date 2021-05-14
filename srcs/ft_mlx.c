@@ -31,7 +31,7 @@ void	ft_setup_img(t_img *img)
 	img->player.rotation_angle = PI / 2;
 	img->player.walk_speed = 10;	// was 50
 	img->player.turn_speed = 20 * (PI / 180); // was 45
-//	printf("img %d %d\n", img->player.x, img->player.turn_dir);
+	//	printf("img %d %d\n", img->player.x, img->player.turn_dir);
 	img->rays = malloc(sizeof(t_ray) * NUM_RAYS);
 }
 
@@ -50,10 +50,51 @@ int	ft_create_mlx_window(t_data *data)
 	return (SUCCESS);
 }
 
+void	ft_free_and_destroy_mlx_win(t_data *data)
+{
+	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	free(data->img.rays);
+}
+/*
+void	ft_generate_walls_projection(t_img *img, t_ray *rays, t_player player)
+{
+	int		i;
+	float	distance_proj_plane;
+	float	projected_wall_height;
+	float	perp_distance;
+	int		wall_top_pixel;
+	int		wall_bottom_pixel;
+	int		y;
+
+	i = 0;
+	distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+	while (i < NUM_RAYS)
+	{
+		perp_distance = rays[i].distance * cos(rays[i].ray_angle - player.rotation_angle);
+		projected_wall_height = (TILE_SIZE / perp_distance) * distance_proj_plane;
+		wall_top_pixel = (WINDOW_HEIGHT / 2) - ((int)projected_wall_height / 2);
+		wall_top_pixel = wall_top_pixel < 0 ? 0 : wall_top_pixel;
+		wall_bottom_pixel = (WINDOW_HEIGHT / 2) + ((int)projected_wall_height / 2);
+		wall_bottom_pixel = wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom_pixel;
+		y = wall_top_pixel;
+		while (y < wall_bottom_pixel)
+		{
+			ft_img_pix_put(img, i, y, WHITE_PIXEL);
+			y++;
+		}
+		i++;
+	}
+
+}
+*/
 int ft_mlx(t_map map)
 {
 	t_data	data;
 	int err;
+	int imgheight;
+	int imgwidth;
 
 	(void)err;
 	(void)map;
@@ -64,10 +105,7 @@ int ft_mlx(t_map map)
 	mlx_loop(data.mlx_ptr);
 
 	/* we will exit the loop if there's no window left, and execute this code */
-	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
-	free(data.img.rays);
+	ft_free_and_destroy_mlx_win(&data);
 	printf("mlx end**\n");
 	return (SUCCESS);
 }

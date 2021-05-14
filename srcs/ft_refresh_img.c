@@ -86,6 +86,7 @@ void	ft_refresh_img(t_data *data)
 			&data->img.line_len, &data->img.endian);
 
 	ft_cast_all_rays(data->img.player, data->img.rays);
+	ft_generate_walls_projection(&data->img);
 	ft_render_map(&data->img);
 	ft_render_player(&data->img, data->img.player);
 	ft_render_rays(&data->img);
