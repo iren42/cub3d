@@ -22,7 +22,6 @@ void		ft_generate_walls_projection(t_img *img)
 	int							i;
 	int							wall_top_pixel;
 	int							wall_bottom_pixel;
-	float						distance_proj_plane;
 	t_var_generate_walls_proj	var;
 
 	i = 0;
