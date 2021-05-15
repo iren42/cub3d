@@ -75,16 +75,8 @@ void	ft_render_rays(t_img *img)
 
 void	ft_refresh_img(t_data *data)
 {	
-	if (data->img.mlx_img != NULL)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
-		data->img.mlx_img = NULL;
-	}
-
-	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
-
+	if (data->mlx_ptr != NULL && data->win_ptr != NULL)
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	ft_cast_all_rays(data->img.player, data->img.rays);
 	// Render 3D map
 	ft_generate_walls_projection(&data->img);

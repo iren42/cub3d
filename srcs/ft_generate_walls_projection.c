@@ -17,6 +17,27 @@ static void	ft_calc_wall_top_bottom_pix(int *wall_top_pixel,
 		WINDOW_HEIGHT : *wall_bottom_pixel;
 }
 
+void		ft_ceiling_projection(t_img *img, int wall_top_pixel, int i)
+{
+	int	top_pixel;
+
+	top_pixel = 0;
+	while (top_pixel < wall_top_pixel)
+	{
+		ft_img_pix_put(img, i, top_pixel, BLUE_PIXEL);
+		top_pixel++;
+	}
+}
+
+void		ft_floor_projection(t_img *img, int wall_bottom_pixel, int i)
+{
+	while (wall_bottom_pixel < WINDOW_HEIGHT)
+	{
+		ft_img_pix_put(img, i, wall_bottom_pixel, BROWN_PIXEL);
+		wall_bottom_pixel++;
+	}
+}
+
 void		ft_generate_walls_projection(t_img *img)
 {
 	int							i;
@@ -32,11 +53,13 @@ void		ft_generate_walls_projection(t_img *img)
 		var.ray_angle = img->rays[i].ray_angle;
 		var.ray_distance = img->rays[i].distance;
 		ft_calc_wall_top_bottom_pix(&wall_top_pixel, &wall_bottom_pixel, var);
+		ft_ceiling_projection(img, wall_top_pixel, i);
 		while (wall_top_pixel < wall_bottom_pixel)
 		{
 			ft_img_pix_put(img, i, wall_top_pixel, WHITE_PIXEL);
 			wall_top_pixel++;
 		}
+		ft_floor_projection(img, wall_bottom_pixel, i);
 		i++;
 	}
 }
