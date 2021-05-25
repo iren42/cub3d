@@ -72,6 +72,7 @@ typedef struct	s_var_cast_ray
 	float	ver_wall_hit_y;
 	int		ver_wall_content;
 }				t_var_cast_ray;
+
 typedef struct	s_rect
 {
 	int	x;
@@ -131,10 +132,17 @@ typedef struct	s_var_generate_walls_proj
 	float		ray_angle;
 	float		ray_distance;
 	float		distance_proj_plane;
-
+	int			wall_top_pixel;
+	int			wall_bottom_pixel;
+	int			wall_strip_height;
 }				t_var_generate_walls_proj;
 
-
+typedef struct s_tex {
+	int 	width;
+	int		height;
+	char	*relative_path;
+	void	*tex_ptr;
+}				t_tex;
 
 typedef struct  s_img {
     void        *mlx_img;
@@ -152,6 +160,7 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
+	t_tex	tex_ceiling;
 }				t_data;
 
 //////// MAP PARSING FUNCTIONS
@@ -187,6 +196,6 @@ void	ft_calculate_ver_intercept(t_var_cast_ray *var, t_ray ray, t_player player)
 void	ft_find_hor_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
-void		ft_generate_walls_projection(t_img *img);
+void		ft_generate_walls_projection(t_data *data);
 
 #endif

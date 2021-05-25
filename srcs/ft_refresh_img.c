@@ -79,7 +79,7 @@ void	ft_refresh_img(t_data *data)
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	ft_cast_all_rays(data->img.player, data->img.rays);
 	// Render 3D map
-	ft_generate_walls_projection(&data->img);
+	ft_generate_walls_projection(data);
 	// Render minimap
 	ft_render_map(&data->img);
 	ft_render_player(&data->img, data->img.player);
