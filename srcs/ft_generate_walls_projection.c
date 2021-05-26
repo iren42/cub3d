@@ -30,16 +30,35 @@ void		ft_ceiling_projection(t_data *data, int wall_top_pixel, int i)
 	}
 
 }
+int			ft_get_pix_color(t_tex img, int x, int y)
+{
+	int	a;
+
+	a = 0x0;
+	if (x >= 0 && x < img.width && y >= 0 && y <= img.height)
+		a = *(int*)(img.addr + (x + y * img.width) * img.bpp / 8);
+	return (a);
+}
 
 void		ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i)
 {
-	char	*dest;
-	char	*src;
+	int		tex_offset_x;
+	int		tex_offset_y;
+	int		j;
+	int		color;
 
-	while (var.wall_top_pixel < var.wall_bottom_pixel)
+	j = var.wall_top_pixel;
+	if (data->img.rays[i].was_hit_vertical)
+		tex_offset_x = (int)data->img.rays[i].wall_hit_y % TILE_SIZE;
+	else
+		tex_offset_x = (int)data->img.rays[i].wall_hit_x % TILE_SIZE;
+	while (j < var.wall_bottom_pixel)
 	{
-		memcpy(dest, src, 1);
-		var.wall_top_pixel++;
+		tex_offset_y = (j - var.wall_top_pixel) * 
+			((float)data->tex_ceiling.height / var.wall_strip_height);
+		color = ft_get_pix_color(data->tex_ceiling, tex_offset_x, tex_offset_y);
+		ft_img_pix_put(&data->img, i, j, color);
+		j++;
 	}
 }
 
@@ -58,11 +77,13 @@ void		ft_xpm(t_data *data)
 	int hei;
 	//	t_img *tex;
 
-	char *path = "./textures/mossy.xpm";
-	data->tex_ceiling.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path, &wid, &hei);
+	char *path = "./textures/redbrick.xpm";
+	data->tex_ceiling.tex_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &wid, &hei);
+	data->tex_ceiling.addr = mlx_get_data_addr(data->tex_ceiling.tex_img, &data->tex_ceiling.bpp,
+		&data->tex_ceiling.line_len, &data->tex_ceiling.endian);
 	data->tex_ceiling.height = hei;
 	data->tex_ceiling.width = wid;
-	printf("wid hei from tex : %d %d\n", wid, hei);
+//	printf("wid hei from tex : %d %d\n", wid, hei);
 }
 
 void		ft_generate_walls_projection(t_data *data)
@@ -80,13 +101,13 @@ void		ft_generate_walls_projection(t_data *data)
 		var.ray_distance = data->img.rays[i].distance;
 		ft_calc_wall_top_bottom_pix(&var);
 		ft_ceiling_projection(data, var.wall_top_pixel, i);
-//		ft_walls_projection(data, var, i);
-		while (var.wall_top_pixel < var.wall_bottom_pixel)
+		ft_walls_projection(data, var, i);
+/*		while (var.wall_top_pixel < var.wall_bottom_pixel)
 		{
 			ft_img_pix_put(&data->img, i, var.wall_top_pixel, WHITE_PIXEL);
 			var.wall_top_pixel++;
 		}
-		ft_floor_projection(data, var.wall_bottom_pixel, i);
+*/		ft_floor_projection(data, var.wall_bottom_pixel, i);
 		i++;
 	}
 }

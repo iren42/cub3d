@@ -141,7 +141,11 @@ typedef struct s_tex {
 	int 	width;
 	int		height;
 	char	*relative_path;
-	void	*tex_ptr;
+	void	*tex_img;
+	char	*addr;
+	int 	bpp;
+	int		line_len;
+	int		endian;
 }				t_tex;
 
 typedef struct  s_img {
