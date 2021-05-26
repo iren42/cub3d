@@ -17,11 +17,15 @@ void	ft_init_map(t_map *map)
 	map->error = 0;
 	map->res_x = 0;
 	map->res_y = 0;
-	map->no = 0;
-	map->so = 0;
-	map->so = 0;
-	map->we = 0;
-	map->ea = 0;
-	map->sprite = 0;
+	map->texture = malloc(sizeof(char*) * 5);
+	if (map->texture != NULL)
+	{
+		map->texture[No] = 0;
+		map->texture[So] = 0;
+		map->texture[Ea] = 0;
+		map->texture[We] = 0;
+		map->texture[Sp] = 0;
+	}
+	map->floor = 0;
 	map->ceiling = 0;
 }

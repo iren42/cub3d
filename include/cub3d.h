@@ -82,19 +82,21 @@ typedef struct	s_rect
 	int	color;
 }		t_rect;
 
+enum e_tex{No, So, We, Ea, Sp};
+
 typedef struct	s_map
 {
 	int		error;
 	int		res_x;
 	int		res_y;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*sprite;
+//	char	*no;
+//	char	*so;
+//	char	*we;
+//	char	*ea;
+//	char	*sprite;
+	char	**texture;
 	char	*floor;
 	char	*ceiling;
-
 }				t_map;
 
 
@@ -164,7 +166,7 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
-	t_tex	tex_ceiling;
+	t_tex	*tex;
 }				t_data;
 
 //////// MAP PARSING FUNCTIONS
@@ -201,5 +203,6 @@ void	ft_find_hor_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
+void		ft_import_xpm_file(t_data *data, t_map map);
 
 #endif

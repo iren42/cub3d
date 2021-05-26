@@ -55,9 +55,14 @@ int	ft_create_mlx_win_and_img(t_data *data)
 void	ft_free_and_destroy_mlx_win(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex[No].tex_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex[So].tex_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex[We].tex_img);
+	mlx_destroy_image(data->mlx_ptr, data->tex[Ea].tex_img);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	free(data->img.rays);
+	free(data->tex);
 }
 
 int ft_mlx(t_map map)
@@ -69,6 +74,7 @@ int ft_mlx(t_map map)
 	(void)map;
 	ft_setup_img(&data.img);
 	err = ft_create_mlx_win_and_img(&data);
+	ft_import_xpm_file(&data, map);
 	ft_refresh_img(&data);
 	ft_mlx_hook(&data);
 	mlx_loop(data.mlx_ptr);

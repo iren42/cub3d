@@ -2,10 +2,11 @@
 
 void	ft_free_map(t_map *map)
 {
-	free(map->no);
-	free(map->so);
-	free(map->we);
-	free(map->ea);
+	free(map->texture[No]);
+	free(map->texture[So]);
+	free(map->texture[We]);
+	free(map->texture[Ea]);
+	free(map->texture);
 //	free(map->sprite); // TODO: parsing for sprite, floor, ceiling
 //	free(map->floor);
 //	free(map->ceiling);

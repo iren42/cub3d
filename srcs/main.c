@@ -16,10 +16,10 @@ void	ft_display_tmap(t_map map)
 {
 	printf("res_x = %d\n", map.res_x);
 	printf("res_y = %d\n", map.res_y);
-	printf("no = %s\n", map.no);
-	printf("so = %s\n", map.so);
-	printf("ea = %s\n", map.ea);
-	printf("we = %s\n", map.we);
+	printf("no = %s\n", map.texture[No]);
+	printf("so = %s\n", map.texture[So]);
+	printf("ea = %s\n", map.texture[Ea]);
+	printf("we = %s\n", map.texture[We]);
 	printf("error = %d\n", map.error);
 }
 

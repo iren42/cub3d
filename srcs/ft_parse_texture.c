@@ -29,11 +29,11 @@ char	*ft_get_pathname(char *line)
 			name[a++] = line[i++];
 		name[a] = '\0';
 	}
-
 	return (name);
 }
 
-char	*ft_fill_texture(char *line, char *map_tex)
+// clean the pathname
+char	*ft_get_texture_path(char *line, char *map_tex)
 {
 	char	*path_texture;
 	int		len;
@@ -56,12 +56,16 @@ char	*ft_fill_texture(char *line, char *map_tex)
 void	ft_parse_texture(char *line, t_map *map)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		map->no = ft_fill_texture(line, map->no);
+	{
+		map->texture[No] = ft_get_texture_path(line, map->texture[No]);
+
+	printf("No %s\n", map->texture[No]);
+	}
 	if (ft_strncmp(line, "SO ", 3) == 0)
-		map->so = ft_fill_texture(line, map->so);
+		map->texture[So] = ft_get_texture_path(line, map->texture[So]);
 	if (ft_strncmp(line, "WE ", 3) == 0)
-		map->we = ft_fill_texture(line, map->we);
+		map->texture[We] = ft_get_texture_path(line, map->texture[We]);
 	if (ft_strncmp(line, "EA ", 3) == 0)
-		map->ea = ft_fill_texture(line, map->ea);
+		map->texture[Ea] = ft_get_texture_path(line, map->texture[Ea]);
 
 }
