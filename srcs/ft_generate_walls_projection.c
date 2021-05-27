@@ -85,12 +85,7 @@ void		ft_generate_walls_projection(t_data *data)
 		ft_calc_wall_top_bottom_pix(&var);
 		ft_ceiling_projection(data, var.wall_top_pixel, i);
 		ft_walls_projection(data, var, i);
-		/*		while (var.wall_top_pixel < var.wall_bottom_pixel)
-				{
-				ft_img_pix_put(&data->img, i, var.wall_top_pixel, WHITE_PIXEL);
-				var.wall_top_pixel++;
-				}
-		 */		ft_floor_projection(data, var.wall_bottom_pixel, i);
+		ft_floor_projection(data, var.wall_bottom_pixel, i);
 		i++;
 	}
 }

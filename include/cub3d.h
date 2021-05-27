@@ -18,6 +18,7 @@
 # include <math.h>
 # include "mlx.h"
 # include "get_next_line.h"
+# include "libft.h"
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -89,12 +90,13 @@ typedef struct	s_map
 	int		error;
 	int		res_x;
 	int		res_y;
+	char	**map; // the actual 2d map
 //	char	*no;
 //	char	*so;
 //	char	*we;
 //	char	*ea;
 //	char	*sprite;
-	char	**texture;
+	char	**texture; // no, so, we, ea, sp
 	char	*floor;
 	char	*ceiling;
 }				t_map;

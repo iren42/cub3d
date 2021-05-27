@@ -12,6 +12,8 @@
 
 NAME	= cub3d
 
+LIBFT	= libft
+
 I		= -I include \
 		-I /usr/include \
 		-I mlx_linux
@@ -77,7 +79,9 @@ all		: $(NAME)
 
 $(NAME) : $(OBJS) $(HEADER) $(MLX)
 		make -C $(MLX)
-		$(CC) -o $@ $(OBJS) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz
+		make -C $(LIBFT)
+		make bonus -C $(LIBFT)
+		$(CC) -o $@ $(OBJS) -Llibft -lft -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm
 	#	$(CC) -o $@ $(OBJS) mlx_linux/libmlx_Linux.a -Imlx_linux -lXext -lX11 -lm -lz
 
 norm	:
@@ -87,9 +91,11 @@ norm	:
 clean	:
 		$(RM) $(OBJS)
 		$(RM) $(OBJS:.o=.d)
+		make clean -C $(LIBFT)
 		make clean -C $(MLX)
 
 fclean	: clean
+		make fclean -C $(LIBFT)
 		$(RM) $(NAME)
 
 re		: fclean all
