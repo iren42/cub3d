@@ -34,9 +34,9 @@ int main(int ac, char **av)
 	ft_init_map(&map);
 	if (ac == 1)
 		printf("Missing map");
-	if (ac == 2 && ft_parse_map(av[1], &map))
+	if (ac == 2 && ft_parse_map(av[1], &map) == SUCCESS)
 	{
-		printf("parsing succeed\n");
+		printf("fd's parsing succeed\n");
 		err = ft_mlx(map);
 		if (err == SUCCESS)
 			printf("MLX went well\n");

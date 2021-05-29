@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_free_tmap(t_map *map)
+void	ft_free_map(t_map *map)
 {
 	int	i;
 
@@ -10,10 +10,8 @@ void	ft_free_tmap(t_map *map)
 	free(map->texture[We]);
 	free(map->texture[Ea]);
 	free(map->texture);
-	while (map->map != 0)
-	{
-	free(map->map[i++]);
-	}
+	while (map->map[i] != 0)
+		free(map->map[i++]);
 	free(map->map);
 //	free(map->sprite); // TODO: parsing for sprite, floor, ceiling
 //	free(map->floor);

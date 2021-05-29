@@ -91,14 +91,11 @@ typedef struct	s_map
 	int		res_x;
 	int		res_y;
 	char	**map; // the actual 2d map
-//	char	*no;
-//	char	*so;
-//	char	*we;
-//	char	*ea;
-//	char	*sprite;
 	char	**texture; // no, so, we, ea, sp
 	char	*floor;
 	char	*ceiling;
+	int		nb_map_rows;
+	int		nb_map_cols;
 }				t_map;
 
 
