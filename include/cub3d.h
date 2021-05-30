@@ -94,8 +94,8 @@ typedef struct	s_map
 	char	**texture; // no, so, we, ea, sp
 	char	*floor;
 	char	*ceiling;
-	int		nb_map_rows;
-	int		nb_map_cols;
+	int		rows;
+	int		cols;
 }				t_map;
 
 
@@ -203,5 +203,13 @@ void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
 void		ft_import_xpm_file(t_data *data, t_map map);
+void	ft_free_mapchar(char **map);
 
+
+//// display things
+
+void	affiche_str(void *c);
+void	affiche_list(t_list *l);
+void	ft_display_tmap_map(t_map map);
+void	ft_display_chararray(char **map);
 #endif

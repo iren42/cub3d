@@ -32,30 +32,6 @@ int	ft_is_filename_valid(char *name)
 	return (FAILURE);
 }
 
-void	ft_display_tmap_map(t_map map)
-{
-	int	i;
-
-	i = 0;
-	while (map.map[i] != 0)
-	{
-		printf("%s\n", map.map[i]);
-		i++;
-	}
-}
-
-void	ft_display_chararray(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != 0)
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
-
 int	ft_convert_map_lst_to_array(t_list *l, t_map *map, int rows, int cols)
 {
 	int i;
@@ -74,23 +50,9 @@ int	ft_convert_map_lst_to_array(t_list *l, t_map *map, int rows, int cols)
 		i++;
 	}
 	map->map[i] = 0;
-	map->nb_map_rows = rows;
-	map->nb_map_cols = cols;
-//	ft_display_tmap_map(*map);
+	map->rows = rows;
+	map->cols = cols;
 	return (SUCCESS);
-}
-
-void	affiche_str(void *c)
-{
-	printf("line saved : %s\n", (char*)c);
-}
-
-void	affiche_list(t_list *l)
-{
-	printf("\nLIST BEGIN-----\n");
-	if (l != 0)
-		ft_lstiter(l, &affiche_str);
-	printf("END-----\n");
 }
 
 void	ft_free_lst(void *f)
@@ -151,8 +113,6 @@ int	ft_set_tmap(int fd, t_map *map)
 	}
 	else
 		free(line);
-	printf("num rows = %d, num cols = %d\n", map_num_rows, map_num_cols);
-	affiche_list(lst);
 	ft_convert_map_lst_to_array(lst, map, map_num_rows, map_num_cols);
 	ft_lstclear(&lst, &free); // free or ft_free_lst ?
 	return (SUCCESS);
@@ -181,7 +141,6 @@ int	ft_does_map_have_only_one_player(char **tab, int *player_x, int *player_y)
 		}
 		i++;
 	}
-	//	printf("number of player (must be 1) : %d (%d, %d)\n", nb_players, *player_x, *player_y);
 	if (nb_players != 1)
 		return (0);
 	return (1);
@@ -191,41 +150,49 @@ void	ft_spread_b(char **map, int x, int y, int nb_rows, int nb_cols)
 {
 
 	if (x >= 0 && x <= nb_rows - 1 && y >= 0 && y <= nb_cols - 1)
-	if (map[x][y] == '0' || map[x][y] == '2' )
-	{
-		map[x][y] = 'b';
-		ft_spread_b(map, x + 1, y, nb_rows, nb_cols);
-		ft_spread_b(map, x - 1, y, nb_rows, nb_cols);
-		ft_spread_b(map, x, y + 1, nb_rows, nb_cols);
-		ft_spread_b(map, x, y - 1, nb_rows, nb_cols);
-	}
+		if (map[x][y] == '0' || map[x][y] == '2' )
+		{
+			map[x][y] = 'b';
+			ft_spread_b(map, x + 1, y, nb_rows, nb_cols);
+			ft_spread_b(map, x - 1, y, nb_rows, nb_cols);
+			ft_spread_b(map, x, y + 1, nb_rows, nb_cols);
+			ft_spread_b(map, x, y - 1, nb_rows, nb_cols);
+		}
 }
 
-char	**ft_copy_maparray(char **map, int nb_rows, int nb_cols)
+char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols)
 {
 	char	**res;
 	int		i;
+	int		j;
 
 	i = 0;
-	printf("HERE\n");
 	res = malloc(sizeof(char*) * (nb_rows + 1));
 	if (res != NULL)
 	{
 		while (map[i] != 0)
 		{
-		//	res[i] = ft_strdup(map[i]);
+			j = 0;
 			res[i] = malloc(sizeof(char) * (nb_cols + 1));
-			ft_bzero(res[i], nb_cols + 1);
-			ft_memmove(res[i], map[i], ft_strlen(map[i]));
+			while (j < nb_cols && map[i][j] != '\0')
+			{
+				res[i][j] = map[i][j];
+				j++;
+			}
+			while (j < nb_cols)
+			{
+				res[i][j] = ' ';
+				j++;
+			}
+			res[i][j] = '\0';
 			i++;
 		}
 		res[i] = 0;
 	}
-	printf("HERE\n");
 	return (res);
 }
 
-int		ft_is_b_found_in_prohibited_areas_vert(char **map, int nb_rows)
+int		ft_is_b_found_in_prohibited_areas(char **map, int rows, int cols)
 {
 	int i;
 	int j;
@@ -234,7 +201,7 @@ int		ft_is_b_found_in_prohibited_areas_vert(char **map, int nb_rows)
 	while (map[0][i] != '\0')
 		if (map[0][i++] == 'b')
 			return (1);
-	while (j < nb_rows - 1)
+	while (j < rows - 1 && i < cols - 1)
 	{
 		i = 0;
 		if (map[j][0] == 'b') // regarde le bord gauche de la ligne j
@@ -246,8 +213,8 @@ int		ft_is_b_found_in_prohibited_areas_vert(char **map, int nb_rows)
 		j++;
 	}
 	i = 0;
-	while (map[nb_rows - 1][i] != '\0')
-		if (map[nb_rows - 1][i++] == 'b')
+	while (map[rows - 1][i] != '\0')
+		if (map[rows - 1][i++] == 'b')
 			return (1);
 	return (0);
 }
@@ -280,31 +247,55 @@ char	**ft_turn_chararray(char **map, int rows, int cols)
 		}
 		res[i] = 0;
 	}
-	ft_display_chararray(res);
 	return (res);
+}
+
+char	**ft_mirror(char **map, int rows, int cols)
+{
+	int		i;
+	int		j;
+	char	buffer;
+
+	i = 0;
+	while (i < rows) // tous les rows
+	{
+		j = 0;
+		while (j < cols / 2)
+		{
+			buffer = map[i][j];
+			map[i][j] = map[i][cols - 1 - j];
+			map[i][cols - 1 - j] = buffer;
+			j++;
+		}
+		i++;
+	}
+	return (map);
 }
 
 int	ft_is_map_closed(t_map map, int px, int py)
 {
 	char	**tab;
 	char	**tab_turned;
+	int		ret;
 
-	tab = ft_copy_maparray(map.map, map.nb_map_rows, map.nb_map_cols); // TODO:free it
+	ret = 1;
+	tab = ft_copy_mapchar(map.map, map.rows, map.cols);
 	ft_display_chararray(tab);
 	tab[px][py] = '0';
-	ft_spread_b(tab, px, py, map.nb_map_rows, map.nb_map_cols);
-	printf("After propagation:\n");
-	ft_display_chararray(tab);
-	printf("Turn array\n\n\n");
-	tab_turned = ft_turn_chararray(tab, map.nb_map_rows, map.nb_map_cols);
-	if (ft_is_b_found_in_prohibited_areas_vert(tab, map.nb_map_rows)
-	|| ft_is_b_found_in_prohibited_areas_vert(tab_turned, map.nb_map_cols) // TODO: mirrors
-	)
+	ft_spread_b(tab, px, py, map.rows, map.cols);
+	tab_turned = ft_turn_chararray(tab, map.rows, map.cols);
+	if (ft_is_b_found_in_prohibited_areas(tab, map.rows, map.cols)
+			|| ft_is_b_found_in_prohibited_areas(tab_turned, map.cols, map.rows)
+			|| ft_is_b_found_in_prohibited_areas(ft_mirror(tab, map.rows, map.cols), map.rows, map.cols)
+			|| ft_is_b_found_in_prohibited_areas(ft_mirror(tab_turned, map.cols, map.rows), map.cols, map.rows)
+	   )
 	{
 		printf("b was found. Oops\n");
-		return (0);
+		ret = 0;
 	}
-	return (1);
+	ft_free_mapchar(tab);
+	ft_free_mapchar(tab_turned);
+	return (ret);
 }
 
 int	ft_is_map_valid(t_map *map)
@@ -314,7 +305,7 @@ int	ft_is_map_valid(t_map *map)
 
 	if (ft_does_map_have_only_one_player(map->map, &player_x, &player_y) != 1)
 		return (0);
-//	ft_display_tmap_map(*map);
+	//	ft_display_tmap_map(*map);
 	if (!ft_is_map_closed(*map, player_x, player_y))
 		return (0);
 	return (1);

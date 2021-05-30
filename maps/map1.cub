@@ -1,6 +1,6 @@
 R +1600  	--1600
 
-NO ./textures/red\ brick.xpm      	
+NO ./textures/redbrick.xpm      	
 SO ./textures/doom.xpm
 WE ./textures/wall.xpm
 EA ./textures/eagle.xpm

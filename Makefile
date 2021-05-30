@@ -59,7 +59,9 @@ SOURCES		= main.c \
 			ft_find_wall_hit_xy.c \
 			ft_fill_ray_data.c \
 			ft_generate_walls_projection.c \
-			ft_import_xpm_file.c
+			ft_import_xpm_file.c \
+			ft_free_mapchar.c \
+			ft_display_things.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))
 
