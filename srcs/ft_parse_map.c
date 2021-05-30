@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include "cub3d.h"
 
-int	ft_is_filename_valid(char *name)
+static int	ft_is_filename_valid(char *name)
 {
 	char	*str;
 
@@ -38,9 +38,10 @@ int	ft_convert_map_lst_to_array(t_list *l, t_map *map, int rows, int cols)
 	int lstsize;
 
 	lstsize = ft_lstsize(l);
-	map->map = malloc(sizeof(char*) * (rows + 1));
+	map->map = malloc(sizeof(char*) * (lstsize + 1));
 	if (map->map == NULL)
 		return (FAILURE);
+	i = 0;
 	while (l)
 	{
 		map->map[i] = ft_strdup(l->content); // TODO: free it
@@ -79,16 +80,32 @@ int	ft_is_map_description(char *line, int *map_num_cols)
 	return (1);
 }
 
-int	ft_set_tmap(int fd, t_map *map)
+static void	ft_lstadd_line_or_free(t_list **lst, char *line, int *rows, int *cols)
+{
+	if (ft_is_map_description(line, cols) == 1)
+	{
+
+	printf("line:%s\n", line);
+		ft_lstadd_back(lst, ft_lstnew(line));
+		*rows = *rows + 1;
+	}
+	else
+	{
+	printf("FREED %s\n", line);
+		free(line);
+}
+}
+
+static int	ft_set_tmap(int fd, t_map *map)
 {
 	int		ret;
 	char	*line;
-	int		map_num_rows;
-	int		map_num_cols;
+	int		rows;
+	int		cols;
 	t_list	*lst;
 
-	map_num_rows = 0;
-	map_num_cols = 0;
+	rows = 0;
+	cols = 0;
 	lst = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
@@ -98,22 +115,28 @@ int	ft_set_tmap(int fd, t_map *map)
 			ft_parse_texture(line, map);
 			//		ft_parse_color(line, map);
 		}
-		if (ft_is_map_description(line, &map_num_cols) == 1)
+		ft_lstadd_line_or_free(&lst, line, &rows, &cols);
+/*		if (ft_is_map_description(line, &cols) == 1)
 		{
 			ft_lstadd_back(&lst, ft_lstnew(line));
-			map_num_rows++;
+			rows++;
 		}
 		else
 			free(line);
+*/
 	}
-	if (ft_is_map_description(line, &map_num_cols) == 1)
-	{
+	printf("in loop:%s\n", line);
+	ft_lstadd_line_or_free(&lst, line, &rows, &cols);
+/*		if (ft_is_map_description(line, &cols) == 1)
+		{
 		ft_lstadd_back(&lst, ft_lstnew(line));
-		map_num_rows++;
-	}
-	else
+		rows++;
+		}
+		else
 		free(line);
-	ft_convert_map_lst_to_array(lst, map, map_num_rows, map_num_cols);
+*/	 	
+	affiche_list(lst);
+	ft_convert_map_lst_to_array(lst, map, rows, cols);
 	ft_lstclear(&lst, &free); // free or ft_free_lst ?
 	return (SUCCESS);
 }
@@ -167,13 +190,16 @@ char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols)
 	int		j;
 
 	i = 0;
+//	printf("%d %d\n", nb_rows, nb_cols);
 	res = malloc(sizeof(char*) * (nb_rows + 1));
 	if (res != NULL)
 	{
-		while (map[i] != 0)
+		while (i < nb_rows)
 		{
 			j = 0;
 			res[i] = malloc(sizeof(char) * (nb_cols + 1));
+			if (res[i] == NULL) // TODO: free all if a malloc failed
+				return (0);
 			while (j < nb_cols && map[i][j] != '\0')
 			{
 				res[i][j] = map[i][j];
@@ -184,7 +210,7 @@ char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols)
 				res[i][j] = ' ';
 				j++;
 			}
-			res[i][j] = '\0';
+			res[i][nb_cols] = '\0';
 			i++;
 		}
 		res[i] = 0;
@@ -311,9 +337,9 @@ int	ft_is_map_valid(t_map *map)
 	return (1);
 }
 
-int ft_parse_map(char *name, t_map *map)
+int	ft_parse_map(char *name, t_map *map)
 {
-	int fd;
+	int	fd;
 
 	fd = 0;
 	if (!ft_is_filename_valid(name))

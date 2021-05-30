@@ -1,7 +1,7 @@
 #include "cub3d.h"
 void	affiche_str(void *c)
 {
-	printf("line saved : %s\n", (char*)c);
+	printf("line: %s\n", (char*)c);
 }
 
 void	affiche_list(t_list *l)
