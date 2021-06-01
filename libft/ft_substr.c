@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 22:53:49 by iren              #+#    #+#             */
-/*   Updated: 2021/02/11 21:35:31 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 20:44:26 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*ft_substr(const char *str, unsigned int start, size_t len)
 			start = (unsigned int)strlen;
 		if (start + len > strlen)
 			len = strlen - start;
-		if (!(res = malloc(sizeof(char) * (len + 1))))
+		res = malloc(sizeof(char) * (len + 1));
+		if (res == NULL)
 			return (0);
 		ft_memmove(res, &str[start], len);
 		res[len] = '\0';

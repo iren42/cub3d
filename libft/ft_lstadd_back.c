@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 01:09:51 by iren              #+#    #+#             */
-/*   Updated: 2021/02/11 21:26:35 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 19:22:41 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list *last_element;
+	t_list	*last_element;
 
 	if (alst == 0)
 		return ;

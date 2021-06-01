@@ -6,15 +6,15 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 21:12:13 by iren              #+#    #+#             */
-/*   Updated: 2020/09/01 15:19:42 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 19:31:03 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_count_digits(int n)
+static int	ft_count_digits(int n)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	while (n != 0)
@@ -25,18 +25,38 @@ static int		ft_count_digits(int n)
 	return (res);
 }
 
-static char		*ft_zero(void)
+static char	*ft_zero(void)
 {
-	char *res;
+	char	*res;
 
-	if (!(res = malloc(sizeof(char) * (2))))
+	res = malloc(sizeof(char) * (2));
+	if (res == NULL)
 		return (0);
 	res[0] = '0';
 	res[1] = '\0';
 	return (res);
 }
 
-char			*ft_itoa(int nb)
+static char	*ft_calc(int count, long n)
+{
+	char	*res;
+
+	res = malloc(sizeof(char) * (count + 1));
+	if (res == NULL)
+		return (0);
+	res[count] = '\0';
+	count--;
+	while (n != 0)
+	{
+		res[count--] = (n % 10 + '0');
+		n = n / 10;
+	}
+	if (count == 0)
+		res[count] = '-';
+	return (res);
+}
+
+char	*ft_itoa(int nb)
 {
 	char	*res;
 	int		count;
@@ -51,16 +71,6 @@ char			*ft_itoa(int nb)
 		n *= (-1);
 		count++;
 	}
-	if (!(res = malloc(sizeof(char) * (count + 1))))
-		return (0);
-	res[count] = '\0';
-	count--;
-	while (n != 0)
-	{
-		res[count--] = (n % 10 + '0');
-		n = n / 10;
-	}
-	if (count == 0)
-		res[count] = '-';
+	res = ft_calc(count, n);
 	return (res);
 }

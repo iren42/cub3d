@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 00:17:36 by iren              #+#    #+#             */
-/*   Updated: 2020/09/05 02:13:29 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 20:24:24 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*))
 		return (0);
 	while (lst)
 	{
-		if ((new_elem = ft_lstnew((*f)(lst->content))) == 0)
+		new_elem = ft_lstnew((*f)(lst->content));
+		if (new_elem == 0)
 		{
 			ft_lstclear(&res, del);
 			return (0);

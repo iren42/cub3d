@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 01:09:10 by iren              #+#    #+#             */
-/*   Updated: 2021/02/11 21:27:11 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/01 13:36:27 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list *tmp;
+	t_list	*ptr;
 
 	if (!del)
 		return ;
-	if (lst)
+	if (*lst)
+	{
 		while (*lst)
 		{
-			tmp = (*lst)->next;
+			ptr = (*lst)->next;
 			ft_lstdelone(*lst, del);
-			(*lst) = tmp;
+			*lst = ptr;
 		}
-	*lst = 0;
+	}
+	lst = 0;
 }

@@ -6,12 +6,11 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 19:32:54 by iren              #+#    #+#             */
-/*   Updated: 2021/05/31 19:16:10 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 19:44:37 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static void	ft_free_split(char **split, int i)
 {
@@ -46,7 +45,7 @@ static int	ft_nb_words(const char *s, char c)
 	return (nb_w);
 }
 
-char	*ft_copy(char *dest, char const *src, int i, int *word_len)
+static char	*ft_copy(char *dest, char const *src, int i, int *word_len)
 {
 	int	j;
 
@@ -63,7 +62,7 @@ char	*ft_copy(char *dest, char const *src, int i, int *word_len)
 	return (dest);
 }
 
-int	ft_calc_word_len(char const *str, int *i, char c)
+static int	ft_calc_word_len(char const *str, int *i, char c)
 {
 	int	len;
 

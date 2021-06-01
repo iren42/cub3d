@@ -6,7 +6,7 @@
 /*   By: isabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:13:29 by isabelle          #+#    #+#             */
-/*   Updated: 2020/09/03 01:27:54 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 20:35:35 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	if (s != 0)
