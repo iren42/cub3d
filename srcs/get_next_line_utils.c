@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	size_t res;
+	size_t	res;
 
 	res = 0;
 	while (str[res])
@@ -22,7 +22,7 @@ size_t		ft_strlen(const char *str)
 	return (res);
 }
 
-char		*ft_substr(const char *str, unsigned int start, size_t len)
+char	*ft_substr(const char *str, unsigned int start, size_t len)
 {
 	char	*res;
 	size_t	strlen;
@@ -36,7 +36,8 @@ char		*ft_substr(const char *str, unsigned int start, size_t len)
 			start = (unsigned int)strlen;
 		if (start + len > strlen)
 			len = strlen - start;
-		if (!(res = malloc(sizeof(char) * (len + 1))))
+		res = malloc(sizeof(char) * (len + 1));
+		if (res == NULL)
 			return (0);
 		ft_memmove(res, &str[start], len);
 		res[len] = '\0';
@@ -45,30 +46,27 @@ char		*ft_substr(const char *str, unsigned int start, size_t len)
 	return (0);
 }
 
-void		*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	char			*s;
 	char			*d;
 	unsigned int	i;
 
-	i = 0;
-	s = (char*)src;
-	d = (char*)dest;
+	i = -1;
+	s = (char *)src;
+	d = (char *)dest;
 	if (d == s)
-		return ((void*)d);
+		return ((void *)d);
 	if (s > d)
-		while (i < n)
-		{
-			d[i] = s[i];
-			i++;
-		}
+		while (++i < n)
+			*(d + i) = *(s + i);
 	else
 		while (n--)
 			d[n] = s[n];
-	return ((void*)d);
+	return ((void *)d);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char			*res;
 	char			*start_s2;
@@ -76,16 +74,16 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	unsigned int	i;
 	unsigned int	j;
 
-	res = 0;
 	if (!s1 || !s2)
 		return (0);
 	len = 0;
-	start_s2 = (char*)s2;
+	start_s2 = (char *)s2;
 	while (s1[len])
 		len++;
 	while (*start_s2++)
 		len++;
-	if (!(res = malloc(sizeof(char) * (len + 1))))
+	res = malloc(sizeof(char) * (len + 1));
+	if (res == 0)
 		return (0);
 	i = -1;
 	j = -1;
@@ -97,13 +95,13 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char		*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int		i;
 	char	*st;
 
 	i = 0;
-	st = (char*)s;
+	st = (char *)s;
 	while (st[i])
 	{
 		if (c == st[i])
@@ -112,5 +110,5 @@ char		*ft_strchr(const char *s, int c)
 	}
 	if (c == '\0')
 		return (&st[i]);
-	return ((char*)0);
+	return ((char *)0);
 }

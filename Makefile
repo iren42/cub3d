@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/04/18 15:34:28 by iren             ###   ########.fr        #
+#    Updated: 2021/05/31 00:43:26 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,11 @@ SOURCES		= main.c \
 			  ft_parse_texture.c \
 			  ft_res_length.c \
 			  ft_free_tmap.c \
+			  ft_copy_mapchar.c \
+			  ft_free_previously_malloced.c \
+			  ft_mirror.c \
+			  ft_set_tmap.c \
+			  ft_is_map_closed.c \
 			  \
 			  ft_mlx.c \
 			  ft_img_pix_put.c \

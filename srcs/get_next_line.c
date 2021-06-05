@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 17:00:20 by iren              #+#    #+#             */
-/*   Updated: 2021/04/17 22:09:40 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 09:06:24 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ static char	*read_line(int fd, char **str, int *len)
 	char	*tmp;
 
 	tmp = 0;
-	while ((*len = read(fd, buffer, 32)) > 0)
+	*len = read(fd, buffer, 32);
+	while (*len > 0)
 	{
 		buffer[*len] = '\0';
 		tmp = *str;
 		*str = ft_strjoin(tmp, buffer);
 		free(tmp);
-		if (ft_strchr((char*)*str, '\n') != 0)
+		if (ft_strchr((char *)*str, '\n') != 0)
 			break ;
+		*len = read(fd, buffer, 32);
 	}
 	return (*str);
 }
@@ -36,14 +38,14 @@ static void	manage_strs(char **str, char **saved_str)
 
 	tmp = *str;
 	*saved_str = ft_substr(*str, ft_strchr(*str, '\n') - *str + 1,
-				ft_strlen(*str));
+			ft_strlen(*str));
 	*str = ft_substr(tmp, 0, ft_strchr(tmp, '\n') - tmp);
 	free(tmp);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char	*str;
+	char		*str;
 	static char	*saved_str;
 	int			len;
 

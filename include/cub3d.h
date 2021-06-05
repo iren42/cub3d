@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/04/18 16:45:28 by iren             ###   ########.fr       */
+/*   Updated: 2021/05/31 01:05:09 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ typedef struct	s_var_cast_ray
 	float	ver_wall_hit_y;
 	int		ver_wall_content;
 }				t_var_cast_ray;
+
+typedef struct	s_var_spread_b
+{
+	int		rows;
+	int		cols;
+}				t_var_spread_b;
 
 typedef struct	s_rect
 {
@@ -181,6 +187,13 @@ void	ft_free_map(t_map *map);
 int		ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
 int		ft_close(t_data *data);
+char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols);
+void	ft_free_previously_malloced(char **tab, int i);
+int	ft_is_b_in_prohibited_areas(char **map, int rows, int cols);
+char	**ft_mirror(char **map, int rows, int cols);
+int	ft_set_tmap(int fd, t_map *map);
+int	ft_is_map_closed(t_map map, int px, int py);
+
 //////// MLX 2D MAP FUNCTIONS
 void	ft_update(t_player *p);
 void	ft_render_background(t_img *img, int color);
@@ -207,7 +220,6 @@ void	ft_free_mapchar(char **map);
 
 
 //// display things
-
 void	affiche_str(void *c);
 void	affiche_list(t_list *l);
 void	ft_display_tmap_map(t_map map);
