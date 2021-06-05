@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/05/31 01:05:09 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/05 23:29:19 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
 void		ft_import_xpm_file(t_data *data, t_map map);
 void	ft_free_mapchar(char **map);
+void		ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i);
 
 
 //// display things

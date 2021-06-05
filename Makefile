@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/05/31 00:43:26 by iren             ###   ########.fr        #
+#    Updated: 2021/06/05 23:31:04 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SOURCES		= main.c \
 			ft_generate_walls_projection.c \
 			ft_import_xpm_file.c \
 			ft_free_mapchar.c \
+			ft_walls_projection.c \
 			ft_display_things.c
 
 SRCS	= $(addprefix $(DIR_S), $(SOURCES))

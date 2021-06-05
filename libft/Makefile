@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/01 16:49:57 by iren              #+#    #+#              #
-#    Updated: 2021/06/02 01:20:35 by iren             ###   ########.fr        #
+#    Updated: 2021/06/05 21:56:01 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,9 +77,9 @@ all		: $(NAME)
 .c.o	:
 		$(CC) $(CFLAGS) -g -c $< -o $(<:.c=.o)
 
-so		:
-		$(CC) -c -fPIC $(CFLAGS) $(SRCS)
-	    gcc -shared -o $(NAME1) $(OBJS) $(OBJS_BONUS)
+#so		:
+#		$(CC) -c -fPIC $(CFLAGS) $(SRCS)
+#	    gcc -shared -o $(NAME1) $(OBJS) $(OBJS_BONUS)
 
 $(NAME) : $(OBJS) $(HEADER)
 		ar rc $(NAME) $(OBJS)

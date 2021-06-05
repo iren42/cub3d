@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/05/31 09:02:39 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/05 22:25:38 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_is_filename_valid(char *name)
 	return (FAILURE);
 }
 
-int	ft_does_map_have_only_one_player(char **tab, int *player_x, int *player_y)
+static int	does_map_have_oao_player(char **tab, int *player_x, int *player_y)
 {
 	int	nb_players;
 	int	i;
@@ -66,9 +66,8 @@ static int	ft_is_map_valid(t_map *map)
 	int	player_x;
 	int	player_y;
 
-	if (ft_does_map_have_only_one_player(map->map, &player_x, &player_y) != 1)
+	if (does_map_have_oao_player(map->map, &player_x, &player_y) != 1)
 		return (0);
-	//	ft_display_tmap_map(*map);
 	if (!ft_is_map_closed(*map, player_x, player_y))
 		return (0);
 	return (1);
