@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/06/06 13:50:48 by iren             ###   ########.fr        #
+#    Updated: 2021/06/06 14:07:08 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,6 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					ft_mirror.c \
 					ft_set_tmap.c \
 					ft_is_map_closed.c \
-					ft_is_space.c \
-					ft_res_length.c \
 					ft_skip_spaces.c \
 					ft_display_things.c
 
