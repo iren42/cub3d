@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 11:53:19 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 15:55:38 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_set_tmap(int fd, t_map *map)
 		{
 			ft_parse_R(line, map);
 			ft_parse_texture(line, map);
-		//	ft_parse_color(line, map); //TODO
+			ft_parse_color(line, map);
 		}
 		lstadd_line_or_free(&lst, line, &rows, &cols);
 		ret = get_next_line(fd, &line);

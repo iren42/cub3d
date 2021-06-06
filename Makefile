@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/06/06 14:24:02 by iren             ###   ########.fr        #
+#    Updated: 2021/06/06 23:08:42 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					get_next_line_utils.c \
 					ft_parse_R.c \
 					ft_parse_texture.c \
+					ft_parse_color.c \
+					ft_parse_nb.c \
 					ft_copy_mapchar.c \
 					ft_rotate_mapchar.c \
 					ft_free_mapchar.c \

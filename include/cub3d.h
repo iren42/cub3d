@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 14:25:58 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 23:09:57 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ typedef struct	s_map
 	int		res_y;
 	char	**map; // the actual 2d map
 	char	**texture; // no, so, we, ea, sp
-	char	*floor;
-	char	*ceiling;
+	int		floor;
+	int		ceiling;
 	int		rows;
 	int		cols;
 }				t_map;
@@ -179,6 +179,8 @@ void	ft_init_tmap(t_map *map);
 int		ft_parse_all(char *name, t_map *map);
 void	ft_parse_R(char *line, t_map *map);
 void	ft_parse_texture(char *line, t_map *map);
+void	ft_parse_color(char *line, t_map *map);
+int		ft_parse_nb(char *line, int *i, char c);
 int		ft_skip_spaces(char *s, int i);
 void	ft_free_tmap(t_map *map);
 
