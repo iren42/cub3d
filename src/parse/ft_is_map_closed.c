@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:38:25 by iren              #+#    #+#             */
-/*   Updated: 2021/05/31 01:58:10 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 15:38:57 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,6 @@ static void	ft_spread_b(char **map, t_var_spread_b var, int x, int y)
 	}
 }
 
-static char	**rotate_mapchar(char **map, int rows, int cols)
-{
-	char	**res;
-	int		i;
-	int		j;
-
-	i = -1;
-	res = malloc(sizeof(char *) * (cols + 1));
-	if (res != NULL)
-	{
-		while (++i < cols)
-		{
-			j = -1;
-			res[i] = malloc(sizeof(char) * (rows + 1));
-			while (++j < rows)
-			{
-				if (map[j][i] == '\0')
-					res[i][j] = ' ';
-				else
-					res[i][j] = map[j][i];
-			}
-			res[i][j] = '\0';
-		}
-		res[i] = 0;
-	}
-	return (res);
-}
-
 static int	find_b_in_proh_area(char **map, int rows, int cols)
 {
 	int	i;
@@ -64,7 +36,7 @@ static int	find_b_in_proh_area(char **map, int rows, int cols)
 	while (map[0][i] != '\0')
 		if (map[0][i++] == 'b')
 			return (1);
-	while (j < rows - 1 && i < cols - 1)
+	while (j < rows - 1)
 	{
 		i = 0;
 		if (map[j][0] == 'b')
@@ -104,10 +76,9 @@ int	ft_is_map_closed(t_map map, int px, int py)
 	if (px < map.rows && px > -1 && py < map.cols && py > -1)
 		cp[px][py] = '0';
 	ft_spread_b(cp, var, px, py);
-	cp_rot = rotate_mapchar(cp, map.rows, map.cols);
+	cp_rot = ft_rotate_mapchar(cp, map.rows, map.cols);
 	if (cp_rot == NULL)
 		return (FAILURE);
-	ft_display_chararray(cp_rot);
 	b_is_found = find_b_in_proh_area(cp, map.rows, map.cols)
 		|| find_b_in_proh_area(cp_rot, map.cols, map.rows)
 		|| find_b_in_proh_area(ft_mirror(cp, map.rows, map.cols),

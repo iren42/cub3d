@@ -1,0 +1,14 @@
+R  500 500
+
+NO ./textures/redbrick.xpm
+SO ./textures/doom.xpm
+WE ./textures/wall.xpm
+EA ./textures/eagle.xpm
+
+S ./textures/skeleton.xpm
+F 255,255,0
+C 255,255,0
+
+11111111111111
+10002000000021
+10111111111111

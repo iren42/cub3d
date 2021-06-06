@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 14:07:21 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 14:25:58 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int		ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
 int		ft_close(t_data *data);
 char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols);
+char	**ft_rotate_mapchar(char **map, int rows, int cols);
 void	ft_free_mapchar(char **map);
 void	ft_free_previously_malloced(char **tab, int i);
 char	**ft_mirror(char **map, int rows, int cols);

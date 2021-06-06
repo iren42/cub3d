@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/06/06 14:07:08 by iren             ###   ########.fr        #
+#    Updated: 2021/06/06 14:24:02 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					ft_parse_R.c \
 					ft_parse_texture.c \
 					ft_copy_mapchar.c \
+					ft_rotate_mapchar.c \
 					ft_free_mapchar.c \
 					ft_free_previously_malloced.c \
 					ft_mirror.c \
