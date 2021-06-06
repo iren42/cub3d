@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 12:07:46 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 13:42:18 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ int		ft_close(t_data *data);
 char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols);
 void	ft_free_mapchar(char **map);
 void	ft_free_previously_malloced(char **tab, int i);
-int	ft_is_b_in_prohibited_areas(char **map, int rows, int cols);
 char	**ft_mirror(char **map, int rows, int cols);
 int	ft_set_tmap(int fd, t_map *map);
 int	ft_is_map_closed(t_map map, int px, int py);
