@@ -1,11 +1,11 @@
 R +1600  	--1600
 
-NO ./textures/redbrick.xpm      	
-SO ./textures/doom.xpm
-WE ./textures/wall.xpm
-EA ./textures/eagle.xpm
+NO ./texture/redbrick.xpm      	
+SO ./texture/doom.xpm
+WE ./texture/wall.xpm
+EA ./texture/eagle.xpm
 
-S ./textures/skeleton.xpm
+S ./texture/skeleton.xpm
 F 255,255,0
 C 255,255,0
 

@@ -1,12 +1,12 @@
 R  720 720
 
-NO ./textures/wall.xpm
-SO ./textures/doom.xpm
-WE ./textures/redbrick.xpm
-EA ./textures/eagle.xpm
+NO ./texture/wall.xpm
+SO ./texture/doom.xpm
+WE ./texture/redbrick.xpm
+EA ./texture/eagle.xpm
 
 
-S ./textures/skeleton.xpm
+S ./texture/skeleton.xpm
 F 224,172,105
 C 205,249,255
 
