@@ -20,6 +20,6 @@ void		ft_import_xpm_file(t_data *data, t_map map)
 			data->tex[i].height = hei;
 			data->tex[i].width = wid;
 			i++;
-			printf("tex wid hei : %d %d filename %s\n", wid, hei, filename);
+	//		printf("tex wid hei : %d %d filename %s\n", wid, hei, filename);
 		}
 }

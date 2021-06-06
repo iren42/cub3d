@@ -6,13 +6,13 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:14:11 by iren              #+#    #+#             */
-/*   Updated: 2021/04/18 00:43:21 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 11:27:15 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_init_map(t_map *map)
+void	ft_init_tmap(t_map *map)
 {
 	map->error = 0;
 	map->res_x = 0;

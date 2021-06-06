@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 11:04:58 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 12:07:46 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ typedef struct s_data
 }				t_data;
 
 //////// MAP PARSING FUNCTIONS
-void	ft_init_map(t_map *map);
+void	ft_init_tmap(t_map *map);
 int		ft_parse_map(char *name, t_map *map);
 void	ft_parse_R(char *line, t_map *map);
 void	ft_parse_texture(char *line, t_map *map);
@@ -188,6 +188,7 @@ int		ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);
 int		ft_close(t_data *data);
 char	**ft_copy_mapchar(char **map, int nb_rows, int nb_cols);
+void	ft_free_mapchar(char **map);
 void	ft_free_previously_malloced(char **tab, int i);
 int	ft_is_b_in_prohibited_areas(char **map, int rows, int cols);
 char	**ft_mirror(char **map, int rows, int cols);
@@ -199,8 +200,6 @@ void	ft_update(t_player *p);
 void	ft_render_background(t_img *img, int color);
 int	ft_render_rect(t_img *img, t_rect rect);
 int	ft_render_line(t_img *img, int x1, int y1, int x2, int y2);
-//int	ft_abs(float n);
-//void	ft_swap(float *a, float *b);
 void	ft_refresh_img(t_data *data);
 void	ft_mlx_hook(t_data *data);
 int		ft_map_has_wall_at(float x, float y);
@@ -216,7 +215,6 @@ void	ft_find_ver_wall_hit_xy(t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
 void		ft_import_xpm_file(t_data *data, t_map map);
-void	ft_free_mapchar(char **map);
 void		ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i);
 
 
