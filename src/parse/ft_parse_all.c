@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/06/05 22:25:38 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 13:48:13 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ft_is_map_valid(t_map *map)
 	return (1);
 }
 
-int	ft_parse_map(char *name, t_map *map)
+int	ft_parse_all(char *name, t_map *map)
 {
 	int	fd;
 

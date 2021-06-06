@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:46:11 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 11:54:05 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 13:51:35 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int ac, char **av)
 	ft_init_tmap(&map);
 	if (ac == 1)
 		printf("Missing map");
-	if (ac == 2 && ft_parse_map(av[1], &map) == SUCCESS)
+	if (ac == 2 && ft_parse_all(av[1], &map) == SUCCESS)
 	{
 		printf("fd's parsing succeed\n");
 		err = ft_mlx(map);

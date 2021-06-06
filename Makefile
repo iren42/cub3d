@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/06/06 12:02:32 by iren             ###   ########.fr        #
+#    Updated: 2021/06/06 13:50:48 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ DIR_2DMAP = 2dmap/
 
 DIR_3DMAP	= 3dmap/
 
-SOURCES_PARSE	=	ft_parse_map.c \
+SOURCES_PARSE	=	ft_parse_all.c \
 					get_next_line.c \
 					get_next_line_utils.c \
 					ft_parse_R.c \
