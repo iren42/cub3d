@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_free_map(t_map *map)
+void	ft_free_tmap(t_map *map)
 {
 	int	i;
 

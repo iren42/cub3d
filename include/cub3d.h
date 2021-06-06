@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/06/05 23:29:19 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 11:04:58 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	ft_parse_texture(char *line, t_map *map);
 int		ft_skip_spaces(char *s, int i);
 int		ft_is_space(char c);
 int		ft_res_length(char *res);
-void	ft_free_map(t_map *map);
+void	ft_free_tmap(t_map *map);
 
 int		ft_mlx(t_map map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);

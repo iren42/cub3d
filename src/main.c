@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:46:11 by iren              #+#    #+#             */
-/*   Updated: 2021/04/18 16:54:47 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 11:04:18 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main(int ac, char **av)
 		err = ft_mlx(map);
 		if (err == SUCCESS)
 			printf("MLX went well\n");
-		ft_free_map(&map);
+		ft_free_tmap(&map);
 	}
 	return (EXIT_SUCCESS);
 }
