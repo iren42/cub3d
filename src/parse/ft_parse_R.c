@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 00:39:31 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 23:52:56 by iren             ###   ########.fr       */
+/*   Updated: 2021/06/06 23:57:24 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_parse_R(char *line, t_map *map)
 	if (line[0] == 'R' && line[1] == ' ' 
 			&& map->res_x == 0 && map->res_y == 0)
 	{
-		mlx_get_screen_size();
 		i = ft_skip_spaces(line, ++i);
 		map->res_x = ft_parse_nb(line, &i, ' ');
 		map->res_y = ft_parse_nb(line, &i, ' ');
