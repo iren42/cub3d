@@ -5,7 +5,7 @@ int ft_render_rect(t_img *img, t_rect rect)
 	int	i;
 	int j;
 
-	if (rect.x && rect.y)
+	if (rect.x > 0 && rect.y > 0)
 	{
 		i = rect.y;
 		while (i < rect.y + rect.height)
