@@ -1,24 +1,35 @@
 #include "cub3d.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
-int	ft_handle_no_event(void *data)
+
+static int	ft_handle_no_event(void *data)
 {
 	/* This function needs to exist, but it is useless for the moment */
 	(void)data;
 	return (0);
 }
 
-void	ft_update_player_s_values(t_data *data, t_player *p)
+static void	ft_update_player_s_values(t_data *data, t_player *p)
 {
 	float	move_step;
+	float	side_step;
 	float	new_player_x;
 	float	new_player_y;
 
-	p->rotation_angle += p->turn_dir * p->turn_speed;
-	move_step = p->walk_dir * p->walk_speed;
-	new_player_x = p->x + cos(p->rotation_angle) * move_step;
-	new_player_y = p->y + sin(p->rotation_angle) * move_step;
-	if (!ft_map_has_wall_at(new_player_x, new_player_y))
+	p->rotation_angle += p->turn_dir * p->turn_speed; 
+	move_step = (p->walk_dir) * p->walk_speed;
+	//	printf("ro angle %f PI %f %f %f\n", p->rotation_angle, PI / 2, PI, 3 * PI / 2);
+	if (p->turn_dir != 0 || p->walk_dir != 0) /// move front back and turn left right
+	{
+		new_player_x = p->x + cos(p->rotation_angle) * move_step;
+		new_player_y = p->y + sin(p->rotation_angle) * move_step;
+	}
+	else // move left right
+	{
+		new_player_x = p->x + cos(p->rotation_angle + (PI / 2) * p->cam_dir) * p->walk_speed;
+		new_player_y = p->y + sin(p->rotation_angle + (PI / 2) * p->cam_dir) * p->walk_speed;
+	}
+	if (!ft_map_has_wall_at(data, new_player_x, new_player_y))
 	{
 		p->x = new_player_x;
 		p->y = new_player_y;
@@ -27,21 +38,17 @@ void	ft_update_player_s_values(t_data *data, t_player *p)
 
 int	handle_keyrelease(int keysym, t_data *data)
 {
-	if (keysym == XK_W || keysym == XK_w)
+	if (keysym == XK_w || keysym == XK_s)
 	{
 		data->img.player.walk_dir = 0;
 	}
-	if (keysym == XK_S || keysym == XK_s)
-	{
-		data->img.player.walk_dir = 0;
-	}
-	if (keysym == XK_d || keysym == XK_D) // right
+	else if (keysym == XK_Right || keysym == XK_Left)
 	{
 		data->img.player.turn_dir = 0;
 	}
-	if (keysym == XK_A || keysym == XK_a) // left
+	else if (keysym == XK_a || keysym == XK_d)
 	{
-		data->img.player.turn_dir = 0;
+		data->img.player.cam_dir = 0;
 	}
 	return (0);
 }
@@ -54,21 +61,37 @@ int	handle_keypress(int keysym, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		data->win_ptr = NULL;
 	}
-	if (keysym == XK_W || keysym == XK_w)
+	else if (keysym == XK_a) // move left
 	{
-		data->img.player.walk_dir = +1;
+		data->img.player.cam_dir = -1;
+		//		printf("cam dir %d\n", data->img.player.cam_dir);
 		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 	}
-	if (keysym == XK_S || keysym == XK_s)
+	else if (keysym == XK_d) // move right
+	{
+		data->img.player.cam_dir = +1;
+		// refresh image
+		ft_update_player_s_values(data, &(data->img.player));
+		ft_refresh_img(data);
+	}
+	else if (keysym == XK_w) // move front
+	{
+		data->img.player.walk_dir = +1;
+		//		printf("walk dir %d\n", data->img.player.walk_dir);
+		// refresh image
+		ft_update_player_s_values(data, &(data->img.player));
+		ft_refresh_img(data);
+	}
+	else if (keysym == XK_s) // move back
 	{
 		data->img.player.walk_dir = -1;
 		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
 		ft_refresh_img(data);
 	}
-	if (keysym == XK_d || keysym == XK_D) // right
+	else if (keysym == XK_Right) // look right
 	{
 		data->img.player.turn_dir = +1;
 		// refresh image
@@ -76,7 +99,7 @@ int	handle_keypress(int keysym, t_data *data)
 		ft_refresh_img(data);
 
 	}
-	if (keysym == XK_A || keysym == XK_a)
+	else if (keysym == XK_Left) // look left
 	{
 		data->img.player.turn_dir = -1;
 		// refresh image

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	ft_render_player(t_img *img, t_player p)
+static void	ft_render_player(t_img *img, t_player p)
 {
 	t_rect rec = {p.x * MINIMAP_SCALE_FACTOR,
 		p.y * MINIMAP_SCALE_FACTOR, 
@@ -11,13 +11,13 @@ void	ft_render_player(t_img *img, t_player p)
 	ft_render_line(img, 
 			MINIMAP_SCALE_FACTOR * p.x, 
 			MINIMAP_SCALE_FACTOR * p.y, 
-			MINIMAP_SCALE_FACTOR * p.x + cos(p.rotation_angle) * 40, // 40 is the length of the line
-			MINIMAP_SCALE_FACTOR * p.y + sin(p.rotation_angle) * 40
+			MINIMAP_SCALE_FACTOR * (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2)), // (TILE_SIZE / 2) is the length of the line
+			MINIMAP_SCALE_FACTOR * (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2))
 			);
 
 }
 
-int ft_render_tile(t_img *img, int j, int i, int color)
+static int ft_render_tile(t_img *img, int j, int i, int color)
 {
 	int n;
 	int m;
@@ -29,44 +29,45 @@ int ft_render_tile(t_img *img, int j, int i, int color)
 	{
 		m = j * scale;
 		while (m < (j + 1) * scale)
-			ft_img_pix_put(img, m++, n, color);
+		{
+			if (ft_get_pix_color(*img, m, n) != color)
+				ft_img_pix_put(img, m++, n, color);
+		}
 		n++;
 	}
 	return (0);
 }
-// map has to be a 2d dynamic array
-void ft_render_map(t_img *img) {
+// map has to be a 2d array
+static void ft_render_map(t_img *img) {
 	int tileColor;
 	int i;
 	int j;
 
-	i = 0;
-	j = 0;
-	while (i < MAP_NUM_ROWS)
+	i = -1;
+//	printf("rows cols %d %d\n", img->tmap->rows, img->tmap->cols);
+	while (++i < img->tmap->rows) // MAP_NUM_ROWS
 	{
-		j= 0;
-		while (j < MAP_NUM_COLS)
+		j = -1;
+		while (++j < img->tmap->cols) // MAP_NUM_COLS
 		{
-			tileColor = map[i][j] != 0 ? BLACK_PIXEL : WHITE_PIXEL;
+			tileColor = img->tmap->map[i][j] == '1' ? MINIMAP_COLOR_2 : MINIMAP_COLOR_1;
 			ft_render_tile(img, j, i, tileColor);
-			j++;
 		}
-		i++;
 	}
 }
 
-void	ft_render_rays(t_img *img)
+static void	ft_render_rays(t_data *data)
 {
 	int			i;
 
 	i = 0;
-	while (i < NUM_RAYS)
+	while (i < data->img.width)
 	{
-		ft_render_line(img,
-			MINIMAP_SCALE_FACTOR * img->player.x,
-			MINIMAP_SCALE_FACTOR * img->player.y,
-			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_x,
-			MINIMAP_SCALE_FACTOR * img->rays[i].wall_hit_y
+		ft_render_line(&data->img,
+			MINIMAP_SCALE_FACTOR * data->img.player.x,
+			MINIMAP_SCALE_FACTOR * data->img.player.y,
+			MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_x,
+			MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_y
 		);
 //		printf("rays[%d] %f %f\n",i, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
 		i++;
@@ -77,13 +78,13 @@ void	ft_refresh_img(t_data *data)
 {	
 	if (data->mlx_ptr != NULL && data->win_ptr != NULL)
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	ft_cast_all_rays(data->img.player, data->img.rays);
+	ft_cast_all_rays(data, data->img.player, data->img.rays);
 	// Render 3D map
 	ft_generate_walls_projection(data);
 	// Render minimap
 	ft_render_map(&data->img);
 	ft_render_player(&data->img, data->img.player);
-	ft_render_rays(&data->img);
+//	ft_render_rays(data); // BIG LAG
 	if (data->img.mlx_img != NULL)
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 }

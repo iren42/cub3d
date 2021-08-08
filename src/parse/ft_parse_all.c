@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_map.c                                     :+:      :+:    :+:   */
+/*   ft_parse_all.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 13:48:13 by iren             ###   ########.fr       */
+/*   Updated: 2021/07/25 17:12:22 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static int	ft_is_filename_valid(char *name)
 	return (FAILURE);
 }
 
-static int	does_map_have_oao_player(char **tab, int *player_x, int *player_y)
+// function returns 1 if map has one and only one player
+// else returns 0
+// function also initialize values for player_x and player_y
+static int	does_map_have_oaoo_player(char **tab, int *player_x, int *player_y)
 {
 	int	nb_players;
 	int	i;
@@ -49,13 +52,14 @@ static int	does_map_have_oao_player(char **tab, int *player_x, int *player_y)
 			|| tab[i][j] == 'S')
 			{
 				nb_players++;
-				*player_x = i;
-				*player_y = j;
+				*player_x = j;
+				*player_y = i;
 			}
 			j++;
 		}
 		i++;
 	}
+//	printf("parse : x %d y %d\n", *player_x, *player_y);
 	if (nb_players != 1)
 		return (0);
 	return (1);
@@ -63,13 +67,16 @@ static int	does_map_have_oao_player(char **tab, int *player_x, int *player_y)
 
 static int	ft_is_map_valid(t_map *map)
 {
-	int	player_x;
-	int	player_y;
+	int	player_x; // position x of player
+	int	player_y; // position y of player
 
-	if (does_map_have_oao_player(map->map, &player_x, &player_y) != 1)
+	if (does_map_have_oaoo_player(map->map, &player_x, &player_y) != 1)
 		return (0);
-	if (!ft_is_map_closed(*map, player_x, player_y))
+	if (!ft_is_map_closed(map, player_x, player_y))
 		return (0);
+	map->player_x = player_x;
+	map->player_y = player_y;
+//	printf("x %d\n", map->player_x);
 	return (1);
 }
 

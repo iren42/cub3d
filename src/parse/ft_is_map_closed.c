@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:38:25 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 15:38:57 by iren             ###   ########.fr       */
+/*   Updated: 2021/07/31 20:39:49 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	ft_spread_b(char **map, t_var_spread_b var, int x, int y)
 {
-	if (x >= 0 && x <= var.rows - 1 && y >= 0 && y <= var.cols - 1)
+	if (y >= 0 && y <= var.rows - 1 && x >= 0 && x <= var.cols - 1)
 	{
-		if (map[x][y] == '0' || map[x][y] == '2' )
+		if (map[y][x] == '0')
 		{
-			map[x][y] = 'b';
+			map[y][x] = 'b';
 			ft_spread_b(map, var, x + 1, y);
 			ft_spread_b(map, var, x - 1, y);
 			ft_spread_b(map, var, x, y + 1);
@@ -36,21 +36,22 @@ static int	find_b_in_proh_area(char **map, int rows, int cols)
 	while (map[0][i] != '\0')
 		if (map[0][i++] == 'b')
 			return (1);
-	while (j < rows - 1)
+	i = 0;
+	while (map[rows - 1][i] != '\0')
+		if (map[rows - 1][i++] == 'b')
+			return (1);
+	j = 0;
+	while (++j < rows - 1)
 	{
 		i = 0;
 		if (map[j][0] == 'b')
 			return (1);
 		while (map[j][i] != '\0' && map[j][i] != ' ')
 			i++;
-		if (map[j][i - 1] == 'b')
-			return (1);
-		j++;
+		if (i > 0)
+			if (map[j][i - 1] == 'b')
+				return (1);
 	}
-	i = 0;
-	while (map[rows - 1][i] != '\0')
-		if (map[rows - 1][i++] == 'b')
-			return (1);
 	return (0);
 }
 
@@ -62,30 +63,52 @@ static void	ft_init_var(t_var_spread_b *var, int rows, int cols,
 	*b_is_found = 0;
 }
 
-int	ft_is_map_closed(t_map map, int px, int py)
+void	ft_disable_diag_mvmt(t_map *tmap, char **ref)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (++j < tmap->rows)
+	{
+		i = -1;
+		while (++i < tmap->cols)
+		{
+			if (ref[j][i] == '0')
+				tmap->map[j][i] = ' ';
+		}
+	}
+//	ft_display_tmap_map(*tmap);
+}
+
+int	ft_is_map_closed(t_map *tmap, int px, int py)
 {
 	char			**cp;
 	char			**cp_rot;
 	int				b_is_found;
 	t_var_spread_b	var;
 
-	ft_init_var(&var, map.rows, map.cols, &b_is_found);
-	cp = ft_copy_mapchar(map.map, map.rows, map.cols);
+	ft_init_var(&var, tmap->rows, tmap->cols, &b_is_found);
+	cp = ft_copy_mapchar(tmap->map, tmap->rows, tmap->cols);
 	if (cp == NULL)
 		return (FAILURE);
-	if (px < map.rows && px > -1 && py < map.cols && py > -1)
-		cp[px][py] = '0';
+	if (py < tmap->rows && py > -1 && px < tmap->cols && px > -1)
+		cp[py][px] = '0';
 	ft_spread_b(cp, var, px, py);
-	cp_rot = ft_rotate_mapchar(cp, map.rows, map.cols);
+//	printf("display: copy of chararray after ft_spread_b function\n");
+//	ft_display_chararray(cp);
+	cp_rot = ft_rotate_mapchar(cp, tmap->rows, tmap->cols);
 	if (cp_rot == NULL)
 		return (FAILURE);
-	b_is_found = find_b_in_proh_area(cp, map.rows, map.cols)
-		|| find_b_in_proh_area(cp_rot, map.cols, map.rows)
-		|| find_b_in_proh_area(ft_mirror(cp, map.rows, map.cols),
-			map.rows, map.cols)
-		|| find_b_in_proh_area(ft_mirror(cp_rot, map.cols, map.rows),
-			map.cols, map.rows);
+	b_is_found = find_b_in_proh_area(cp, tmap->rows, tmap->cols)
+		|| find_b_in_proh_area(cp_rot, tmap->cols, tmap->rows)
+		|| find_b_in_proh_area(ft_mirror(cp, tmap->rows, tmap->cols),
+			tmap->rows, tmap->cols)
+		|| find_b_in_proh_area(ft_mirror(cp_rot, tmap->cols, tmap->rows),
+			tmap->cols, tmap->rows);
+	ft_disable_diag_mvmt(tmap, cp);
 	ft_free_mapchar(cp);
 	ft_free_mapchar(cp_rot);
+//	printf("is b found ? %d\n", b_is_found);
 	return (!b_is_found);
 }

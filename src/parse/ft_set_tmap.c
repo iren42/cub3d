@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 15:55:38 by iren             ###   ########.fr       */
+/*   Updated: 2021/07/25 15:36:02 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_linemap_desc(char *line, int *map_num_cols)
 		return (0);
 	while (line[i] != '\0')
 	{
-		if (ft_strchr(" 210NWES", line[i]) != NULL)
+		if (ft_strchr(" 10NWES", line[i]) != NULL)
 			i++;
 		else
 			return (0);
@@ -89,9 +89,9 @@ int	ft_set_tmap(int fd, t_map *map)
 	ret = get_next_line(fd, &line);
 	while (ret > 0)
 	{
-		if (ft_strchr("RNOSWEAFC", line[0]) != NULL)
+		if (ft_strchr("NOSWEAFC", line[0]) != NULL)
 		{
-			ft_parse_R(line, map);
+//			ft_parse_R(line, map);
 			ft_parse_texture(line, map);
 			ft_parse_color(line, map);
 		}
