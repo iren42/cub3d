@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
+/*   Updated: 2021/08/09 00:20:35 by iren             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	ft_render_player(t_img *img, t_player p)
@@ -25,13 +37,15 @@ static int ft_render_tile(t_img *img, int j, int i, int color)
 
 	scale = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 	n = i * scale;
+	if (color >= 0)
 	while (n < (i + 1) * scale)
 	{
 		m = j * scale;
 		while (m < (j + 1) * scale)
 		{
-			if (ft_get_pix_color(*img, m, n) != color)
-				ft_img_pix_put(img, m++, n, color);
+			if (ft_get_pix_color(img, m, n) != color)
+				ft_img_pix_put(img, m, n, color);
+			m++;
 		}
 		n++;
 	}
@@ -45,12 +59,18 @@ static void ft_render_map(t_img *img) {
 
 	i = -1;
 //	printf("rows cols %d %d\n", img->tmap->rows, img->tmap->cols);
+//	ft_display_tmap_map(*img->tmap);
+	if (img->tmap->map != NULL)
 	while (++i < img->tmap->rows) // MAP_NUM_ROWS
 	{
 		j = -1;
 		while (++j < img->tmap->cols) // MAP_NUM_COLS
 		{
-			tileColor = img->tmap->map[i][j] == '1' ? MINIMAP_COLOR_2 : MINIMAP_COLOR_1;
+		//	tileColor = img->tmap->map[i][j] == '1' ? MINIMAP_COLOR_2 : MINIMAP_COLOR_1;
+			if (img->tmap->map[i][j] == '1')
+				tileColor = MINIMAP_COLOR_2;
+			else
+				tileColor = MINIMAP_COLOR_1;
 			ft_render_tile(img, j, i, tileColor);
 		}
 	}

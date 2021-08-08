@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/07/25 15:36:02 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/09 00:15:41 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ static int	convert_maplst_to_char(t_list *l, t_map *map, int rows, int cols)
 	i = 0;
 	while (l)
 	{
-		map->map[i] = ft_strdup(l->content);
+//		map->map[i] = ft_strdup(l->content);
+		map->map[i] = malloc(sizeof(char) * (cols + 1));
 		if (map->map[i] == NULL)
 		{
 			ft_free_previously_malloced(map->map, i);
 			return (FAILURE);
 		}
+		ft_bzero(map->map[i], cols + 1);
+		ft_strlcpy(map->map[i], l->content, cols + 1);
 		l = l->next;
 		i++;
 	}

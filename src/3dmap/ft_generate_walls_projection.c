@@ -26,10 +26,11 @@ static void	ft_ceiling_projection(t_data *data, int wall_top_pixel, int i)
 	int	top_pixel;
 
 	top_pixel = 0;
-	if (wall_top_pixel)
+	if (wall_top_pixel > 0 && i > 0)
 	while (top_pixel < wall_top_pixel)
 	{
-		if (ft_get_pix_color(data->img, i, top_pixel) != data->img.tmap->ceiling)
+//		printf("ceiling %d %d %d\n", data->img.tmap->ceiling, i, ft_get_pix_color(data->img, i, top_pixel));
+		if (ft_get_pix_color(&data->img, i, top_pixel) != data->img.tmap->ceiling)
 			ft_img_pix_put(&data->img, i, top_pixel, data->img.tmap->ceiling);
 		top_pixel++;
 	}
@@ -39,7 +40,7 @@ static void	ft_floor_projection(t_data *data, int wall_bottom_pixel, int i)
 {
 	while (wall_bottom_pixel < data->img.height)
 	{
-		if (ft_get_pix_color(data->img, i, wall_bottom_pixel) != data->img.tmap->floor)
+		if (ft_get_pix_color(&data->img, i, wall_bottom_pixel) != data->img.tmap->floor)
 			ft_img_pix_put(&data->img, i, wall_bottom_pixel, data->img.tmap->floor);
 		wall_bottom_pixel++;
 	}

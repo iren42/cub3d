@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-int	ft_get_pix_color(t_img img, int x, int y)
+int	ft_get_pix_color(t_img *img, int x, int y)
 {
 	int	a;
 
 	a = 0x0;
-	if (x >= 0 && x < img.width && y >= 0 && y <= img.height)
-		a = *(int*)(img.addr + (x + y * img.width) * img.bpp / 8);
+	if (x >= 0 && x < img->width && y >= 0 && y <= img->height)
+		a = *(int*)(img->addr + (x + y * img->width) * img->bpp / 8);
 	return (a);
 }
 
@@ -42,9 +42,9 @@ void	ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i)
 		 tex_seen = ft_get_tex_seen(data, i);
 		 tex_offset_y = distance_from_top * 
 		((float)tex_seen->height / var.wall_strip_height);
-		if (ft_get_pix_color(data->img, i, j) != ft_get_pix_color(*tex_seen, tex_offset_x, tex_offset_y))
+		if (ft_get_pix_color(&data->img, i, j) != ft_get_pix_color(tex_seen, tex_offset_x, tex_offset_y))
 		ft_img_pix_put(&data->img, i, j, 
-				ft_get_pix_color(*tex_seen, tex_offset_x, tex_offset_y));
+				ft_get_pix_color(tex_seen, tex_offset_x, tex_offset_y));
 		j++;
 	}
 }

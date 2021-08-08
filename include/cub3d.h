@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/07/31 15:49:19 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/08 23:51:05 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
 void		ft_import_xpm_file(t_data *data, t_map *map);
 void		ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i);
-int		ft_get_pix_color(t_img img, int x, int y);
+int		ft_get_pix_color(t_img *img, int x, int y);
 
 
 //// display things
