@@ -6,11 +6,11 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/06/06 23:08:42 by iren             ###   ########.fr        #
+#    Updated: 2021/07/26 16:44:41 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 
 LIBFT	= libft
 
@@ -29,7 +29,6 @@ DIR_3DMAP	= 3dmap/
 SOURCES_PARSE	=	ft_parse_all.c \
 					get_next_line.c \
 					get_next_line_utils.c \
-					ft_parse_R.c \
 					ft_parse_texture.c \
 					ft_parse_color.c \
 					ft_parse_nb.c \
