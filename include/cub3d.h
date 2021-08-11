@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/08 23:51:05 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/11 15:45:42 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@
 
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0xFF00
-#define WHITE_PIXEL 0xFFFFFF
 #define BLACK_PIXEL 0x000000
-#define BLUE_PIXEL 0xFF0000FF
-#define BROWN_PIXEL 0xFF964B00
-
-# define MINIMAP_COLOR_1 BROWN_PIXEL
-# define MINIMAP_COLOR_2 GREEN_PIXEL
 
 #define PI 3.14159265
 #define TWO_PI 6.28318530

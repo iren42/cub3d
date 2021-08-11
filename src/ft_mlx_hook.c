@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_mlx_hook.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/11 15:31:41 by iren              #+#    #+#             */
+/*   Updated: 2021/08/11 15:31:42 by iren             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
 
-static int	ft_handle_no_event(void *data)
+static int	ft_main_loop(t_data *data)
 {
-	/* This function needs to exist, but it is useless for the moment */
-	(void)data;
+	ft_refresh_img(data);
 	return (0);
 }
 
@@ -65,54 +76,46 @@ int	handle_keypress(int keysym, t_data *data)
 	{
 		data->img.player.cam_dir = -1;
 		//		printf("cam dir %d\n", data->img.player.cam_dir);
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 	}
 	else if (keysym == XK_d) // move right
 	{
 		data->img.player.cam_dir = +1;
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 	}
 	else if (keysym == XK_w) // move front
 	{
 		data->img.player.walk_dir = +1;
 		//		printf("walk dir %d\n", data->img.player.walk_dir);
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 	}
 	else if (keysym == XK_s) // move back
 	{
 		data->img.player.walk_dir = -1;
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 	}
 	else if (keysym == XK_Right) // look right
 	{
 		data->img.player.turn_dir = +1;
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 
 	}
 	else if (keysym == XK_Left) // look left
 	{
 		data->img.player.turn_dir = -1;
-		// refresh image
 		ft_update_player_s_values(data, &(data->img.player));
-		ft_refresh_img(data);
 	}
 	return (0);
 }
+
 void	ft_mlx_hook(t_data *data)
 {
-	mlx_loop_hook(data->mlx_ptr, &ft_handle_no_event, data);
-	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
-	mlx_hook(data->win_ptr, 33, 1L<<2, &ft_close, data);
+	if (data != NULL)
+	{
+		mlx_loop_hook(data->mlx_ptr, &ft_main_loop, data);
+		mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
+		mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
+		mlx_hook(data->win_ptr, 33, 1L<<2, &ft_close, data);
+	}
 }
 

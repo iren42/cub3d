@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/08 23:12:10 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/11 00:01:27 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_create_mlx_win_and_img(t_data *data)
 	return (SUCCESS);
 }
 
-void	ft_free_and_destroy_mlx_win(t_data *data)
+void	ft_clear_all(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
 	mlx_destroy_image(data->mlx_ptr, data->tex[No].mlx_img);
@@ -99,14 +99,13 @@ int ft_mlx(t_map *map)
 	(void)err;
 	data.img.tmap = map;
 	err = ft_create_mlx_win_and_img(&data);
-	ft_setup_player(&data);
 	ft_import_xpm_file(&data, map);
-	ft_refresh_img(&data);
+	ft_setup_player(&data);
 	ft_mlx_hook(&data);
 	mlx_loop(data.mlx_ptr);
 
 	/* we will exit the loop if there's no window left, and execute this code */
-	ft_free_and_destroy_mlx_win(&data);
+	ft_clear_all(&data);
 	printf("mlx end**\n");
 	return (SUCCESS);
 }
