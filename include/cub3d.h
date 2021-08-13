@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:15:34 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 15:44:55 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct	s_var_spread_b
 	int		cols;
 }				t_var_spread_b;
 
-
 typedef struct	s_var_generate_walls_proj
 {
 	float		player_rotation_angle;
@@ -78,7 +77,6 @@ typedef struct	s_var_generate_walls_proj
 	int			wall_bottom_pixel;
 	int			wall_strip_height;
 }				t_var_generate_walls_proj;
-
 
 typedef struct	s_rect
 {
@@ -130,6 +128,17 @@ typedef struct	s_map
 	int		rows; // nb of rows
 	int		cols; // nb of cols
 }				t_map;
+
+typedef struct	s_var_set_tmap
+{
+	t_list	*lst;
+	char	*line;
+	t_map	*tmap;
+	int		ret;
+	int		fd;
+	int		has_map_begun;
+}				t_var_set_tmap;
+
 
 typedef struct  s_img {
     void        *mlx_img;

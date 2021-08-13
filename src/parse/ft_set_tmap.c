@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:18:08 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 16:21:38 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_map_content(char *line)
 			return (0);
 		while (line[i] != '\0')
 		{
-			if (ft_strchr("10NWES", line[i]) != NULL || ft_isspace(line[i]))
+			if (ft_strchr("10NWES ", line[i]) != NULL)
 				i++;
 			else
 				return (0);
@@ -36,7 +36,7 @@ static int	is_map_content(char *line)
 static int	convert_maplst_to_char(t_list *l, t_map *tmap)
 {
 	int	i;
-	
+
 	if (tmap->rows < 3 || tmap->cols < 3)
 		return (FAILURE);
 	tmap->map = malloc(sizeof(char *) * (tmap->rows + 1));
@@ -48,10 +48,8 @@ static int	convert_maplst_to_char(t_list *l, t_map *tmap)
 		tmap->map[i] = malloc(sizeof(char) * (tmap->cols + 1));
 		if (tmap->map[i] == NULL || !is_map_content(l->content))
 		{
-			//		printf("i %d proh char in %s\n", i, (char*)l->content);
 			ft_free_previously_malloced(tmap->map, i);
 			tmap->map = 0;
-		//	tmap->error = -1;
 			return (FAILURE);
 		}
 		ft_bzero(tmap->map[i], tmap->cols + 1);
@@ -78,42 +76,68 @@ static int	check_all_parsed(t_map *tmap, int has_map_begun)
 	return (tmap->error);
 }
 
+void	loop(t_var_set_tmap *t)
+{
+	t->has_map_begun = is_map_content(t->line);
+	while (t->has_map_begun && t->ret > 0)
+	{
+		ft_lstadd_back(&t->lst, ft_lstnew(t->line));
+		t->tmap->rows++;
+		if (ft_strlen(t->line) > (unsigned int)t->tmap->cols)
+			t->tmap->cols = ft_strlen(t->line);
+		t->ret = get_next_line(t->fd, &t->line);
+	}
+	if (ft_strchr("NSWEFC\n", t->line[0]) != NULL)
+	{
+		ft_parse_texture(t->line, t->tmap);
+		ft_parse_color(t->line, t->tmap);
+	}
+	else
+		t->tmap->error = -1;
+
+}
+
 int	ft_set_tmap(int fd, t_map *tmap)
 {
-	int		ret;
-	char	*line;
-	int		has_map_begun;
-	t_list	*lst;
+	/*	int		ret;
+		char	*line;
+		int		has_map_begun;
+		t_list	*lst;
+	 */
+	t_var_set_tmap	t;
 
-	line = 0;
-	lst = 0;
-	has_map_begun = 0;
-	ret = get_next_line(fd, &line);
-	while (ret > 0)
+	t.line = 0;
+	t.lst = 0;
+	t.has_map_begun = 0;
+	t.ret = get_next_line(fd, &t.line);
+	t.fd = fd;
+	t.tmap = tmap;
+	while (t.ret > 0)
 	{
-		has_map_begun = is_map_content(line);
-		while (has_map_begun && ret > 0)
-		{
-			ft_lstadd_back(&lst, ft_lstnew(line));
-			tmap->rows++;
-			if (ft_strlen(line) > (unsigned int)tmap->cols)
+		loop(&t);
+		/*		has_map_begun = is_map_content(line);
+				while (has_map_begun && ret > 0)
+				{
+				ft_lstadd_back(&lst, ft_lstnew(line));
+				tmap->rows++;
+				if (ft_strlen(line) > (unsigned int)tmap->cols)
 				tmap->cols = ft_strlen(line);
-			ret = get_next_line(fd, &line);
-		}
-		if (ft_strchr("NSWEFC\n", line[0]) != NULL)
-		{
-			ft_parse_texture(line, tmap);
-			ft_parse_color(line, tmap);
-		}
-		else // Proh char
-			tmap->error = -1;
-		free(line);
-		ret = get_next_line(fd, &line);
+				ret = get_next_line(fd, &line);
+				}
+				if (ft_strchr("NSWEFC", line[0]) != NULL)
+				{
+				ft_parse_texture(line, tmap);
+				ft_parse_color(line, tmap);
+				}
+				else
+				tmap->error = -1;
+		 */	free(t.line);
+		t.ret = get_next_line(t.fd, &t.line);
 	}
-	free(line);
+	free(t.line);
 	if (tmap->error == 0)
-		if (convert_maplst_to_char(lst, tmap) == -1)
+		if (convert_maplst_to_char(t.lst, tmap) == -1)
 			perror("Error.\nft_set_tmap.c: An error was found in map content.\n");
-	ft_lstclear(&lst, &free);
-	return (check_all_parsed(tmap, has_map_begun));
+	ft_lstclear(&t.lst, &free);
+	return (check_all_parsed(tmap, t.has_map_begun));
 }
