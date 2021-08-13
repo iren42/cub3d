@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_display_things.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/13 19:36:58 by iren              #+#    #+#             */
+/*   Updated: 2021/08/13 19:38:09 by iren             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
 void	affiche_str(void *c)
 {
-	static int i = 0;
-	printf("L %d:\t\t%s\n", i++, (char*)c);
+	static int	i = 0;
+
+	printf("L %d:\t\t%s\n", i++, (char *) c);
 }
 
 void	affiche_list(t_list *l)
@@ -13,13 +27,10 @@ void	affiche_list(t_list *l)
 	printf("END-----\n");
 }
 
-
 void	ft_display_tmap(t_map map)
 {
 	if (map.map != 0)
 	{
-		//	printf("res_x = %d\n", map.res_x);
-		//	printf("res_y = %d\n", map.res_y);
 		printf("no = %s\n", map.texture[No]);
 		printf("so = %s\n", map.texture[So]);
 		printf("ea = %s\n", map.texture[Ea]);
@@ -27,7 +38,6 @@ void	ft_display_tmap(t_map map)
 		printf("error = %d\n", map.error);
 	}
 }
-
 
 void	ft_display_tmap_map(t_map map)
 {

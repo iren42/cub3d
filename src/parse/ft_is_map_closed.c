@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:38:25 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:19:43 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 19:33:44 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	ft_init_var(t_var_spread_b *var, int rows, int cols,
 	*b_is_found = 0;
 }
 
-void	ft_disable_diag_mvmt(t_map *tmap, char **ref)
+static void	disable_diag_mvmt(t_map *tmap, char **ref)
 {
 	int	i;
 	int	j;
@@ -78,7 +78,6 @@ void	ft_disable_diag_mvmt(t_map *tmap, char **ref)
 				tmap->map[j][i] = ' ';
 		}
 	}
-//	ft_display_tmap_map(*tmap);
 }
 
 int	ft_is_map_closed(t_map *tmap, int px, int py)
@@ -95,8 +94,6 @@ int	ft_is_map_closed(t_map *tmap, int px, int py)
 	if (py < tmap->rows && py > -1 && px < tmap->cols && px > -1)
 		cp[py][px] = '0';
 	ft_spread_b(cp, var, px, py);
-//	printf("display: copy of chararray after ft_spread_b function\n");
-//	ft_display_chararray(cp);
 	cp_rot = ft_rotate_mapchar(cp, tmap->rows, tmap->cols);
 	if (cp_rot == NULL)
 		return (FAILURE);
@@ -106,9 +103,8 @@ int	ft_is_map_closed(t_map *tmap, int px, int py)
 			tmap->rows)
 		|| find_b_in_proh_area(ft_mirror(cp_rot, tmap->cols, tmap->rows),
 			tmap->cols);
-	ft_disable_diag_mvmt(tmap, cp);
+	disable_diag_mvmt(tmap, cp);
 	ft_free_mapchar(cp);
 	ft_free_mapchar(cp_rot);
-//	printf("is b found ? %d\n", b_is_found);
 	return (!b_is_found);
 }

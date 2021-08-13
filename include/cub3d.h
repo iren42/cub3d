@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 16:35:19 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 21:01:10 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 
 # define FOV_ANGLE (60 * PI / 180)
 
-//extern const char map[MAP_NUM_ROWS][MAP_NUM_COLS];
-
 ///////// LIBFT FUNCTIONS
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -53,12 +51,10 @@ typedef struct	s_var_cast_ray
 	int		found_hor_wall_hit;
 	float	hor_wall_hit_x;
 	float	hor_wall_hit_y;
-	int		hor_wall_content;
 
 	int		found_ver_wall_hit;
 	float	ver_wall_hit_x;
 	float	ver_wall_hit_y;
-	int		ver_wall_content;
 }				t_var_cast_ray;
 
 typedef struct	s_var_spread_b
@@ -78,6 +74,12 @@ typedef struct	s_var_generate_walls_proj
 	int			wall_strip_height;
 }				t_var_generate_walls_proj;
 
+typedef struct	s_point
+{
+	int	x;
+	int	y;
+}				t_point;
+
 typedef struct	s_rect
 {
 	int	x;
@@ -96,12 +98,12 @@ typedef struct s_player
 	int		y;
 	int		width;
 	int		height;
-	int		cam_dir; // purpose???
-	int		turn_dir; // -1 for left, +1 for right ; touches left and right
-	int		walk_dir; // -1 for back, +1 for front ; touches w, s
-	float	rotation_angle; // settings: determines how fast the player rotates
-	float	walk_speed;	// settings
-	float	turn_speed;	// settings
+	int		cam_dir;
+	int		turn_dir;
+	int		walk_dir;
+	float	rotation_angle;
+	float	walk_speed;
+	float	turn_speed;
 }				t_player;
 
 typedef struct s_ray
@@ -187,7 +189,7 @@ int	ft_is_map_closed(t_map *map, int px, int py);
 void	ft_update(t_player *p);
 void	ft_render_background(t_data *data, int color);
 int	ft_render_rect(t_img *img, t_rect rect);
-int	ft_render_line(t_img *img, int x1, int y1, int x2, int y2);
+int	ft_render_line(t_img *img, t_point a, t_point b);
 void	ft_refresh_img(t_data *data);
 void	ft_mlx_hook(t_data *data);
 int		ft_map_has_wall_at(t_data *data, float x, float y);

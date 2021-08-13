@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:07:18 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 21:08:03 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 static void	ft_render_player(t_img *img, t_player p)
 {
+	t_point a;
+	t_point	b;
+
+	a.x = MINIMAP_SCALE_FACTOR * p.x;
+	a.y = MINIMAP_SCALE_FACTOR * p.y;
+	b.x = MINIMAP_SCALE_FACTOR * (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2));
+	b.y = MINIMAP_SCALE_FACTOR * (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2));
 	t_rect rec = {p.x * MINIMAP_SCALE_FACTOR,
 		p.y * MINIMAP_SCALE_FACTOR, 
 		p.width * MINIMAP_SCALE_FACTOR, 
 		p.height * MINIMAP_SCALE_FACTOR, 
 		RED_PIXEL};
 	ft_render_rect(img, rec);
-	ft_render_line(img, 
-			MINIMAP_SCALE_FACTOR * p.x, 
-			MINIMAP_SCALE_FACTOR * p.y, 
-			MINIMAP_SCALE_FACTOR * (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2)), // (TILE_SIZE / 2) is the length of the line
-			MINIMAP_SCALE_FACTOR * (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2))
-			);
-
+	ft_render_line(img, a, b);
 }
 
 static int ft_render_tile(t_img *img, int j, int i, int color)

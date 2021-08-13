@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_find_wall_hit_xy.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/13 21:11:00 by iren              #+#    #+#             */
+/*   Updated: 2021/08/13 21:11:13 by iren             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	ft_find_hor_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
@@ -11,10 +23,8 @@ void	ft_find_hor_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
         float yToCheck = next_hor_touch_y + (ray->is_ray_facing_down ? 0 : -1);
         
         if (ft_map_has_wall_at(data, xToCheck, yToCheck)) {
-            // found a wall hit
             var->hor_wall_hit_x = next_hor_touch_x;
             var->hor_wall_hit_y = next_hor_touch_y;
-          //  var->hor_wall_content = data->img.tmap->map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
             var->found_hor_wall_hit = 1;
             break;
         } else {
@@ -35,10 +45,8 @@ void	ft_find_ver_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
         float yToCheck = next_ver_touch_y;
         
         if (ft_map_has_wall_at(data, xToCheck, yToCheck)) {
-            // found a wall hit
             var->ver_wall_hit_x = next_ver_touch_x;
             var->ver_wall_hit_y = next_ver_touch_y;
-          //  var->ver_wall_content = data->img.tmap->map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
             var->found_ver_wall_hit = 1;
             break;
         } else {
