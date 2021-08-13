@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_import_xpm_file.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/11 23:04:29 by iren              #+#    #+#             */
+/*   Updated: 2021/08/11 23:04:39 by iren             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void		ft_import_xpm_file(t_data *data, t_map *map)
@@ -19,7 +31,7 @@ void		ft_import_xpm_file(t_data *data, t_map *map)
 			data->tex[i].height = hei;
 			data->tex[i].width = wid;
 			i++;
-			free(filename);
+		//	free(filename);
 	//		printf("tex wid hei : %d %d filename %s\n", wid, hei, filename);
 		}
 }

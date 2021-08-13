@@ -1,7 +1,8 @@
 #include "cub3d.h"
 void	affiche_str(void *c)
 {
-	printf("line: %s\n", (char*)c);
+	static int i = 0;
+	printf("L %d:\t\t%s\n", i++, (char*)c);
 }
 
 void	affiche_list(t_list *l)

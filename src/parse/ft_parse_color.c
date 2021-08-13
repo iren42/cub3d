@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 15:55:49 by iren              #+#    #+#             */
-/*   Updated: 2021/06/06 23:42:23 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/12 21:41:42 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ void	ft_parse_color(char *line, t_map *map)
 		n3 = ft_parse_nb(line, &i, ',');
 		if (line[i] != '\0' || ft_is_out_of_boundary(n1) 
 		|| ft_is_out_of_boundary(n2) || ft_is_out_of_boundary(n3))
-			map->error = 1;
-	//	printf("\t%c\n", line[i]);
+			map->error = -1;
 		trgb = create_trgb(0, n1, n2, n3);
-	//	printf("\nmap color error %d: %x n1 n2 n3 :%d %d %d\n", map->error, trgb, n1, n2, n3);
 		if (line[0] == 'F')
 			map->floor = trgb;
 		else
 			map->ceiling = trgb;
+	}
+	else if (line[0] == 'F' || line[0] == 'C')
+	{
+		map->error = -1;
+		perror("Error.\nOverwriting of a color.\n");
 	}
 }

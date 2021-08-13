@@ -1,14 +1,11 @@
-R  500 500
-
 NO ./texture/redbrick.xpm
 SO ./texture/doom.xpm
 WE ./texture/wall.xpm
-EA ./texture/eagle.xpm
+EA		
 
-S ./texture/skeleton.xpm
 F 255,255,0
 C 255,255,0
 
 11111111111111
-10002E0000N0021
+1000E0000N00001
 11111111111111

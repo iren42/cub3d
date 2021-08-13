@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/11 15:45:42 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/12 23:53:27 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "libft.h"
 
 # define SUCCESS 1
-# define FAILURE 0
+# define FAILURE -1
 
 #define RED_PIXEL 0xFF0000
 #define GREEN_PIXEL 0xFF00
@@ -155,12 +155,12 @@ typedef struct s_data
 //////// MAP PARSING FUNCTIONS
 void	ft_init_tmap(t_map *map);
 int		ft_parse_all(char *name, t_map *map);
-//void	ft_parse_R(char *line, t_map *map);
 void	ft_parse_texture(char *line, t_map *map);
 void	ft_parse_color(char *line, t_map *map);
 int		ft_parse_nb(char *line, int *i, char c);
 int		ft_skip_spaces(char *s, int i);
 void	ft_free_tmap(t_map *map);
+int		ft_isspace(char c);
 
 int		ft_mlx(t_map *map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);

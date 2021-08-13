@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/07/25 17:12:22 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/12 21:33:54 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,83 +26,96 @@ static int	ft_is_filename_valid(char *name)
 		if (str != NULL)
 		{
 			if (ft_strncmp(str, ".cub", 5) == 0)
-				return (SUCCESS);
+				return (1);
 		}
 	}
-	return (FAILURE);
+	return (-1);
 }
 
-// function returns 1 if map has one and only one player
-// else returns 0
-// function also initialize values for player_x and player_y
-static int	does_map_have_oaoo_player(char **tab, int *player_x, int *player_y)
+static int	does_map_have_oaoo_player(t_map *tmap, int *player_x, int *player_y)
 {
 	int	nb_players;
 	int	i;
 	int	j;
 
 	nb_players = 0;
-	i = 0;
-	while (tab[i] != 0)
+	i = -1;
+//	printf("rows cols %d %d\n", tmap->rows, tmap->cols);
+	while (++i < tmap->rows)
 	{
-		j = 0;
-		while (tab[i][j] != '\0')
+		j = -1;
+		while (++j < tmap->cols)
 		{
-			if (tab[i][j] == 'N' || tab[i][j] == 'E' || tab[i][j] == 'W'
-			|| tab[i][j] == 'S')
+			if (tmap->map[i][j] == 'N' || tmap->map[i][j] == 'E' || tmap->map[i][j] == 'W'
+			|| tmap->map[i][j] == 'S')
 			{
 				nb_players++;
 				*player_x = j;
 				*player_y = i;
 			}
-			j++;
 		}
-		i++;
 	}
-//	printf("parse : x %d y %d\n", *player_x, *player_y);
 	if (nb_players != 1)
-		return (0);
+		return (-1);
 	return (1);
 }
 
 static int	ft_is_map_valid(t_map *map)
 {
-	int	player_x; // position x of player
-	int	player_y; // position y of player
+	int	player_x;
+	int	player_y;
 
-	if (does_map_have_oaoo_player(map->map, &player_x, &player_y) != 1)
-		return (0);
+	if (does_map_have_oaoo_player(map, &player_x, &player_y) != 1)
+	{
+		perror("Error.\nMap does not have 1 player.\n");
+		return (-1);
+	}
 	if (!ft_is_map_closed(map, player_x, player_y))
-		return (0);
+	{
+		perror("Error.\nMap walls are not closed.\n");
+		return (-1);
+	}
 	map->player_x = player_x;
 	map->player_y = player_y;
-//	printf("x %d\n", map->player_x);
 	return (1);
 }
 
-int	ft_parse_all(char *name, t_map *map)
+static int	ft_open_close_fd(char *name, int *fd, t_map *map)
+{
+	*fd = open(name, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error.\nFile could not be opened.\n");
+		return (-1);
+	}
+	if (ft_set_tmap(*fd, map) == -1)
+	{
+		return (-1);
+	}
+	if (close(*fd) < 0)
+	{
+		perror("Error.\nFile could not close.\n");
+		return (-1);
+	}
+	return (1);
+}
+
+int	ft_parse_all(char *name, t_map *tmap)
 {
 	int	fd;
 
 	fd = 0;
-	if (!ft_is_filename_valid(name))
+	if (ft_is_filename_valid(name) == -1)
 	{
-		printf("Error.\nFilename invalid.\n");
+		perror("Error.\nFilename invalid.\n");
 		return (FAILURE);
 	}
-	fd = open(name, O_RDONLY);
-	if (fd < 0)
+	if (ft_open_close_fd(name, &fd, tmap) == -1)
+		return (FAILURE);
+	if (ft_is_map_valid(tmap) == -1)
 	{
-		perror("Error.\n");
+		perror("Error.\nMap is not valid.\n");
 		return (FAILURE);
 	}
-	ft_set_tmap(fd, map);
-	if (close(fd) < 0)
-	{
-		perror("Error.\n");
-		return (FAILURE);
-	}
-	if (ft_is_map_valid(map) == 0)
-		return (FAILURE);
 	return (SUCCESS);
 }

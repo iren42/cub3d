@@ -6,26 +6,26 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:14:11 by iren              #+#    #+#             */
-/*   Updated: 2021/07/24 16:23:15 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/12 23:26:23 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_init_tmap(t_map *map)
+void	ft_init_tmap(t_map *tmap)
 {
-	map->error = 0;
-//	map->res_x = 0;
-//	map->res_y = 0;
-	map->texture = malloc(sizeof(char*) * 5);
-	if (map->texture != NULL)
+	tmap->error = 0;
+	tmap->texture = malloc(sizeof(char*) * 4);
+	if (tmap->texture != NULL)
 	{
-		map->texture[No] = 0;
-		map->texture[So] = 0;
-		map->texture[Ea] = 0;
-		map->texture[We] = 0;
-		map->texture[Sp] = 0;
+		tmap->texture[No] = 0;
+		tmap->texture[So] = 0;
+		tmap->texture[Ea] = 0;
+		tmap->texture[We] = 0;
 	}
-	map->floor = -1;
-	map->ceiling = -1;
+	tmap->floor = -1;
+	tmap->ceiling = -1;
+	tmap->map = 0;
+	tmap->rows = 0;
+	tmap->cols = 0;
 }
