@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 23:05:24 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 21:43:55 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:17:39 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ static int	ft_skip_to_char(char *res, char c)
 	return (len);
 }
 
-int	ft_parse_nb(char *line, int *i, char c)
+int	ft_parse_nb(char *line, unsigned int *i, char c)
 {
 	int	n;
 
 	if (line[*i] == '\0')
 		return (-1);
+	n = -1;
 	if (ft_strchr("-+0123456789", line[*i]) && line[*i])
 		n = ft_atoi(&line[*i]);
 	*i += ft_skip_to_char(&line[*i], c);

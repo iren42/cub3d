@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 15:55:49 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 21:41:42 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:14:57 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_parse_color(char *line, t_map *map)
 	int	trgb;
 	unsigned int	i;
 
-	if ((line[0] == 'F' && map->floor == -1 
-	|| line[0] == 'C' && map->ceiling == -1 ) && line[1] == ' ')
+	if ((line[0] == 'F' && map->floor == -1 && line[1] == ' ')
+	|| (line[0] == 'C' && map->ceiling == -1 && line[1] == ' '))
 	{
 		ft_init(&n1, &n2, &n3);
 		i = ft_skip_spaces(line, 1);

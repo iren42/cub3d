@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/11 15:44:57 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:07:18 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int ft_render_tile(t_img *img, int j, int i, int color)
 }
 // map has to be a 2d array
 static void ft_render_map(t_img *img) {
-	//	int tileColor;
 	int i;
 	int j;
 
@@ -74,23 +73,6 @@ static void ft_render_map(t_img *img) {
 		}
 }
 
-static void	ft_render_rays(t_data *data)
-{
-	int			i;
-
-	i = 0;
-	while (i < data->img.width)
-	{
-		ft_render_line(&data->img,
-				MINIMAP_SCALE_FACTOR * data->img.player.x,
-				MINIMAP_SCALE_FACTOR * data->img.player.y,
-				MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_x,
-				MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_y
-				);
-		//		printf("rays[%d] %f %f\n",i, img->rays[i].wall_hit_x, img->rays[i].wall_hit_y);
-		i++;
-	}
-}
 
 void	ft_refresh_img(t_data *data)
 {	

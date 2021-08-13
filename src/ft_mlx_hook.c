@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:31:41 by iren              #+#    #+#             */
-/*   Updated: 2021/08/11 15:31:42 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:05:30 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,15 @@ static int	ft_main_loop(t_data *data)
 
 static void	ft_update_player_s_values(t_data *data, t_player *p)
 {
-	float	move_step;
-	float	side_step;
 	float	new_player_x;
 	float	new_player_y;
 
 	p->rotation_angle += p->turn_dir * p->turn_speed; 
-	move_step = (p->walk_dir) * p->walk_speed;
 	//	printf("ro angle %f PI %f %f %f\n", p->rotation_angle, PI / 2, PI, 3 * PI / 2);
 	if (p->turn_dir != 0 || p->walk_dir != 0) /// move front back and turn left right
 	{
-		new_player_x = p->x + cos(p->rotation_angle) * move_step;
-		new_player_y = p->y + sin(p->rotation_angle) * move_step;
+		new_player_x = p->x + cos(p->rotation_angle) * ((p->walk_dir) * p->walk_speed);
+		new_player_y = p->y + sin(p->rotation_angle) * ((p->walk_dir) * p->walk_speed);
 	}
 	else // move left right
 	{

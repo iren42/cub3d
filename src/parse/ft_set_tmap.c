@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 08:53:28 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:18:08 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_set_tmap(int fd, t_map *tmap)
 		{
 			ft_lstadd_back(&lst, ft_lstnew(line));
 			tmap->rows++;
-			if (ft_strlen(line) > tmap->cols)
+			if (ft_strlen(line) > (unsigned int)tmap->cols)
 				tmap->cols = ft_strlen(line);
 			ret = get_next_line(fd, &line);
 		}

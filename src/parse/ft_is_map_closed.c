@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:38:25 by iren              #+#    #+#             */
-/*   Updated: 2021/07/31 20:39:49 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:19:43 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_spread_b(char **map, t_var_spread_b var, int x, int y)
 	}
 }
 
-static int	find_b_in_proh_area(char **map, int rows, int cols)
+static int	find_b_in_proh_area(char **map, int rows)
 {
 	int	i;
 	int	j;
@@ -100,12 +100,12 @@ int	ft_is_map_closed(t_map *tmap, int px, int py)
 	cp_rot = ft_rotate_mapchar(cp, tmap->rows, tmap->cols);
 	if (cp_rot == NULL)
 		return (FAILURE);
-	b_is_found = find_b_in_proh_area(cp, tmap->rows, tmap->cols)
-		|| find_b_in_proh_area(cp_rot, tmap->cols, tmap->rows)
+	b_is_found = find_b_in_proh_area(cp, tmap->rows)
+		|| find_b_in_proh_area(cp_rot, tmap->cols)
 		|| find_b_in_proh_area(ft_mirror(cp, tmap->rows, tmap->cols),
-			tmap->rows, tmap->cols)
+			tmap->rows)
 		|| find_b_in_proh_area(ft_mirror(cp_rot, tmap->cols, tmap->rows),
-			tmap->cols, tmap->rows);
+			tmap->cols);
 	ft_disable_diag_mvmt(tmap, cp);
 	ft_free_mapchar(cp);
 	ft_free_mapchar(cp_rot);

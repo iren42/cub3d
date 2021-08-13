@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/11 21:54:32 by iren             ###   ########.fr        #
+#    Updated: 2021/08/13 09:10:40 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,8 +76,7 @@ OBJS	= $(SRCS:.c=.o)
 
 CC		= gcc
 
-CFLAGS	= -MD -g
-#-Wall -Wextra -Werror 
+CFLAGS	= -MD -g -Wall -Wextra -Werror 
 
 RM		= rm -f
 

@@ -15,11 +15,11 @@ static t_img	*ft_get_tex_seen(t_data *data, int i)
 {
 	if (!data->img.rays[i].is_ray_facing_down && !data->img.rays[i].was_hit_vertical)
 		return (&data->tex[So]);
-	if (data->img.rays[i].is_ray_facing_down && !data->img.rays[i].was_hit_vertical)
+	else if (data->img.rays[i].is_ray_facing_down && !data->img.rays[i].was_hit_vertical)
 		return (&data->tex[No]);
-	if (!data->img.rays[i].is_ray_facing_right && data->img.rays[i].was_hit_vertical)
+	else if (!data->img.rays[i].is_ray_facing_right && data->img.rays[i].was_hit_vertical)
 		return (&data->tex[Ea]);
-	if (data->img.rays[i].is_ray_facing_right && data->img.rays[i].was_hit_vertical)
+	else 
 		return (&data->tex[We]);
 }
 

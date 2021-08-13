@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 23:53:27 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:15:34 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	ft_init_tmap(t_map *map);
 int		ft_parse_all(char *name, t_map *map);
 void	ft_parse_texture(char *line, t_map *map);
 void	ft_parse_color(char *line, t_map *map);
-int		ft_parse_nb(char *line, int *i, char c);
+int		ft_parse_nb(char *line, unsigned int *i, char c);
 int		ft_skip_spaces(char *s, int i);
 void	ft_free_tmap(t_map *map);
 int		ft_isspace(char c);
@@ -203,4 +203,5 @@ void	affiche_list(t_list *l);
 void	ft_display_tmap_map(t_map map);
 void	ft_display_tmap(t_map map);
 void	ft_display_chararray(char **map);
+void	ft_render_rays(t_data *data);
 #endif

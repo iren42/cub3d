@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 08:50:32 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 09:11:24 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	ft_is_map_valid(t_map *map)
 static int	ft_open_close_fd(char *name, int *fd, t_map *map)
 {
 	*fd = open(name, O_RDONLY);
-	if (fd < 0)
+	if (*fd < 0)
 	{
 		perror("Error.\nFile could not be opened.\n");
 		return (-1);
