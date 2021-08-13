@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 21:33:54 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 08:50:32 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,29 @@ static int	ft_is_filename_valid(char *name)
 	return (-1);
 }
 
-static int	does_map_have_oaoo_player(t_map *tmap, int *player_x, int *player_y)
+static int	is_nb_of_players(t_map *tmap, int *player_x, int *player_y)
 {
 	int	nb_players;
 	int	i;
 	int	j;
 
 	nb_players = 0;
-	i = -1;
-//	printf("rows cols %d %d\n", tmap->rows, tmap->cols);
-	while (++i < tmap->rows)
+	if (tmap->map != 0)
 	{
-		j = -1;
-		while (++j < tmap->cols)
+		i = -1;
+		//		printf("rows cols %d %d\n", tmap->rows, tmap->cols);
+		while (++i < tmap->rows)
 		{
-			if (tmap->map[i][j] == 'N' || tmap->map[i][j] == 'E' || tmap->map[i][j] == 'W'
-			|| tmap->map[i][j] == 'S')
+			j = -1;
+			while (++j < tmap->cols)
 			{
-				nb_players++;
-				*player_x = j;
-				*player_y = i;
+				if (tmap->map[i][j] == 'N' || tmap->map[i][j] == 'E'
+						|| tmap->map[i][j] == 'W' || tmap->map[i][j] == 'S')
+				{
+					nb_players++;
+					*player_x = j;
+					*player_y = i;
+				}
 			}
 		}
 	}
@@ -65,7 +68,7 @@ static int	ft_is_map_valid(t_map *map)
 	int	player_x;
 	int	player_y;
 
-	if (does_map_have_oaoo_player(map, &player_x, &player_y) != 1)
+	if (is_nb_of_players(map, &player_x, &player_y) != 1)
 	{
 		perror("Error.\nMap does not have 1 player.\n");
 		return (-1);
