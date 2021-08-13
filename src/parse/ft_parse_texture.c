@@ -6,14 +6,13 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 02:30:47 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 21:39:31 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 19:24:49 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// To allow spaces after the path texture in the file description
-char	*ft_get_pathname(char *line)
+static char	*ft_get_pathname(char *line)
 {
 	int		i;
 	int		a;
@@ -32,8 +31,7 @@ char	*ft_get_pathname(char *line)
 	return (name);
 }
 
-// clean the pathname
-char	*ft_get_texture_path(char *line, char *map_tex)
+static char	*ft_get_texture_path(char *line, char *map_tex)
 {
 	char	*path_texture;
 	int		len;
@@ -64,11 +62,11 @@ void	ft_parse_texture(char *line, t_map *map)
 	else if (ft_strncmp(line, "EA ", 3) == 0 && map->texture[Ea] == 0)
 		map->texture[Ea] = ft_get_texture_path(line, map->texture[Ea]);
 	else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0
-	|| ft_strncmp(line, "", 1) == 0)
+		|| line[0] == '\0')
 		;
 	else
 	{
-		perror("Error.\nTake a look on textures on file descrip.\n");
+		perror("Error.\nTake a look on textures in file descriptor.\n");
 		map->error = -1;
 	}
 }

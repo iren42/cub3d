@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:11:24 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 16:36:07 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,12 @@ static int	is_nb_of_players(t_map *tmap, int *player_x, int *player_y)
 	if (tmap->map != 0)
 	{
 		i = -1;
-		//		printf("rows cols %d %d\n", tmap->rows, tmap->cols);
 		while (++i < tmap->rows)
 		{
 			j = -1;
 			while (++j < tmap->cols)
 			{
-				if (tmap->map[i][j] == 'N' || tmap->map[i][j] == 'E'
-						|| tmap->map[i][j] == 'W' || tmap->map[i][j] == 'S')
+				if (ft_is_player_char(tmap->map[i][j]))
 				{
 					nb_players++;
 					*player_x = j;

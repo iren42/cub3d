@@ -1,12 +1,11 @@
-N0 
 NO ./texture/redbrick.xpm      	
 SO ./texture/doom.xpm
 WE ./texture/wall.xpm
 EA ./texture/eagle.xpm
 
-F 255,0,111 
+F 255,0, 277
 C  0, 0, 255
 
- 1111
-1N0001
-111111
+ 1
+1N1
+ 1

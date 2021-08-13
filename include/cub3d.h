@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 15:44:55 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 16:35:19 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int		ft_parse_nb(char *line, unsigned int *i, char c);
 int		ft_skip_spaces(char *s, int i);
 void	ft_free_tmap(t_map *map);
 int		ft_isspace(char c);
+int		ft_is_player_char(char c);
 
 int		ft_mlx(t_map *map);
 void	ft_img_pix_put(t_img *img, int x, int y, int color);

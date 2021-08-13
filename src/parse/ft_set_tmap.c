@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 16:21:38 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/13 19:17:36 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static int	convert_maplst_to_char(t_list *l, t_map *tmap)
 static int	check_all_parsed(t_map *tmap, int has_map_begun)
 {
 	if (!tmap->texture[No] || !tmap->texture[So] || !tmap->texture[We]
-			|| !tmap->texture[Ea] || !has_map_begun || tmap->map == 0
-			|| tmap->floor == -1 || tmap->ceiling == -1)
+		|| !tmap->texture[Ea] || !has_map_begun || tmap->map == 0
+		|| tmap->floor == -1 || tmap->ceiling == -1)
 		tmap->error = -1;
 	if (!has_map_begun)
 	{
@@ -76,7 +76,7 @@ static int	check_all_parsed(t_map *tmap, int has_map_begun)
 	return (tmap->error);
 }
 
-void	loop(t_var_set_tmap *t)
+static void	loop(t_var_set_tmap *t)
 {
 	t->has_map_begun = is_map_content(t->line);
 	while (t->has_map_begun && t->ret > 0)
@@ -93,17 +93,14 @@ void	loop(t_var_set_tmap *t)
 		ft_parse_color(t->line, t->tmap);
 	}
 	else
+	{
+		perror("Error.\nProhibited character was found in file descriptor.\n");
 		t->tmap->error = -1;
-
+	}
 }
 
 int	ft_set_tmap(int fd, t_map *tmap)
 {
-	/*	int		ret;
-		char	*line;
-		int		has_map_begun;
-		t_list	*lst;
-	 */
 	t_var_set_tmap	t;
 
 	t.line = 0;
@@ -115,23 +112,7 @@ int	ft_set_tmap(int fd, t_map *tmap)
 	while (t.ret > 0)
 	{
 		loop(&t);
-		/*		has_map_begun = is_map_content(line);
-				while (has_map_begun && ret > 0)
-				{
-				ft_lstadd_back(&lst, ft_lstnew(line));
-				tmap->rows++;
-				if (ft_strlen(line) > (unsigned int)tmap->cols)
-				tmap->cols = ft_strlen(line);
-				ret = get_next_line(fd, &line);
-				}
-				if (ft_strchr("NSWEFC", line[0]) != NULL)
-				{
-				ft_parse_texture(line, tmap);
-				ft_parse_color(line, tmap);
-				}
-				else
-				tmap->error = -1;
-		 */	free(t.line);
+		free(t.line);
 		t.ret = get_next_line(t.fd, &t.line);
 	}
 	free(t.line);

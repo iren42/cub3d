@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/13 09:10:40 by iren             ###   ########.fr        #
+#    Updated: 2021/08/13 16:35:41 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					ft_is_map_closed.c \
 					ft_skip_spaces.c \
 					ft_isspace.c \
+					ft_is_player_char.c \
 					ft_display_things.c
 
 SOURCES_2DMAP	=	ft_render_rect.c \
