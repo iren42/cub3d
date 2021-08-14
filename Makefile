@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/14 18:38:17 by iren             ###   ########.fr        #
+#    Updated: 2021/08/14 21:15:22 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ LIBFT	= libft
 MLX		= mlx_linux
 
 HEADER	= include/cub3d.h
+
+HEADER1	= include/get_next_line.h
 
 DIR_SOURCES	= src/
 
@@ -108,6 +110,8 @@ bonus	: $(OBJS_BONUS) $(HEADER) $(MLX) $(LIBFT)
 norm	:
 		norminette $(SRCS) $(SRCS_BONUS)
 		norminette -R CheckDefine $(HEADER)
+		norminette -R CheckDefine $(HEADER1)
+		make norm -C $(LIBFT)
 
 clean	:
 		$(RM) $(OBJS) $(OBJS_BONUS)

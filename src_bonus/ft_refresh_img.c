@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 20:45:24 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 22:06:27 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static void	render_player(t_img *img, t_player p)
 		* (p.x + cos(p.rotation_angle) * 50);
 	b.y = MINIMAP_SCALE_FACTOR
 		* (p.y + sin(p.rotation_angle) * 50);
-	rec.x = p.x * MINIMAP_SCALE_FACTOR;
-	rec.y = p.y * MINIMAP_SCALE_FACTOR;
+	rec.x = a.x;
+	rec.y = a.y;
 	rec.width = p.width * MINIMAP_SCALE_FACTOR;
 	rec.height = p.height * MINIMAP_SCALE_FACTOR;
 	rec.color = RED_PIXEL;
-	if (a.x - rec.width >= 0 && a.x + rec.width <= img->width
-		&& a.y - rec.height >= 0 && a.y + rec.height <= img->height
-		&& b.x - rec.width >= 0 && b.x + rec.width <= img->width
-		&& b.y - rec.height >= 0 && b.y + rec.height <= img->height)
+	if (a.x - rec.width > 0 && a.x + rec.width < img->width
+		&& a.y - rec.height > 0 && a.y + rec.height < img->height
+		&& b.x - rec.width > 0 && b.x + rec.width < img->width
+		&& b.y - rec.height > 0 && b.y + rec.height < img->height)
 	{
 		ft_render_rect(img, rec);
 		ft_render_line(img, a, b);
