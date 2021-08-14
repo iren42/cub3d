@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 23:05:24 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 09:17:39 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 22:53:45 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ static int	ft_skip_to_char(char *res, char c)
 	{
 		if (res[len] == '+' || res[len] == '-')
 			len++;
-		while (res[len] && res[len] != c && (ft_isdigit(res[len])))
+		while (res[len] && res[len] != c && ft_isdigit(res[len]))
 		{
 			len++;
 		}
+		while (ft_isspace(res[len]))
+			len++;
 	}
 	return (len);
 }

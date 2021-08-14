@@ -6,13 +6,13 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 02:30:47 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:32:35 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 23:54:32 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*ft_get_pathname(char *line)
+static char	*get_pathname(char *line)
 {
 	int		i;
 	int		a;
@@ -24,23 +24,24 @@ static char	*ft_get_pathname(char *line)
 	name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (name != NULL)
 	{
-		while (line[i]
-			&& (line[i] != ' ' || (line[i - 1] == '\\' && line[i] == ' ')))
+		while (line[i] && !ft_isspace(line[i]))
 			name[a++] = line[i++];
 		name[a] = '\0';
 	}
 	return (name);
 }
 
-static char	*ft_get_texture_path(char *line, char *map_tex)
+static char	*get_texture_path(char *line, char *map_tex)
 {
 	char	*path_texture;
 	int		len;
 	int		i;
 
 	path_texture = 0;
+	if (!ft_isspace(line[2]))
+		return (0);
 	i = ft_skip_spaces(line, 2);
-	path_texture = ft_get_pathname(&line[i]);
+	path_texture = get_pathname(&line[i]);
 	if (path_texture != NULL)
 	{
 		len = ft_strlen(path_texture);
@@ -54,16 +55,15 @@ static char	*ft_get_texture_path(char *line, char *map_tex)
 
 void	ft_parse_texture(char *line, t_map *map)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0 && map->texture[no] == 0)
-		map->texture[no] = ft_get_texture_path(line, map->texture[no]);
-	else if (ft_strncmp(line, "SO ", 3) == 0 && map->texture[so] == 0)
-		map->texture[so] = ft_get_texture_path(line, map->texture[so]);
-	else if (ft_strncmp(line, "WE ", 3) == 0 && map->texture[we] == 0)
-		map->texture[we] = ft_get_texture_path(line, map->texture[we]);
-	else if (ft_strncmp(line, "EA ", 3) == 0 && map->texture[ea] == 0)
-		map->texture[ea] = ft_get_texture_path(line, map->texture[ea]);
-	else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0
-		|| line[0] == '\0')
+	if (ft_strncmp(line, "NO", 2) == 0 && map->texture[no] == 0)
+		map->texture[no] = get_texture_path(line, map->texture[no]);
+	else if (ft_strncmp(line, "SO", 2) == 0 && map->texture[so] == 0)
+		map->texture[so] = get_texture_path(line, map->texture[so]);
+	else if (ft_strncmp(line, "WE", 2) == 0 && map->texture[we] == 0)
+		map->texture[we] = get_texture_path(line, map->texture[we]);
+	else if (ft_strncmp(line, "EA", 2) == 0 && map->texture[ea] == 0)
+		map->texture[ea] = get_texture_path(line, map->texture[ea]);
+	else if (line[0] == 'F' || line[0] == 'C' || line[0] == '\0')
 		;
 	else
 	{
