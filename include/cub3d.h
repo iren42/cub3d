@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:36:03 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 17:05:43 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	ft_update(t_player *p);
 void	ft_render_background(t_data *data, int color);
 int		ft_render_rect(t_img *img, t_rect rect);
 int		ft_render_line(t_img *img, t_point a, t_point b);
-void	ft_refresh_img(t_data *data);
+int		ft_refresh_img(t_data *data);
 void	ft_mlx_hook(t_data *data);
 int		ft_map_has_wall_at(t_data *data, float x, float y);
 

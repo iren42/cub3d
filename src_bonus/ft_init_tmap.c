@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*   ft_init_tmap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:56 by iren             ###   ########.fr       */
+/*   Created: 2021/04/17 22:14:11 by iren              #+#    #+#             */
+/*   Updated: 2021/08/14 14:30:41 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_refresh_img(t_data *d)
-{	
-	ft_cast_all_rays(d, d->img.player, d->img.rays);
-	ft_generate_walls_projection(d);
-	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
-	return (0);
+void	ft_init_tmap(t_map *tmap)
+{
+	tmap->error = 0;
+	tmap->texture = malloc(sizeof(char *) * 4);
+	if (tmap->texture != NULL)
+	{
+		tmap->texture[no] = 0;
+		tmap->texture[so] = 0;
+		tmap->texture[ea] = 0;
+		tmap->texture[we] = 0;
+	}
+	tmap->floor = -1;
+	tmap->ceiling = -1;
+	tmap->map = 0;
+	tmap->rows = 0;
+	tmap->cols = 0;
 }

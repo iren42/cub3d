@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/14 08:07:05 by iren             ###   ########.fr        #
+#    Updated: 2021/08/14 17:20:54 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ MLX		= mlx_linux
 HEADER	= include/cub3d.h
 
 DIR_SOURCES	= src/
+
+DIR_BONUS	=	src_bonus/
 
 DIR_PARSE = parse/
 
@@ -45,7 +47,6 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					ft_display_things.c
 
 SOURCES_2DMAP	=	ft_render_rect.c \
-					ft_render_background.c \
 					ft_render_line.c \
 					ft_map_has_wall_at.c \
 					ft_cast_all_rays.c \
@@ -71,10 +72,13 @@ SOURCES		=	main.c \
 				$(addprefix $(DIR_3DMAP), $(SOURCES_3DMAP)) \
 				$(addprefix $(DIR_PARSE), $(SOURCES_PARSE))
 
-
 SRCS	=	$(addprefix $(DIR_SOURCES), $(SOURCES))
 
 OBJS	= $(SRCS:.c=.o)
+
+SRCS_BONUS	=	$(addprefix $(DIR_BONUS), $(SOURCES))
+
+OBJS_BONUS	= $(SRCS_BONUS:.c=.o)
 
 CC		= gcc
 
@@ -92,21 +96,28 @@ $(NAME) : $(OBJS) $(HEADER) $(MLX) $(LIBFT)
 		make -C $(LIBFT)
 		make bonus -C $(LIBFT)
 		$(CC) -o $@ $(OBJS) -Llibft -lft -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm
-	#	$(CC) -o $@ $(OBJS) mlx_linux/libmlx_Linux.a -Imlx_linux -lXext -lX11 -lm -lz
+
+bonus	: $(OBJS_BONUS) $(HEADER) $(MLX) $(LIBFT)
+		make -C $(MLX)
+		make -C $(LIBFT)
+		make bonus -C $(LIBFT)
+		$(CC) -o cub3D_bonus $(OBJS_BONUS) -Llibft -lft -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm
+ 
 
 norm	:
-		norminette $(SRCS)
+		norminette $(SRCS) $(SRCS_BONUS)
 		norminette -R CheckDefine $(HEADER)
 
 clean	:
-		$(RM) $(OBJS)
-		$(RM) $(OBJS:.o=.d)
+		$(RM) $(OBJS) $(OBJS_BONUS)
+		$(RM) $(OBJS:.o=.d) $(OBJS_BONUS:.o=.d)
 		make clean -C $(LIBFT)
 		make clean -C $(MLX)
 
 fclean	: clean
 		make fclean -C $(LIBFT)
 		$(RM) $(NAME)
+		$(RM) cub3D_bonus
 
 re		: fclean all
 

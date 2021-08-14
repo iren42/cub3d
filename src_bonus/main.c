@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:56 by iren             ###   ########.fr       */
+/*   Created: 2021/04/16 15:46:11 by iren              #+#    #+#             */
+/*   Updated: 2021/08/14 14:23:23 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_refresh_img(t_data *d)
-{	
-	ft_cast_all_rays(d, d->img.player, d->img.rays);
-	ft_generate_walls_projection(d);
-	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
+int	main(int ac, char **av)
+{
+	t_map	map;
+
+	if (ac == 1)
+		perror("Error.\nMissing map.\n");
+	if (ac == 2)
+	{
+		ft_init_tmap(&map);
+		if (ft_parse_all(av[1], &map) == SUCCESS)
+		{
+			if (ft_mlx(&map) == SUCCESS)
+				ft_putstr_fd("MLX went well\n", 1);
+		}
+		ft_free_tmap(&map);
+	}
 	return (0);
 }

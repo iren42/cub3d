@@ -6,33 +6,13 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:31:41 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:19:51 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 17:08:18 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <X11/X.h>
 #include <X11/keysym.h>
-
-static int	can_walk(t_data *data, float x, float y)
-{
-	int	grid_x;
-	int	grid_y;
-
-	if (x >= 0 && x <= data->img.tmap->cols * TILE_SIZE
-		&& y >= 0 && y <= data->img.tmap->rows * TILE_SIZE)
-	{
-		grid_x = floor(x / TILE_SIZE);
-		grid_y = floor(y / TILE_SIZE);
-		if (data->img.tmap->map[grid_y][grid_x] != ' '
-			&& data->img.tmap->map[grid_y][grid_x] != 0)
-		{
-			return (1);
-		}
-		return (0);
-	}
-	return (0);
-}
 
 static void	update_player_values(t_data *data, t_player *p)
 {
@@ -52,7 +32,7 @@ static void	update_player_values(t_data *data, t_player *p)
 		new_py = p->y + sin(p->rotation_angle + (PI / 2)
 				* p->cam_dir) * p->walk_speed;
 	}
-	if (can_walk(data, new_px, new_py))
+	if (!ft_map_has_wall_at(data, new_px, new_py))
 	{
 		p->x = new_px;
 		p->y = new_py;

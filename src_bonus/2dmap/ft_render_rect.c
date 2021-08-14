@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*   ft_render_rect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:56 by iren             ###   ########.fr       */
+/*   Created: 2021/08/13 19:39:23 by iren              #+#    #+#             */
+/*   Updated: 2021/08/13 19:39:59 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_refresh_img(t_data *d)
-{	
-	ft_cast_all_rays(d, d->img.player, d->img.rays);
-	ft_generate_walls_projection(d);
-	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
+int	ft_render_rect(t_img *img, t_rect rect)
+{
+	int	i;
+	int	j;
+
+	if (rect.x > 0 && rect.y > 0)
+	{
+		i = rect.y;
+		while (i < rect.y + rect.height)
+		{
+			j = rect.x;
+			while (j < rect.x + rect.width)
+				ft_img_pix_put(img, j++, i, rect.color);
+			++i;
+		}
+	}
 	return (0);
 }

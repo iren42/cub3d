@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*   ft_img_pix_put.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:56 by iren             ###   ########.fr       */
+/*   Created: 2021/08/14 14:01:24 by iren              #+#    #+#             */
+/*   Updated: 2021/08/14 14:02:34 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_refresh_img(t_data *d)
-{	
-	ft_cast_all_rays(d, d->img.player, d->img.rays);
-	ft_generate_walls_projection(d);
-	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
-	return (0);
+void	ft_img_pix_put(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+	int		i;
+
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		else
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		i -= 8;
+	}
 }

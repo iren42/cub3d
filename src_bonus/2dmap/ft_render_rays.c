@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_img.c                                   :+:      :+:    :+:   */
+/*   ft_render_rays.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:56 by iren             ###   ########.fr       */
+/*   Created: 2021/08/13 09:06:50 by iren              #+#    #+#             */
+/*   Updated: 2021/08/13 20:39:55 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_refresh_img(t_data *d)
-{	
-	ft_cast_all_rays(d, d->img.player, d->img.rays);
-	ft_generate_walls_projection(d);
-	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
-	return (0);
+void	ft_render_rays(t_data *data)
+{
+	int			i;
+
+	i = 0;
+	while (i < data->img.width)
+	{
+		ft_render_line(&data->img,
+			MINIMAP_SCALE_FACTOR * data->img.player.x,
+			MINIMAP_SCALE_FACTOR * data->img.player.y,
+			MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_x,
+			MINIMAP_SCALE_FACTOR * data->img.rays[i].wall_hit_y
+			);
+		i++;
+	}
 }
