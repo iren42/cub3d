@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:07:25 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 20:45:24 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,22 @@ static void	render_player(t_img *img, t_player p)
 	a.x = MINIMAP_SCALE_FACTOR * p.x;
 	a.y = MINIMAP_SCALE_FACTOR * p.y;
 	b.x = MINIMAP_SCALE_FACTOR
-		* (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2));
+		* (p.x + cos(p.rotation_angle) * 50);
 	b.y = MINIMAP_SCALE_FACTOR
-		* (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2));
+		* (p.y + sin(p.rotation_angle) * 50);
 	rec.x = p.x * MINIMAP_SCALE_FACTOR;
 	rec.y = p.y * MINIMAP_SCALE_FACTOR;
 	rec.width = p.width * MINIMAP_SCALE_FACTOR;
 	rec.height = p.height * MINIMAP_SCALE_FACTOR;
 	rec.color = RED_PIXEL;
-	ft_render_rect(img, rec);
-	ft_render_line(img, a, b);
+	if (a.x - rec.width >= 0 && a.x + rec.width <= img->width
+		&& a.y - rec.height >= 0 && a.y + rec.height <= img->height
+		&& b.x - rec.width >= 0 && b.x + rec.width <= img->width
+		&& b.y - rec.height >= 0 && b.y + rec.height <= img->height)
+	{
+		ft_render_rect(img, rec);
+		ft_render_line(img, a, b);
+	}
 }
 
 static int	render_tile(t_img *img, int j, int i, int color)
@@ -63,19 +69,23 @@ static void	render_map(t_img *img)
 	int	i;
 	int	j;
 
-	i = -1;
+	i = 0;
 	if (img->tmap->map != NULL)
 	{
-		while (++i < img->tmap->rows)
+		while (i < img->tmap->rows
+			&& i * TILE_SIZE * MINIMAP_SCALE_FACTOR < img->height)
 		{
-			j = -1;
-			while (++j < img->tmap->cols)
+			j = 0;
+			while (j < img->tmap->cols
+				&& j * TILE_SIZE * MINIMAP_SCALE_FACTOR < img->width)
 			{
 				if (img->tmap->map[i][j] == '1')
 					render_tile(img, j, i, GREEN_PIXEL);
 				else
 					render_tile(img, j, i, BLACK_PIXEL);
+				j++;
 			}
+			i++;
 		}
 	}
 }

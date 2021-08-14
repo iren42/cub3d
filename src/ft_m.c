@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 20:53:50 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 20:00:51 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_setup_player(t_data *d)
 	d->img.player.turn_dir = 0;
 	d->img.player.walk_dir = 0;
 	d->img.player.cam_dir = 0;
-	d->img.player.walk_speed = 10;
+	d->img.player.walk_speed = 20;
 	d->img.player.turn_speed = 20 * (PI / 180);
 	d->img.rays = malloc(sizeof(t_ray) * d->img.width);
 	if (d->img.rays == NULL)

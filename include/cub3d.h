@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:05:43 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 20:41:47 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 
-# define TILE_SIZE 32
-# define MINIMAP_SCALE_FACTOR 0.5
+# define TILE_SIZE 21
+# define MINIMAP_SCALE_FACTOR 1
 
 # define FOV_ANGLE (60 * PI / 180)
 

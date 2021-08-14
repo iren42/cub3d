@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:12:41 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 20:54:04 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	ft_setup_player(t_data *d)
 	d->img.tmap->map[d->img.tmap->py][d->img.tmap->px] = '0';
 	d->img.player.x = (TILE_SIZE * (d->img.tmap->px + 0.5));
 	d->img.player.y = (TILE_SIZE * (d->img.tmap->py + 0.5));
-	d->img.player.width = 5;
-	d->img.player.height = 5;
+	d->img.player.width = TILE_SIZE * 0.4;
+	d->img.player.height = TILE_SIZE * 0.4;
 	d->img.player.turn_dir = 0;
 	d->img.player.walk_dir = 0;
 	d->img.player.cam_dir = 0;

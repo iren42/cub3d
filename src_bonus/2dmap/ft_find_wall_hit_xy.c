@@ -6,73 +6,74 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 21:11:00 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 08:04:42 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 20:26:11 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	get_value(int condition, float next_touch, float *pt_tocheck)
+static float	init(int cond, float nxt_tc1, float nxt_touch2, float *p_check)
 {
-	*pt_tocheck = next_touch;
-	if (condition)
-		*pt_tocheck += -1;
+	*p_check = nxt_tc1;
+	if (cond)
+		*p_check += -1;
+	return (nxt_touch2);
 }
 
 void	ft_find_hor_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
 {
-	float	next_hor_touch_x;
-	float	next_hor_touch_y;
-	float	y_tocheck;
-	float	x_tocheck;
+	float	next_htx;
+	float	next_hty;
+	float	y_check;
+	float	x_check;
 
-	next_hor_touch_x = var->xintercept;
-	next_hor_touch_y = var->yintercept;
-	while (next_hor_touch_x >= 0 && next_hor_touch_x <= data->img.width
-		&& next_hor_touch_y >= 0 && next_hor_touch_y <= data->img.height)
+	next_htx = var->xintercept;
+	next_hty = var->yintercept;
+	while (next_htx >= 0 && next_hty >= 0
+		&& next_htx <= data->img.tmap->cols * TILE_SIZE
+		&& next_hty <= data->img.tmap->rows * TILE_SIZE)
 	{
-		x_tocheck = next_hor_touch_x;
-		get_value(!ray->is_ray_facing_down, next_hor_touch_y, &y_tocheck);
-		if (ft_map_has_wall_at(data, x_tocheck, y_tocheck))
+		x_check = init(!ray->is_ray_facing_down, next_hty, next_htx, &y_check);
+		if (ft_map_has_wall_at(data, x_check, y_check))
 		{
-			var->hor_wall_hit_x = next_hor_touch_x;
-			var->hor_wall_hit_y = next_hor_touch_y;
+			var->hor_wall_hit_x = next_htx;
+			var->hor_wall_hit_y = next_hty;
 			var->found_hor_wall_hit = 1;
 			break ;
 		}
 		else
 		{
-			next_hor_touch_x += var->xstep;
-			next_hor_touch_y += var->ystep;
+			next_htx += var->xstep;
+			next_hty += var->ystep;
 		}
 	}
 }
 
 void	ft_find_ver_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
 {
-	float	next_ver_touch_x;
-	float	next_ver_touch_y;
-	float	x_tocheck;
-	float	y_tocheck;
+	float	next_vtx;
+	float	next_vty;
+	float	x_check;
+	float	y_check;
 
-	next_ver_touch_x = var->xintercept;
-	next_ver_touch_y = var->yintercept;
-	while (next_ver_touch_x >= 0 && next_ver_touch_x <= data->img.width
-		&& next_ver_touch_y >= 0 && next_ver_touch_y <= data->img.height)
+	next_vtx = var->xintercept;
+	next_vty = var->yintercept;
+	while (next_vtx >= 0 && next_vty >= 0
+		&& next_vtx <= data->img.tmap->cols * TILE_SIZE
+		&& next_vty <= data->img.tmap->rows * TILE_SIZE)
 	{
-		get_value(!ray->is_ray_facing_right, next_ver_touch_x, &x_tocheck);
-		y_tocheck = next_ver_touch_y;
-		if (ft_map_has_wall_at(data, x_tocheck, y_tocheck))
+		y_check = init(!ray->is_ray_facing_right, next_vtx, next_vty, &x_check);
+		if (ft_map_has_wall_at(data, x_check, y_check))
 		{
-			var->ver_wall_hit_x = next_ver_touch_x;
-			var->ver_wall_hit_y = next_ver_touch_y;
+			var->ver_wall_hit_x = next_vtx;
+			var->ver_wall_hit_y = next_vty;
 			var->found_ver_wall_hit = 1;
 			break ;
 		}
 		else
 		{
-			next_ver_touch_x += var->xstep;
-			next_ver_touch_y += var->ystep;
+			next_vtx += var->xstep;
+			next_vty += var->ystep;
 		}
 	}
 }

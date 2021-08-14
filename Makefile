@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/14 17:20:54 by iren             ###   ########.fr        #
+#    Updated: 2021/08/14 18:38:17 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SOURCES_PARSE	=	ft_parse_all.c \
 
 SOURCES_2DMAP	=	ft_render_rect.c \
 					ft_render_line.c \
+					ft_render_rays.c \
 					ft_map_has_wall_at.c \
 					ft_cast_all_rays.c \
 					ft_calculate_step.c \
@@ -82,13 +83,13 @@ OBJS_BONUS	= $(SRCS_BONUS:.c=.o)
 
 CC		= gcc
 
-CFLAGS	= -MD -g -Wall -Wextra -Werror 
+CFLAGS	=  -Wall -Wextra -Werror 
 
 RM		= rm -f
 
 all		: $(NAME)
 
-%.o		: %.c
+%.o		: %.c $(HEADER)
 		$(CC) $(CFLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
 
 $(NAME) : $(OBJS) $(HEADER) $(MLX) $(LIBFT)
