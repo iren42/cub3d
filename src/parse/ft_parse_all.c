@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 16:36:07 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 13:04:43 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static int	ft_open_close_fd(char *name, int *fd, t_map *map)
 	}
 	if (ft_set_tmap(*fd, map) == -1)
 	{
+		perror("Error.\nIn ft_parse_all.c: ft_set_tmap failed.\n");
 		return (-1);
 	}
 	if (close(*fd) < 0)

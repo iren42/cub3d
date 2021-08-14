@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 12:51:19 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 12:59:08 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,9 @@ void	ft_clear_all(t_data *data)
 int ft_mlx(t_map *map)
 {
 	t_data	data;
-	int err;
 
-	err = 0;
 	data.img.tmap = map;
-	err = ft_create_mlx_win_and_img(&data, map);
-	if (err != -1)
+	if (ft_create_mlx_win_and_img(&data, map) != -1)
 	{
 		ft_setup_player(&data);
 		ft_mlx_hook(&data);
