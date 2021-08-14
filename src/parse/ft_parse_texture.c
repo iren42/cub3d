@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 02:30:47 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 19:32:11 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 11:12:57 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_get_pathname(char *line)
 
 	i = 0;
 	a = 0;
-	name = NULL;
+	name = 0;
 	name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (name != NULL)
 	{
@@ -38,7 +38,7 @@ static char	*ft_get_texture_path(char *line, char *map_tex)
 	int		len;
 	int		i;
 
-	path_texture = NULL;
+	path_texture = 0;
 	i = ft_skip_spaces(line, 2);
 	path_texture = ft_get_pathname(&line[i]);
 	if (path_texture != NULL)

@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 21:01:10 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 12:03:50 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct	s_rect
 	int	color;
 }		t_rect;
 
-enum e_tex{No, So, We, Ea, Sp};
+enum e_tex{No, So, We, Ea};
 
 
 typedef struct s_player
@@ -204,7 +204,7 @@ void	ft_find_hor_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray);
 void	ft_find_ver_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray);
 void	ft_fill_ray_data(t_ray *ray, t_var_cast_ray var, t_player player);
 void		ft_generate_walls_projection(t_data *data);
-void		ft_import_xpm_file(t_data *data, t_map *map);
+int		ft_import_xpm_file(t_data *data, t_map *map);
 void		ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i);
 int		ft_get_pix_color(t_img *img, int x, int y);
 

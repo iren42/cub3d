@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/13 16:35:41 by iren             ###   ########.fr        #
+#    Updated: 2021/08/14 08:07:05 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SOURCES_2DMAP	=	ft_render_rect.c \
 
 SOURCES_3DMAP	=	ft_generate_walls_projection.c \
 					ft_import_xpm_file.c \
+					ft_get_pix_color.c \
 					ft_walls_projection.c 
 
 SOURCES		=	main.c \

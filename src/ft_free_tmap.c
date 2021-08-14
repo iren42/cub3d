@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 22:34:25 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 07:58:01 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 12:54:13 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	ft_free_tmap(t_map *tmap)
 		if (tmap->map != 0)
 		{
 			while (tmap->map[++i] != 0)
-			{
-				printf("string freed : %s\n", tmap->map[i]);
 				free(tmap->map[i]);
-			}
 			free(tmap->map);
 			tmap->map = 0;
 		}

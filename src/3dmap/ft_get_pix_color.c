@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vim ft_get_pix_color.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 15:46:11 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 12:55:18 by iren             ###   ########.fr       */
+/*   Created: 2021/08/14 08:06:02 by iren              #+#    #+#             */
+/*   Updated: 2021/08/14 08:06:25 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+int	ft_get_pix_color(t_img *img, int x, int y)
 {
-	t_map	map;
+	int	a;
 
-	if (ac == 1)
-		perror("Error.\nMissing map.\n");
-	if (ac == 2)
-	{
-		ft_init_tmap(&map);
-		if (ft_parse_all(av[1], &map) == SUCCESS)
-		{
-			if (ft_mlx(&map) == SUCCESS)
-				printf("MLX went well\n");
-		}
-		ft_free_tmap(&map);
-	}
-	return (0);
+	a = 0x0;
+	if (x >= 0 && x < img->width && y >= 0 && y <= img->height)
+		a = *(int *)(img->addr + (x + y * img->width) * img->bpp / 8);
+	return (a);
 }

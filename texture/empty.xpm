@@ -1,0 +1,31 @@
+/* XPM */
+static char *_b7bbc52e8264320ba5b9d2a3f15c54bH7IOXmSuEklsoXHm[] = {
+/* columns rows colors chars-per-pixel */
+"64 64 25 1 ",
+"  c #202020",
+". c #2C2C2C",
+"X c gray22",
+"o c #404000",
+"O c #585400",
+"+ c #706C00",
+"@ c #484848",
+"# c gray33",
+"$ c #646464",
+"% c gray44",
+"& c #7C7C7C",
+"* c #848400",
+"= c #9C9C00",
+"- c #B4AC00",
+"; c #CCC400",
+": c #E4D800",
+"> c #FCF420",
+", c gray55",
+"< c #989898",
+"1 c gray66",
+"2 c #B4B4B4",
+"3 c #C0C0C0",
+"4 c #D0D0D0",
+"5 c gainsboro",
+"6 c #ECECEC",
+/* pixels */
+

@@ -1,0 +1,11 @@
+NO ./texture/redbrick.xpm      	
+SO ./texture/doom.xpm
+WE ./texture/empty.xpm
+EA ./texture/eagle.xpm
+
+F 255,0,111 
+C  0, 0, 255
+
+ 1
+1N1
+ 1
