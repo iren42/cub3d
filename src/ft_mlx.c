@@ -6,66 +6,42 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 12:59:08 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:12:41 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// setup player
-static int	ft_setup_player(t_data *data)
+static int	ft_setup_player(t_data *d)
 {
-	// rotate player accordingly
-	if (data->img.tmap->map[data->img.tmap->player_y][data->img.tmap->player_x] == 'S')
-		data->img.player.rotation_angle = PI / 2; // use 'N', 'S', 'E', 'W'
-	else if (data->img.tmap->map[data->img.tmap->player_y][data->img.tmap->player_x] == 'N')
-		data->img.player.rotation_angle = 3 * PI / 2; // use 'N', 'S', 'E', 'W'
-	else if (data->img.tmap->map[data->img.tmap->player_y][data->img.tmap->player_x] == 'W')
-		data->img.player.rotation_angle = PI; // use 'N', 'S', 'E', 'W'
+	if (d->img.tmap->map[d->img.tmap->py][d->img.tmap->px] == 'S')
+		d->img.player.rotation_angle = PI / 2;
+	else if (d->img.tmap->map[d->img.tmap->py][d->img.tmap->px] == 'N')
+		d->img.player.rotation_angle = 3 * PI / 2;
+	else if (d->img.tmap->map[d->img.tmap->py][d->img.tmap->px] == 'W')
+		d->img.player.rotation_angle = PI;
 	else
-		data->img.player.rotation_angle = 0; // use 'N', 'S', 'E', 'W'
-	data->img.tmap->map[data->img.tmap->player_y][data->img.tmap->player_x] = '0';
-	// player's starting position
-	data->img.player.x = (TILE_SIZE * (data->img.tmap->player_x + 0.5));
-	data->img.player.y = (TILE_SIZE * (data->img.tmap->player_y + 0.5));
-	data->img.player.width = 5;
-	data->img.player.height= 5;
-	data->img.player.turn_dir = 0;
-	data->img.player.walk_dir = 0;
-	data->img.player.cam_dir = 0;
-	data->img.player.walk_speed = 10;	// was 50
-	data->img.player.turn_speed = 20 * (PI / 180); // was 45
-	data->img.rays = malloc(sizeof(t_ray) * data->img.width);
-	if (data->img.rays == NULL)
+		d->img.player.rotation_angle = 0;
+	d->img.tmap->map[d->img.tmap->py][d->img.tmap->px] = '0';
+	d->img.player.x = (TILE_SIZE * (d->img.tmap->px + 0.5));
+	d->img.player.y = (TILE_SIZE * (d->img.tmap->py + 0.5));
+	d->img.player.width = 5;
+	d->img.player.height = 5;
+	d->img.player.turn_dir = 0;
+	d->img.player.walk_dir = 0;
+	d->img.player.cam_dir = 0;
+	d->img.player.walk_speed = 10;
+	d->img.player.turn_speed = 20 * (PI / 180);
+	d->img.rays = malloc(sizeof(t_ray) * d->img.width);
+	if (d->img.rays == NULL)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int	ft_create_mlx_win_and_img(t_data *data, t_map *map)
+int	create_new_img(t_data *data)
 {
-	data->mlx_ptr = 0;
-	data->win_ptr = 0;
-	data->mlx_ptr = mlx_init();
-	data->img.mlx_img = 0;
-	if (data->mlx_ptr == NULL)
-	{
-		perror("Error.\nCould not init mlx.\n");
-		return (FAILURE);
-	}
-	data->tex = 0;
-	if (ft_import_xpm_file(data, map) == FAILURE)
-	{
-		perror("Error.\nCould not import xpm file.\n");
-		return (FAILURE);
-	}
-	mlx_get_screen_size(data->mlx_ptr, &data->img.width, &data->img.height);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img.width, data->img.height, "CUB3D");
-	if (data->win_ptr == NULL)
-	{
-		perror("Error.\nCould not create a new window.\n");
-		return (FAILURE);
-	}
-	data->img.mlx_img = mlx_new_image(data->mlx_ptr, data->img.width, data->img.height);
+	data->img.mlx_img = mlx_new_image(data->mlx_ptr, data->img.width,
+			data->img.height);
 	if (data->img.mlx_img == NULL)
 	{
 		perror("Error.\nCould not create a new image.\n");
@@ -77,7 +53,35 @@ int	ft_create_mlx_win_and_img(t_data *data, t_map *map)
 	return (SUCCESS);
 }
 
-void	ft_clear_all(t_data *data)
+int	ft_create_mlx_win_and_img(t_data *d, t_map *map)
+{
+	d->mlx_ptr = 0;
+	d->win_ptr = 0;
+	d->mlx_ptr = mlx_init();
+	d->img.mlx_img = 0;
+	if (d->mlx_ptr == NULL)
+	{
+		perror("Error.\nCould not init mlx.\n");
+		return (FAILURE);
+	}
+	d->tex = 0;
+	if (ft_import_xpm_file(d, map) == FAILURE)
+	{
+		perror("Error.\nCould not import xpm file.\n");
+		return (FAILURE);
+	}
+	mlx_get_screen_size(d->mlx_ptr, &d->img.width, &d->img.height);
+	d->win_ptr = mlx_new_window(d->mlx_ptr, d->img.width, d->img.height,
+			"CUB3D");
+	if (d->win_ptr == NULL)
+	{
+		perror("Error.\nCould not create a new window.\n");
+		return (FAILURE);
+	}
+	return (create_new_img(d));
+}
+
+static void	ft_clear_all(t_data *data)
 {
 	int	i;
 
@@ -100,7 +104,7 @@ void	ft_clear_all(t_data *data)
 	}
 }
 
-int ft_mlx(t_map *map)
+int	ft_mlx(t_map *map)
 {
 	t_data	data;
 

@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 13:04:43 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:13:09 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static int	ft_is_map_valid(t_map *map)
 		perror("Error.\nMap walls are not closed.\n");
 		return (-1);
 	}
-	map->player_x = player_x;
-	map->player_y = player_y;
+	map->px = player_x;
+	map->py = player_y;
 	return (1);
 }
 

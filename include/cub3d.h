@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:14:08 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 12:03:50 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:11:43 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ typedef struct s_ray
 typedef struct	s_map
 {
 	int		error;
-	int		player_x;
-	int		player_y;
+	int		px;
+	int		py;
 	char	**map; // the actual 2d map
 	char	**texture; // no, so, we, ea, sp
 	int		floor;

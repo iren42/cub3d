@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:10:16 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 21:08:03 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 13:38:04 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,35 @@
 
 static void	ft_render_player(t_img *img, t_player p)
 {
-	t_point a;
+	t_point	a;
 	t_point	b;
+	t_rect	rec;
 
 	a.x = MINIMAP_SCALE_FACTOR * p.x;
 	a.y = MINIMAP_SCALE_FACTOR * p.y;
-	b.x = MINIMAP_SCALE_FACTOR * (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2));
-	b.y = MINIMAP_SCALE_FACTOR * (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2));
-	t_rect rec = {p.x * MINIMAP_SCALE_FACTOR,
-		p.y * MINIMAP_SCALE_FACTOR, 
-		p.width * MINIMAP_SCALE_FACTOR, 
-		p.height * MINIMAP_SCALE_FACTOR, 
-		RED_PIXEL};
+	b.x = MINIMAP_SCALE_FACTOR
+		* (p.x + cos(p.rotation_angle) * (TILE_SIZE / 2));
+	b.y = MINIMAP_SCALE_FACTOR
+		* (p.y + sin(p.rotation_angle) * (TILE_SIZE / 2));
+	rec.x = p.x * MINIMAP_SCALE_FACTOR;
+	rec.y = p.y * MINIMAP_SCALE_FACTOR;
+	rec.width = p.width * MINIMAP_SCALE_FACTOR;
+	rec.height = p.height * MINIMAP_SCALE_FACTOR;
+	rec.color = RED_PIXEL;
 	ft_render_rect(img, rec);
 	ft_render_line(img, a, b);
 }
 
-static int ft_render_tile(t_img *img, int j, int i, int color)
+static int	render_tile(t_img *img, int j, int i, int color)
 {
-	int n;
-	int m;
+	int	n;
+	int	m;
 	int	scale;
 
 	scale = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 	n = i * scale;
 	if (color >= 0)
+	{
 		while (n < (i + 1) * scale)
 		{
 			m = j * scale;
@@ -50,42 +54,38 @@ static int ft_render_tile(t_img *img, int j, int i, int color)
 			}
 			n++;
 		}
+	}
 	return (0);
 }
-// map has to be a 2d array
-static void ft_render_map(t_img *img) {
-	int i;
-	int j;
+
+static void	render_map(t_img *img)
+{
+	int	i;
+	int	j;
 
 	i = -1;
-	//	printf("rows cols %d %d\n", img->tmap->rows, img->tmap->cols);
-	//	ft_display_tmap_map(*img->tmap);
 	if (img->tmap->map != NULL)
-		while (++i < img->tmap->rows) // MAP_NUM_ROWS
+	{
+		while (++i < img->tmap->rows)
 		{
 			j = -1;
-			while (++j < img->tmap->cols) // MAP_NUM_COLS
+			while (++j < img->tmap->cols)
 			{
 				if (img->tmap->map[i][j] == '1')
-					ft_render_tile(img, j, i, GREEN_PIXEL);
+					render_tile(img, j, i, GREEN_PIXEL);
 				else
-					ft_render_tile(img, j, i, BLACK_PIXEL);
+					render_tile(img, j, i, BLACK_PIXEL);
 			}
 		}
+	}
 }
 
-
-void	ft_refresh_img(t_data *data)
+void	ft_refresh_img(t_data *d)
 {	
-	//	if (data->mlx_ptr != NULL && data->win_ptr != NULL)
-	//		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	ft_cast_all_rays(data, data->img.player, data->img.rays);
-	// Render 3D map
-	ft_generate_walls_projection(data);
-	// Render minimap
-	ft_render_map(&data->img);
-	ft_render_player(&data->img, data->img.player);
-	//	ft_render_rays(data); // BIG LAG
-	if (data->img.mlx_img != NULL && data->win_ptr != NULL && data->mlx_ptr != NULL)
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+	ft_cast_all_rays(d, d->img.player, d->img.rays);
+	ft_generate_walls_projection(d);
+	render_map(&d->img);
+	ft_render_player(&d->img, d->img.player);
+	if (d->img.mlx_img != NULL && d->win_ptr != NULL && d->mlx_ptr != NULL)
+		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img.mlx_img, 0, 0);
 }

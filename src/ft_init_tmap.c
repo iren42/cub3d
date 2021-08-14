@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:14:11 by iren              #+#    #+#             */
-/*   Updated: 2021/08/12 23:26:23 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:04:05 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init_tmap(t_map *tmap)
 {
 	tmap->error = 0;
-	tmap->texture = malloc(sizeof(char*) * 4);
+	tmap->texture = malloc(sizeof(char *) * 4);
 	if (tmap->texture != NULL)
 	{
 		tmap->texture[No] = 0;
