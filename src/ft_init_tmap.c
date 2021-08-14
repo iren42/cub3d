@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 22:14:11 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:04:05 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:30:41 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	ft_init_tmap(t_map *tmap)
 	tmap->texture = malloc(sizeof(char *) * 4);
 	if (tmap->texture != NULL)
 	{
-		tmap->texture[No] = 0;
-		tmap->texture[So] = 0;
-		tmap->texture[Ea] = 0;
-		tmap->texture[We] = 0;
+		tmap->texture[no] = 0;
+		tmap->texture[so] = 0;
+		tmap->texture[ea] = 0;
+		tmap->texture[we] = 0;
 	}
 	tmap->floor = -1;
 	tmap->ceiling = -1;

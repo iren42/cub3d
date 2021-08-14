@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 19:36:58 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 19:38:09 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:33:47 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	ft_display_tmap(t_map map)
 {
 	if (map.map != 0)
 	{
-		printf("no = %s\n", map.texture[No]);
-		printf("so = %s\n", map.texture[So]);
-		printf("ea = %s\n", map.texture[Ea]);
-		printf("we = %s\n", map.texture[We]);
+		printf("no = %s\n", map.texture[no]);
+		printf("so = %s\n", map.texture[so]);
+		printf("ea = %s\n", map.texture[ea]);
+		printf("we = %s\n", map.texture[we]);
 		printf("error = %d\n", map.error);
 	}
 }

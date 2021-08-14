@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:46:11 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:03:31 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:23:23 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 		if (ft_parse_all(av[1], &map) == SUCCESS)
 		{
 			if (ft_mlx(&map) == SUCCESS)
-				printf("MLX went well\n");
+				ft_putstr_fd("MLX went well\n", 1);
 		}
 		ft_free_tmap(&map);
 	}

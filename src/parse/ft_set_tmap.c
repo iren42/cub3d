@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/08/13 19:17:36 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:33:16 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ static int	convert_maplst_to_char(t_list *l, t_map *tmap)
 
 static int	check_all_parsed(t_map *tmap, int has_map_begun)
 {
-	if (!tmap->texture[No] || !tmap->texture[So] || !tmap->texture[We]
-		|| !tmap->texture[Ea] || !has_map_begun || tmap->map == 0
+	if (!tmap->texture[no] || !tmap->texture[so] || !tmap->texture[we]
+		|| !tmap->texture[ea] || !has_map_begun || tmap->map == 0
 		|| tmap->floor == -1 || tmap->ceiling == -1)
 		tmap->error = -1;
 	if (!has_map_begun)
 	{
-		perror("Error.\nNo map content.\n");
+		perror("Error.\nno map content.\n");
 		free(tmap->map);
 		tmap->map = 0;
 	}

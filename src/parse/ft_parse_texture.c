@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 02:30:47 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 11:12:57 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:32:35 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ static char	*ft_get_texture_path(char *line, char *map_tex)
 
 void	ft_parse_texture(char *line, t_map *map)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0 && map->texture[No] == 0)
-		map->texture[No] = ft_get_texture_path(line, map->texture[No]);
-	else if (ft_strncmp(line, "SO ", 3) == 0 && map->texture[So] == 0)
-		map->texture[So] = ft_get_texture_path(line, map->texture[So]);
-	else if (ft_strncmp(line, "WE ", 3) == 0 && map->texture[We] == 0)
-		map->texture[We] = ft_get_texture_path(line, map->texture[We]);
-	else if (ft_strncmp(line, "EA ", 3) == 0 && map->texture[Ea] == 0)
-		map->texture[Ea] = ft_get_texture_path(line, map->texture[Ea]);
+	if (ft_strncmp(line, "NO ", 3) == 0 && map->texture[no] == 0)
+		map->texture[no] = ft_get_texture_path(line, map->texture[no]);
+	else if (ft_strncmp(line, "SO ", 3) == 0 && map->texture[so] == 0)
+		map->texture[so] = ft_get_texture_path(line, map->texture[so]);
+	else if (ft_strncmp(line, "WE ", 3) == 0 && map->texture[we] == 0)
+		map->texture[we] = ft_get_texture_path(line, map->texture[we]);
+	else if (ft_strncmp(line, "EA ", 3) == 0 && map->texture[ea] == 0)
+		map->texture[ea] = ft_get_texture_path(line, map->texture[ea]);
 	else if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0
 		|| line[0] == '\0')
 		;

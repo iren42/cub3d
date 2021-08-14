@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 08:05:09 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 08:18:22 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/14 14:31:58 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static t_img	*get_tex_sample(t_data *data, int i)
 {
 	if (!data->img.rays[i].is_ray_facing_down
 		&& !data->img.rays[i].was_hit_vertical)
-		return (&data->tex[So]);
+		return (&data->tex[so]);
 	else if (data->img.rays[i].is_ray_facing_down
 		&& !data->img.rays[i].was_hit_vertical)
-		return (&data->tex[No]);
+		return (&data->tex[no]);
 	else if (!data->img.rays[i].is_ray_facing_right
 		&& data->img.rays[i].was_hit_vertical)
-		return (&data->tex[Ea]);
+		return (&data->tex[ea]);
 	else
-		return (&data->tex[We]);
+		return (&data->tex[we]);
 }
 
 void	ft_walls_projection(t_data *data, t_var_generate_walls_proj var, int i)
