@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 02:30:47 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 23:54:32 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/15 07:27:39 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*get_pathname(char *line)
 	name = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (name != NULL)
 	{
-		while (line[i] && !ft_isspace(line[i]))
+		while (line[i])
 			name[a++] = line[i++];
 		name[a] = '\0';
 	}
@@ -67,7 +67,7 @@ void	ft_parse_texture(char *line, t_map *map)
 		;
 	else
 	{
-		perror("Error.\nTake a look on textures in file descriptor.\n");
+		ft_putstr_fd("Error\nTake a look on textures in file descriptor.\n", 2);
 		map->error = -1;
 	}
 }

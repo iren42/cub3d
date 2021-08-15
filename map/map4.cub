@@ -1,12 +1,12 @@
-NO ./texture/wall.xpm
-SO ./texture/doom.xpm
 WE ./texture/redbrick.xpm
-EA ./texture/eagle.xpm
 
+SO ./texture/mossy.xpm
 
 F 224,172,105
 C 205,249,255
 
+NO ./texture/wall.xpm
+EA ./texture/eagle.xpm
 111111111111111111111111111111111
 101010101010101010101010101011111
 100000000000000000000000000001111

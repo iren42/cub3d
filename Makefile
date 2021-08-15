@@ -6,7 +6,7 @@
 #    By: iren <iren@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:41:07 by iren              #+#    #+#              #
-#    Updated: 2021/08/14 21:15:22 by iren             ###   ########.fr        #
+#    Updated: 2021/08/15 06:52:41 by iren             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,17 +36,17 @@ SOURCES_PARSE	=	ft_parse_all.c \
 					ft_parse_texture.c \
 					ft_parse_color.c \
 					ft_parse_nb.c \
-					ft_copy_mapchar.c \
-					ft_rotate_mapchar.c \
-					ft_free_mapchar.c \
 					ft_free_previously_malloced.c \
-					ft_mirror.c \
 					ft_set_tmap.c \
-					ft_is_map_closed.c \
 					ft_skip_spaces.c \
 					ft_isspace.c \
+					ft_find_proh_zero.c \
 					ft_is_player_char.c \
-					ft_display_things.c
+					ft_display_things.c \
+					ft_copy_mapchar.c \
+					ft_free_mapchar.c 
+	#				ft_rotate_mapchar.c
+		#			ft_mirror.c 
 
 SOURCES_2DMAP	=	ft_render_rect.c \
 					ft_render_line.c \
@@ -92,7 +92,7 @@ RM		= rm -f
 all		: $(NAME)
 
 %.o		: %.c $(HEADER)
-		$(CC) $(CFLAGS) -Iinclude -Imlx_linux -O3 -c $< -o $@
+		$(CC) $(CFLAGS) -Iinclude -Imlx_linux -g -c $< -o $@
 
 $(NAME) : $(OBJS) $(HEADER) $(MLX) $(LIBFT)
 		make -C $(MLX)
@@ -104,7 +104,7 @@ bonus	: $(OBJS_BONUS) $(HEADER) $(MLX) $(LIBFT)
 		make -C $(MLX)
 		make -C $(LIBFT)
 		make bonus -C $(LIBFT)
-		$(CC) -o cub3D_bonus $(OBJS_BONUS) -Llibft -lft -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm
+		$(CC) -o cub3D $(OBJS_BONUS) -Llibft -lft -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm
  
 
 norm	:
@@ -122,7 +122,6 @@ clean	:
 fclean	: clean
 		make fclean -C $(LIBFT)
 		$(RM) $(NAME)
-		$(RM) cub3D_bonus
 
 re		: fclean all
 

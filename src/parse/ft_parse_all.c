@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:18:44 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:13:09 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/15 07:24:25 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ static int	ft_is_map_valid(t_map *map)
 
 	if (is_nb_of_players(map, &player_x, &player_y) != 1)
 	{
-		perror("Error.\nMap does not have 1 player.\n");
+		ft_putstr_fd("Error\nMap does not have 1 player.\n", 2);
 		return (-1);
 	}
-	if (!ft_is_map_closed(map, player_x, player_y))
+	if (ft_find_proh_zero(map, player_x, player_y))
 	{
-		perror("Error.\nMap walls are not closed.\n");
+		ft_putstr_fd("Error\nMap walls are not closed.\n", 2);
 		return (-1);
 	}
 	map->px = player_x;
@@ -86,17 +86,17 @@ static int	ft_open_close_fd(char *name, int *fd, t_map *map)
 	*fd = open(name, O_RDONLY);
 	if (*fd < 0)
 	{
-		perror("Error.\nFile could not be opened.\n");
+		ft_putstr_fd("Error\nFile could not be opened.\n", 2);
 		return (-1);
 	}
 	if (ft_set_tmap(*fd, map) == -1)
 	{
-		perror("Error.\nIn ft_parse_all.c: ft_set_tmap failed.\n");
+		ft_putstr_fd("Error\nIn ft_parse_all.c: ft_set_tmap failed.\n", 2);
 		return (-1);
 	}
 	if (close(*fd) < 0)
 	{
-		perror("Error.\nFile could not close.\n");
+		ft_putstr_fd("Error\nFile could not close.\n", 2);
 		return (-1);
 	}
 	return (1);
@@ -109,14 +109,14 @@ int	ft_parse_all(char *name, t_map *tmap)
 	fd = 0;
 	if (ft_is_filename_valid(name) == -1)
 	{
-		perror("Error.\nFilename invalid.\n");
+		ft_putstr_fd("Error\nFilename invalid.\n", 2);
 		return (FAILURE);
 	}
 	if (ft_open_close_fd(name, &fd, tmap) == -1)
 		return (FAILURE);
 	if (ft_is_map_valid(tmap) == -1)
 	{
-		perror("Error.\nMap is not valid.\n");
+		ft_putstr_fd("Error\nMap is not valid.\n", 2);
 		return (FAILURE);
 	}
 	return (SUCCESS);

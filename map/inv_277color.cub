@@ -3,8 +3,8 @@ SO ./texture/doom.xpm
 WE ./texture/wall.xpm
 EA ./texture/eagle.xpm
 
-F 255,0, 277
-C  0, 0, 255
+F 27,0,255
+C  0,277,255
 
  1
 1N1

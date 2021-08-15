@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 15:31:41 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 17:08:18 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/15 05:31:27 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	update_player_values(t_data *data, t_player *p)
 
 static int	handle_keyrelease(int keysym, t_data *data)
 {
-	if (keysym == XK_w || keysym == XK_s)
+	if (keysym == XK_w || keysym == XK_s
+		|| keysym == XK_W || keysym == XK_S)
 	{
 		data->img.player.walk_dir = 0;
 	}
@@ -49,7 +50,8 @@ static int	handle_keyrelease(int keysym, t_data *data)
 	{
 		data->img.player.turn_dir = 0;
 	}
-	else if (keysym == XK_a || keysym == XK_d)
+	else if (keysym == XK_a || keysym == XK_d
+		|| keysym == XK_A || keysym == XK_D)
 	{
 		data->img.player.cam_dir = 0;
 	}
@@ -64,6 +66,7 @@ static int	handle_keypress(int key, t_data *data)
 		data->win_ptr = NULL;
 	}
 	else if (key == XK_a || key == XK_d || key == XK_w || key == XK_s
+		|| key == XK_A || key == XK_D || key == XK_W || key == XK_S
 		|| key == XK_Right || key == XK_Left)
 	{
 		if (key == XK_a)

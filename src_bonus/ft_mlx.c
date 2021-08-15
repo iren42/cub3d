@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 20:54:04 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/15 07:23:23 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	create_new_img(t_data *data)
 			data->img.height);
 	if (data->img.mlx_img == NULL)
 	{
-		perror("Error.\nCould not create a new image.\n");
+		ft_putstr_fd("Error\nCould not create a new image.\n", 2);
 		return (FAILURE);
 	}
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
@@ -61,13 +61,13 @@ int	ft_create_mlx_win_and_img(t_data *d, t_map *map)
 	d->img.mlx_img = 0;
 	if (d->mlx_ptr == NULL)
 	{
-		perror("Error.\nCould not init mlx.\n");
+		ft_putstr_fd("Error\nCould not init mlx.\n", 2);
 		return (FAILURE);
 	}
 	d->tex = 0;
 	if (ft_import_xpm_file(d, map) == FAILURE)
 	{
-		perror("Error.\nCould not import xpm file.\n");
+		ft_putstr_fd("Error\nCould not import xpm file.\n", 2);
 		return (FAILURE);
 	}
 	mlx_get_screen_size(d->mlx_ptr, &d->img.width, &d->img.height);
@@ -75,7 +75,7 @@ int	ft_create_mlx_win_and_img(t_data *d, t_map *map)
 			"CUB3D");
 	if (d->win_ptr == NULL)
 	{
-		perror("Error.\nCould not create a new window.\n");
+		ft_putstr_fd("Error\nCould not create a new window.\n", 2);
 		return (FAILURE);
 	}
 	return (create_new_img(d));

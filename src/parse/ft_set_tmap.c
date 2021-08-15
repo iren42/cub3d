@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 00:22:45 by iren              #+#    #+#             */
-/*   Updated: 2021/08/14 14:33:16 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/15 08:20:23 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	check_all_parsed(t_map *tmap, int has_map_begun)
 		tmap->error = -1;
 	if (!has_map_begun)
 	{
-		perror("Error.\nno map content.\n");
+		ft_putstr_fd("Error\nno map content.\n", 2);
 		free(tmap->map);
 		tmap->map = 0;
 	}
@@ -94,7 +94,7 @@ static void	loop(t_var_set_tmap *t)
 	}
 	else
 	{
-		perror("Error.\nProhibited character was found in file descriptor.\n");
+		ft_putstr_fd("Error\nForbidden character in file descriptor.\n", 2);
 		t->tmap->error = -1;
 	}
 }
@@ -118,7 +118,7 @@ int	ft_set_tmap(int fd, t_map *tmap)
 	free(t.line);
 	if (tmap->error == 0)
 		if (convert_maplst_to_char(t.lst, tmap) == -1)
-			perror("Error.\nft_set_tmap.c: An error was found in map content.\n");
+			ft_putstr_fd("Error\nNo tmap. Error found in map content.\n", 2);
 	ft_lstclear(&t.lst, &free);
 	return (check_all_parsed(tmap, t.has_map_begun));
 }
