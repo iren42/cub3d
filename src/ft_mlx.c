@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 23:08:32 by iren              #+#    #+#             */
-/*   Updated: 2021/08/15 07:23:23 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/22 14:42:32 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_setup_player(t_data *d)
 	return (SUCCESS);
 }
 
-int	create_new_img(t_data *data)
+static int	create_new_img(t_data *data)
 {
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr, data->img.width,
 			data->img.height);
@@ -53,7 +53,7 @@ int	create_new_img(t_data *data)
 	return (SUCCESS);
 }
 
-int	ft_create_mlx_win_and_img(t_data *d, t_map *map)
+static int	ft_create_mlx_win_and_img(t_data *d, t_map *map)
 {
 	d->mlx_ptr = 0;
 	d->win_ptr = 0;
