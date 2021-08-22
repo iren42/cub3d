@@ -6,7 +6,7 @@
 /*   By: iren <iren@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 21:11:00 by iren              #+#    #+#             */
-/*   Updated: 2021/08/15 13:46:34 by iren             ###   ########.fr       */
+/*   Updated: 2021/08/22 15:00:07 by iren             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_find_hor_wall_hit_xy(t_data *data, t_var_cast_ray *var, t_ray *ray)
 
 	next_htx = var->xintercept;
 	next_hty = var->yintercept;
-	printf("inter step x %f %f\n", var->xintercept, var->xstep);
 	while (next_htx >= 0 && next_hty >= 0
 		&& next_htx <= data->img.tmap->cols * TILE_SIZE
 		&& next_hty <= data->img.tmap->rows * TILE_SIZE)
